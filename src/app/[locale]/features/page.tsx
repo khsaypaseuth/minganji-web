@@ -59,7 +59,7 @@ export default async function FeaturesPage({ params }: { params: Promise<{ local
       {AREAS.map(({ k, icon, status, Preview }, i) => (
         <section key={k} id={k} aria-labelledby={`${k}-title`} className={`scroll-mt-24 py-16 sm:py-24 ${i % 2 === 0 ? "bg-mist" : "bg-white"}`}>
           <Container>
-            <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+            <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
               <div className="lg:sticky lg:top-28">
                 <div className="flex items-center gap-3">
                   <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink text-white"><Icon name={icon} size={20} /></span>

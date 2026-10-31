@@ -245,7 +245,7 @@ export function Story() {
           </div>
           <ol className="mt-8 space-y-12 sm:space-y-16">
             {SCENES.map((k, i) => (
-              <li key={k} className="grid gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center lg:gap-12">
+              <li key={k} className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center lg:gap-12">
                 <div>
                   <StepCopy k={k} />
                   {i === SCENES.length - 1 && <div className="hidden lg:block"><Closing /></div>}

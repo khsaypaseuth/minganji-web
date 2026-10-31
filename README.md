@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MingAnji.ai — marketing website
 
-## Getting Started
+Multilingual marketing site for **MingAnji.ai** (Powered by Tian'An).
+Next.js 16 (App Router) · TypeScript · Tailwind CSS 4 · next-intl · GSAP ScrollTrigger · inline SVG.
 
-First, run the development server:
+## Run
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # optional: AI key and contact-form webhook
+npm run dev                  # http://localhost:3000  (redirects to /en)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Production: `npm run build && npm start`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npx tsc --noEmit
+npm run lint
+npm run check:i18n                       # all locales have the same keys
+npx playwright install chromium          # once
+BASE=http://localhost:3000 OUT=/tmp/shots node scripts/verify.mjs   # 57 end-to-end checks
+```
 
-## Learn More
+## Where things live
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Path | What |
+| --- | --- |
+| `messages/{en,zh,lo,th,vi}.json` | All interface text (English is the source) |
+| `src/i18n/` | Locales, routing, language metadata (names + flags) |
+| `src/components/story/` | Homepage truck → dashboard story (`states.ts` drives animation and static frames) |
+| `src/content/knowledge/` | Public knowledge base for the AI assistant (+ `README.md` listing sources) |
+| `src/app/api/chat/route.ts` | AI assistant backend (key stays on server; limits, validation, timeouts) |
+| `src/app/api/contact/route.ts` | Enquiry backend (webhook delivery) |
+| `src/lib/site.ts` | Verified facts: email, sign-in URL, location |
+| `HANDOFF.md` | Decisions, assumptions, what is real vs illustrative, open items |

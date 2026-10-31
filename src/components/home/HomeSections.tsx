@@ -43,7 +43,7 @@ export async function Benefits() {
   return (
     <section aria-labelledby="benefits-title" className="py-20 sm:py-28">
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-20">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-20">
           <SectionHeading id="benefits-title" eyebrow={t("eyebrow")} title={t("title")} />
           <ul className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
             {BENEFITS.map(({ k, icon }) => (

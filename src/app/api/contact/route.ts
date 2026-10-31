@@ -10,7 +10,7 @@ import { clientIp, rateLimit } from "@/lib/rate-limit";
  *                          n8n, a CRM endpoint, or your own service).
  *   CONTACT_WEBHOOK_TOKEN (optional) — sent as "Authorization: Bearer …".
  *
- * Without configuration the route responds 503 { error: "not_configured" }
+ * Without configuration the route responds { ok: false, error: "not_configured" }
  * and the form tells the visitor plainly that nothing was sent.
  */
 export async function POST(req: Request) {
@@ -35,7 +35,8 @@ export async function POST(req: Request) {
   if (Object.keys(errors).length) return NextResponse.json({ error: "invalid", fields: errors }, { status: 422 });
 
   const url = process.env.CONTACT_WEBHOOK_URL;
-  if (!url) return NextResponse.json({ error: "not_configured" }, { status: 503 });
+  // 200 + ok:false (not 5xx): an unconfigured provider is an expected state, not a server fault.
+  if (!url) return NextResponse.json({ ok: false, error: "not_configured" });
 
   try {
     const res = await fetch(url, {

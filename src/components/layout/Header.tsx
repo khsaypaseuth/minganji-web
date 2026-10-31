@@ -57,7 +57,8 @@ export function Header() {
   return (
     <header
       className={`sticky top-0 z-50 h-[var(--header-h)] transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
-        scrolled || open ? "bg-white/88 shadow-[0_1px_0_var(--line)] backdrop-blur-xl backdrop-saturate-150" : "bg-white/0"
+        // No backdrop-filter while the menu is open: it would become the containing block for the fixed panel.
+        open ? "bg-white shadow-[0_1px_0_var(--line)]" : scrolled ? "bg-white/88 shadow-[0_1px_0_var(--line)] backdrop-blur-xl backdrop-saturate-150" : "bg-white/0"
       }`}
     >
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-white">

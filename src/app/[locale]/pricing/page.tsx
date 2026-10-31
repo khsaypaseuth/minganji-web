@@ -24,7 +24,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
       <section className="relative overflow-hidden pb-16 pt-14 sm:pb-24 sm:pt-20">
         <div className="pointer-events-none absolute inset-0 grid-paper [mask-image:linear-gradient(to_bottom,black,transparent_75%)]" aria-hidden="true" />
         <Container className="relative">
-          <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]">
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]">
             <SectionHeading as="h1" eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
             <div className="relative rounded-[26px] bg-white p-7 shadow-[var(--shadow-lg)] ring-1 ring-line sm:p-9">
               <span className="absolute right-6 top-6 h-2.5 w-2.5 rounded-full bg-signal" aria-hidden="true" />

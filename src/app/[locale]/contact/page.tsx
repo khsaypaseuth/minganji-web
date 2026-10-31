@@ -21,7 +21,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
   return (
     <section className="relative overflow-hidden bg-mist pb-20 pt-14 sm:pb-28 sm:pt-20">
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <div>
             <SectionHeading as="h1" eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
             <div className="mt-10 space-y-4">

@@ -78,8 +78,8 @@ export function StoryStage({ scene = 0 }: { scene?: number }) {
       </div>
 
       {/* S5 cards */}
-      <SummaryCard k="summary" d={d} style={s("summary")} className="absolute left-[24px] top-[540px] w-[300px]" />
-      <ExportCard k="export" d={d} style={s("export")} className="absolute left-[640px] top-[580px] w-[336px]" />
+      <SummaryCard k="summary" d={d} style={s("summary")} className="absolute left-[24px] top-[500px] w-[300px]" />
+      <ExportCard k="export" d={d} style={s("export")} className="absolute left-[640px] top-[520px] w-[336px]" />
 
       {/* Truck layer */}
       <div data-k="truck" style={s("truck")} className="absolute left-0 top-[110px] h-[583px] w-[1000px] origin-top-left">

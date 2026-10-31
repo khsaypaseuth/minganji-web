@@ -17,11 +17,11 @@ export function MonitoringPreview({ d, p, diagram }: P) {
     <div className="space-y-4">
       <ol className="flex items-center justify-between gap-2 rounded-[18px] bg-white p-4 ring-1 ring-line sm:p-5" aria-label={diagram}>
         {chain.map((c, i) => (
-          <li key={c.label} className="flex flex-1 items-center gap-2">
+          <li key={c.label} className="flex min-w-0 flex-1 flex-col items-center gap-2 text-center sm:flex-row sm:text-left">
             <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${i === 2 ? "bg-signal text-white" : "bg-mist text-ink"}`}>
               <Icon name={c.icon} size={20} />
             </span>
-            <span className="text-[13.5px] font-semibold text-ink">{c.label}</span>
+            <span className="min-w-0 break-words text-[13px] font-semibold text-ink sm:text-[13.5px]">{c.label}</span>
             {i < chain.length - 1 && <span className="mx-1 hidden h-px flex-1 border-t-2 border-dashed border-signal/50 sm:block" aria-hidden="true" />}
           </li>
         ))}
