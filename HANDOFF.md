@@ -125,6 +125,28 @@ All motion respects `prefers-reduced-motion`: those visitors get the complete st
 - **Live dashboard details:** pulsing status dots, shimmer on in-progress bars, slowly turning planned positions, and a moving dot on the trend line. All are CSS only.
 - **Site-wide scroll reveal:** `src/components/layout/ScrollReveal.tsx` fades and lifts headings, paragraphs, cards, list items, tables, FAQs, forms and the footer as they enter the screen. It uses the Web Animations API, so HTML attributes are never changed. Add `data-no-reveal` to opt an element out, or `data-reveal` to opt one in.
 
+## Light and dark mode
+
+Visitors choose **Light**, **Dark** or **System** (the default, which follows the operating system). Desktop: the icon button next to the language flags opens a small menu. Mobile: a three-way control in the mobile menu. The choice is saved in `localStorage` (`mj-theme`; "System" removes it), so it persists across pages, visits and language switches.
+
+**How it works**
+- `src/components/theme/ThemeScript.tsx` puts a tiny blocking script in `<head>` that sets `<html data-theme="light|dark" data-theme-choice="…">` before first paint, so there is no flash. It is rendered as an executable script on the server and as an inert `type="text/plain"` block on the client. That avoids React's "Encountered a script tag while rendering React component" error when `<html>` is re-rendered on a language switch (the `[locale]` layout is the root layout).
+- `src/components/theme/ThemeProvider.tsx` keeps `<html>` in sync: after client re-renders, OS changes (for System) and changes in other tabs. It also updates the `theme-color` meta. When the visitor switches, it adds `theme-transition` to `<html>` for ~300 ms (a 280 ms colour cross-fade), never on first load and never with reduced motion.
+- `src/components/theme/ThemeToggle.tsx` has the controls. The header icon is chosen by CSS from `data-theme-choice`, so it is right before hydration.
+- Without JavaScript the site stays light.
+
+**Colours are tokens.** `src/app/globals.css` defines every colour twice: in `:root` (light) and in `:root[data-theme="dark"]`. Components use Tailwind token classes (`bg-surface`, `bg-mist`, `text-ink`, `ring-line`…) and SVGs use `fill="var(--token)"`, so they switch automatically.
+- `paper` is the page, `surface` is cards and panels, `mist` is sections and insets, `inverse` is the dark call-to-action panels (they stay dark, with white text, in both themes).
+- `bg-ink text-paper` flips: dark chips in light mode, light chips in dark mode (staff initials, chat bubbles, the controller label).
+- Red: `--signal` is for fills that carry white text (buttons, badges). `--signal-text` is a brighter red for red text on dark backgrounds; any element with `text-signal` uses it automatically. `--signal-hover` is the button hover.
+- Illustration tokens (`--truck-*`, `--map-*`, `--pole*`, `--halo`, `--callout`, `--chart-neutral`, `--glyph-*`, `--bot-*`, `--logo-*`) cover the story, maps, charts and icons. The truck stays a white truck in dark mode, slightly toned down.
+
+**To add a colour:** add it to both token blocks in `globals.css`. If Tailwind utilities need it, add `--color-name: var(--name)` to `@theme inline`. Don't hard-code hex values in components; for a one-off dark tweak, the `dark:` variant is available. Dark contrast (WCAG AA) on cards: ink 15:1, graphite 12:1, slate 7.5:1, steel 5.4:1, red text 5:1, white on red buttons 4.9:1.
+
+**Not themed on purpose:** flags, the truck's mechanical parts (tyres, chassis, controller box, beacon), `public/icon.svg` and the bare fallback 404 outside the locale layout (`src/app/not-found.tsx`).
+
+`scripts/shoot-themes.mjs` screenshots the key views in both themes; `scripts/verify.mjs` checks the toggle, persistence, no flash, keyboard use and the mobile control.
+
 ## 6. Configuration required
 
 | Variable | Purpose |
@@ -167,7 +189,7 @@ The webhook payload is `{name, email, company, phone, country, topic, message, c
 ## 9. Verification performed
 
 - `tsc` clean, ESLint clean and the production build succeeds (24 static pages, 2 API routes).
-- `scripts/verify.mjs` passed **57 of 57** end-to-end checks in Chromium:
+- `scripts/verify.mjs` passed **79 of 79** end-to-end checks in Chromium (57 before dark mode, plus 22 theme checks):
   - All five locales load with the correct `html lang`.
   - No horizontal overflow on mobile for any page in any locale.
   - Language switching keeps the page, and navigation keeps the language.

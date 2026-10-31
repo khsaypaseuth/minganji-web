@@ -20,7 +20,7 @@ npx tsc --noEmit
 npm run lint
 npm run check:i18n                       # all locales have the same keys
 npx playwright install chromium          # once
-BASE=http://localhost:3000 OUT=/tmp/shots node scripts/verify.mjs   # 57 end-to-end checks
+BASE=http://localhost:3000 OUT=/tmp/shots node scripts/verify.mjs   # 79 end-to-end checks, incl. theme
 ```
 
 ## Where things live
