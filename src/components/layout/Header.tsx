@@ -45,7 +45,12 @@ export function Header() {
     return () => { document.body.style.overflow = prev; document.removeEventListener("keydown", onKey); };
   }, [open]);
 
-  useEffect(() => { setOpen(false); }, [pathname]);
+  // Close the mobile menu after navigation.
+  const [prevPath, setPrevPath] = useState(pathname);
+  if (prevPath !== pathname) {
+    setPrevPath(pathname);
+    setOpen(false);
+  }
 
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 

@@ -8,7 +8,6 @@ import { SCENES, STATES, TRUCK_VIEW, type StateKey, type Vars } from "./states";
 import { StoryStage } from "./StoryStage";
 import { ButtonLink } from "@/components/ui/Button";
 import { IllustrativeTag } from "@/components/ui/Section";
-import { Icon } from "@/components/icons/Icon";
 
 const STEP_KEYS = ["truck", "sensors", "controller", "platform", "plan", "manage"] as const;
 

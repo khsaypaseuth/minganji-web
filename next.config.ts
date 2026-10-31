@@ -8,6 +8,8 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 // generateStaticParams + setRequestLocale, which next-intl supports directly.
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // The chat route reads the public knowledge base from disk at runtime.
+  outputFileTracingIncludes: { "/api/chat": ["./src/content/knowledge/**/*"] },
   turbopack: {
     rules: {
       "*.css": {

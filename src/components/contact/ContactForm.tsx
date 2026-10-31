@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { TOPICS, validateContact, type ContactErrors, type ContactInput, type Topic } from "@/lib/contact-schema";
@@ -24,7 +24,12 @@ export function ContactForm() {
   const summaryRef = useRef<HTMLDivElement>(null);
   const resultRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { setV((x) => ({ ...x, topic: initialTopic })); }, [initialTopic]);
+  // Follow ?topic= changes (e.g. clicking "Request a demo" while already on this page).
+  const [prevTopic, setPrevTopic] = useState(initialTopic);
+  if (prevTopic !== initialTopic) {
+    setPrevTopic(initialTopic);
+    setV((x) => ({ ...x, topic: initialTopic }));
+  }
 
   const set = <K extends keyof ContactInput>(k: K, val: ContactInput[K]) => {
     setV((x) => ({ ...x, [k]: val }));
