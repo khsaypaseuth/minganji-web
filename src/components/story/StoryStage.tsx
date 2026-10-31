@@ -4,7 +4,7 @@ import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import { styleFor, TRUCK_VIEW, type StateKey } from "./states";
 import { TruckIllustration } from "./TruckIllustration";
-import { ActivityTile, BusinessTile, ExportCard, LivePill, MapView, PlanningTile, StaffTile, SummaryCard, Window, type DashLabels } from "./Dashboard";
+import { buildDashLabels, ActivityTile, BusinessTile, ExportCard, LivePill, MapView, PlanningTile, StaffTile, SummaryCard, Window, type DashLabels } from "./Dashboard";
 
 export const CANVAS_W = 1000;
 export const CANVAS_H = 820;
@@ -33,17 +33,7 @@ export function StageCanvas({ children, className = "" }: { children: ReactNode;
 }
 
 export function useDashLabels(): DashLabels {
-  const t = useTranslations("home.story.dash");
-  const p = useTranslations("features.preview");
-  const c = useTranslations("common");
-  return {
-    liveMap: t("liveMap"), online: t("online"), truckId: t("truckId"), drilling: t("drilling"), recentHole: t("recentHole"),
-    holes: t("holes"), selected: t("selected"), summary: t("summary"), completed: t("completed"), planned: t("planned"),
-    remaining: t("remaining"), export: t("export"), drawing: t("drawing"), exportNote: t("exportNote"), activity: t("activity"),
-    hoursWeek: t("hoursWeek"), planning: t("planning"), progress: t("progress"), staff: t("staff"), onShift: t("onShift"),
-    business: t("business"), jobs: t("jobs"), utilisation: t("utilisation"), days: t.raw("days") as string[],
-    idle: p("idle"), offline: p("offline"), operator: p("operator"), crew: p("crew"), illustrative: c("illustrativeInterface"),
-  };
+  return buildDashLabels(useTranslations("home.story.dash"), useTranslations("features.preview"), useTranslations("common"));
 }
 
 /**

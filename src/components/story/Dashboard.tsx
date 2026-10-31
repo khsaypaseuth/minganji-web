@@ -11,6 +11,14 @@ export type DashLabels = {
 };
 
 type StyleOf = (k: StateKey) => CSSProperties;
+
+type T = { (key: string): string; raw(key: string): unknown };
+/** Build dashboard labels from translators for home.story.dash, features.preview and common. */
+export function buildDashLabels(t: T, p: T, c: T): DashLabels {
+  const k = ["liveMap", "online", "truckId", "drilling", "recentHole", "holes", "selected", "summary", "completed", "planned", "remaining", "export", "drawing", "exportNote", "activity", "hoursWeek", "planning", "progress", "staff", "onShift", "business", "jobs", "utilisation"] as const;
+  const out = Object.fromEntries(k.map((x) => [x, t(x)])) as Record<(typeof k)[number], string>;
+  return { ...out, days: t.raw("days") as string[], idle: p("idle"), offline: p("offline"), operator: p("operator"), crew: p("crew"), illustrative: c("illustrativeInterface") };
+}
 const none: StyleOf = () => ({});
 
 // Power-line route with 12 hole positions (map coords 746 × 436).
