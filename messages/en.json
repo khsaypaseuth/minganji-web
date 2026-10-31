@@ -29,7 +29,14 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "close": "Close",
-    "backToHome": "Back to home"
+    "backToHome": "Back to home",
+    "theme": {
+      "label": "Colour theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System",
+      "current": "Colour theme: {theme}"
+    }
   },
   "nav": {
     "home": "Home",

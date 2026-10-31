@@ -56,7 +56,7 @@ export function StoryStage({ scene = 0, crop }: { scene?: number; crop?: [number
       <svg data-k="links6" style={s("links6")} className="pointer-events-none absolute inset-0" width={CANVAS_W} height={CANVAS_H} aria-hidden="true">
         {["M561 197 H609", "M150 370 V418", "M400 370 C 400 396, 505 392, 505 418", "M540 370 C 540 396, 830 392, 830 418"].map((p) => (
           <g key={p}>
-            <path d={p} fill="none" stroke="#d7261e" strokeWidth="2.5" className="flow-dash" />
+            <path d={p} fill="none" stroke="var(--signal)" strokeWidth="2.5" className="flow-dash" />
           </g>
         ))}
       </svg>
@@ -86,7 +86,7 @@ export function StoryStage({ scene = 0, crop }: { scene?: number; crop?: [number
 
       {/* Truck layer */}
       <div data-k="truck" style={s("truck")} className="absolute left-0 top-[110px] h-[583px] w-[1000px] origin-top-left">
-        <div data-k="truckBg" style={s("truckBg")} className="absolute -inset-6 rounded-[56px] bg-white shadow-[0_60px_120px_-40px_rgb(17_20_23/0.35)] ring-[3px] ring-line" />
+        <div data-k="truckBg" style={s("truckBg")} className="absolute -inset-6 rounded-[56px] bg-surface shadow-[var(--shadow-stage)] ring-[3px] ring-line" />
         <div className="relative h-full w-full">
         <TruckIllustration
           viewBox={TRUCK_VIEW[scene]}
@@ -103,12 +103,12 @@ export function StoryStage({ scene = 0, crop }: { scene?: number; crop?: [number
 
       {/* controller → map link (S4–S5) */}
       <svg data-k="link" style={s("link")} className="pointer-events-none absolute inset-0" width={CANVAS_W} height={CANVAS_H} aria-hidden="true">
-        <path d="M227 151 C 420 140, 620 300, 682 495" fill="none" stroke="#d7261e" strokeOpacity="0.2" strokeWidth="8" strokeLinecap="round" />
-        <path d="M227 151 C 420 140, 620 300, 682 495" fill="none" stroke="#d7261e" strokeWidth="2.5" className="flow-dash" />
-        <circle r="6" fill="#d7261e" className="motion-only">
+        <path d="M227 151 C 420 140, 620 300, 682 495" fill="none" stroke="var(--signal)" strokeOpacity="0.2" strokeWidth="8" strokeLinecap="round" />
+        <path d="M227 151 C 420 140, 620 300, 682 495" fill="none" stroke="var(--signal)" strokeWidth="2.5" className="flow-dash" />
+        <circle r="6" fill="var(--signal)" className="motion-only">
           <animateMotion dur="2.4s" repeatCount="indefinite" path="M227 151 C 420 140, 620 300, 682 495" />
         </circle>
-        <circle cx="227" cy="151" r="6" fill="#d7261e" />
+        <circle cx="227" cy="151" r="6" fill="var(--signal)" />
       </svg>
     </StageCanvas>
   );

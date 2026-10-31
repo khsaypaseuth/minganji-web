@@ -11,12 +11,12 @@ export function MonitoringPreview({ d, p, diagram }: P) {
   const chain: { icon: IconName; label: string }[] = (diagram ?? "").split("→").map((x, i) => ({ icon: (["signal", "cpu", "chart"] as IconName[])[i], label: x.trim() }));
   const rows = [
     { id: "Truck 07", st: d.online, dot: "bg-signal", h: 6.5, seen: p("now") },
-    { id: "Truck 03", st: p("idle"), dot: "bg-[#e0a325]", h: 4.2, seen: p("now") },
+    { id: "Truck 03", st: p("idle"), dot: "bg-amber", h: 4.2, seen: p("now") },
     { id: "Truck 12", st: p("offline"), dot: "bg-steel", h: 0, seen: "11:52" },
   ];
   return (
     <MotionInView kinds={["charts"]} className="space-y-4">
-      <ol className="flex items-center justify-between gap-2 rounded-[18px] bg-white p-4 ring-1 ring-line sm:p-5" aria-label={diagram}>
+      <ol className="flex items-center justify-between gap-2 rounded-[18px] bg-surface p-4 ring-1 ring-line sm:p-5" aria-label={diagram}>
         {chain.map((c, i) => (
           <li key={c.label} className="flex min-w-0 flex-1 flex-col items-center gap-2 text-center sm:flex-row sm:text-left">
             <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${i === 2 ? "bg-signal text-white" : "bg-mist text-ink"}`}>
@@ -27,7 +27,7 @@ export function MonitoringPreview({ d, p, diagram }: P) {
           </li>
         ))}
       </ol>
-      <div className="overflow-hidden rounded-[18px] bg-white ring-1 ring-line">
+      <div className="overflow-hidden rounded-[18px] bg-surface ring-1 ring-line">
         <table className="w-full text-left text-[13.5px]">
           <thead className="bg-mist text-[12px] text-slate">
             <tr>
@@ -93,7 +93,7 @@ export function StaffPreview({ d, p }: P) {
     { i: "BK", role: p("operator"), a: "Site A", h: 6.0 },
   ];
   return (
-    <MotionInView kinds={["charts"]} className="overflow-hidden rounded-[18px] bg-white ring-1 ring-line">
+    <MotionInView kinds={["charts"]} className="overflow-hidden rounded-[18px] bg-surface ring-1 ring-line">
       <div className="flex items-center justify-between border-b border-line px-4 py-3">
         <p className="text-[15px] font-semibold text-ink">{d.staff}</p>
         <span className="rounded-full bg-mist px-2.5 py-1 text-[12px] text-slate"><Count value={6} /> {d.onShift}</span>
@@ -111,7 +111,7 @@ export function StaffPreview({ d, p }: P) {
             <tr key={r.i}>
               <td className="px-4 py-3">
                 <span className="flex items-center gap-2.5">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ink text-[11px] font-semibold text-white">{r.i}</span>
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ink text-[11px] font-semibold text-paper">{r.i}</span>
                   <span className="text-graphite">{r.role}</span>
                 </span>
               </td>
@@ -119,7 +119,7 @@ export function StaffPreview({ d, p }: P) {
               <td className="px-4 py-3 font-mono text-ink">
                 <span className="flex items-center justify-end gap-3">
                   <span className="hidden h-1.5 w-full max-w-[110px] overflow-hidden rounded-full bg-cloud sm:block" aria-hidden="true">
-                    <span data-grow="x" className="block h-full rounded-full bg-ink/85" style={{ width: `${(r.h / 8) * 100}%` }} />
+                    <span data-grow="x" className="block h-full rounded-full bg-[var(--chart-neutral)]" style={{ width: `${(r.h / 8) * 100}%` }} />
                   </span>
                   <span className="w-12 shrink-0 text-right"><Count value={r.h} decimals={1} /> h</span>
                 </span>

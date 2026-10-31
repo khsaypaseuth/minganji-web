@@ -4,7 +4,7 @@ type Code = "gb" | "cn" | "la" | "th" | "vn";
 
 export function Flag({ code, className = "" }: { code: Code; className?: string }) {
   return (
-    <svg viewBox="0 0 30 20" className={`h-[14px] w-[21px] shrink-0 overflow-hidden rounded-[3px] ring-1 ring-black/10 ${className}`} aria-hidden="true" focusable="false">
+    <svg viewBox="0 0 30 20" className={`h-[14px] w-[21px] shrink-0 overflow-hidden rounded-[3px] ring-1 ring-black/10 dark:ring-white/15 ${className}`} aria-hidden="true" focusable="false">
       {code === "gb" && (
         <>
           <rect width="30" height="20" fill="#012169" />

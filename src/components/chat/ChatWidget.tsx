@@ -212,7 +212,7 @@ export function ChatWidget() {
         aria-expanded={open}
         aria-controls="mj-chat"
         aria-label={open ? t("close") : t("launcher")}
-        className={`chat-launcher group fixed bottom-4 right-4 z-40 flex items-center gap-2.5 rounded-full bg-white py-1.5 pl-1.5 pr-1.5 shadow-[var(--shadow-lg)] ring-1 ring-line transition-[transform,opacity,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-14px_rgb(17_20_23/0.35)] active:scale-95 sm:bottom-6 sm:right-6 xl:pr-4 ${open ? "max-sm:pointer-events-none max-sm:opacity-0" : ""} ${fieldFocus && !open ? "pointer-events-none translate-y-4 opacity-0" : ""} ${formInView && !open ? "max-lg:pointer-events-none max-lg:translate-y-4 max-lg:opacity-0" : ""}`}
+        className={`chat-launcher group fixed bottom-4 right-4 z-40 flex items-center gap-2.5 rounded-full bg-surface py-1.5 pl-1.5 pr-1.5 shadow-[var(--shadow-lg)] ring-1 ring-line transition-[transform,opacity,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-hover)] active:scale-95 sm:bottom-6 sm:right-6 xl:pr-4 ${open ? "max-sm:pointer-events-none max-sm:opacity-0" : ""} ${fieldFocus && !open ? "pointer-events-none translate-y-4 opacity-0" : ""} ${formInView && !open ? "max-lg:pointer-events-none max-lg:translate-y-4 max-lg:opacity-0" : ""}`}
       >
         <span className="relative flex h-11 w-11 items-center justify-center rounded-full bg-mist">
           {!open && <span className="chat-halo pointer-events-none absolute inset-0 rounded-full ring-2 ring-signal/50" aria-hidden="true" />}
@@ -237,7 +237,7 @@ export function ChatWidget() {
         aria-modal="false"
         aria-labelledby={titleId}
         hidden={!open}
-        className={`chat-panel ${closing ? "is-closing" : ""} fixed inset-x-2 bottom-2 z-50 flex max-h-[min(640px,calc(100dvh-16px))] flex-col overflow-hidden rounded-[22px] bg-white shadow-[0_40px_100px_-20px_rgb(17_20_23/0.45)] ring-1 ring-line sm:inset-x-auto sm:bottom-24 sm:right-6 sm:w-[400px] sm:max-h-[min(640px,calc(100dvh-120px))]`}
+        className={`chat-panel ${closing ? "is-closing" : ""} fixed inset-x-2 bottom-2 z-50 flex max-h-[min(640px,calc(100dvh-16px))] flex-col overflow-hidden rounded-[22px] bg-surface shadow-[var(--shadow-xl)] ring-1 ring-line sm:inset-x-auto sm:bottom-24 sm:right-6 sm:w-[400px] sm:max-h-[min(640px,calc(100dvh-120px))]`}
       >
         <header className="flex items-center gap-3 border-b border-line px-4 py-3">
           <BotAvatar size={38} />
@@ -260,12 +260,12 @@ export function ChatWidget() {
         </header>
 
         <div ref={listRef} className="flex-1 space-y-3 overflow-y-auto overscroll-contain bg-mist/60 px-4 py-4" aria-live="polite" aria-relevant="additions">
-          <p className="chat-in rounded-xl bg-white/70 px-3 py-2 text-[11.5px] leading-snug text-slate ring-1 ring-line">{t("aiNotice")}</p>
-          {mode === "faq" && <p className="chat-in rounded-xl bg-white px-3 py-2.5 text-[12.5px] leading-snug text-graphite ring-1 ring-line-strong" style={{ "--d": 1 } as CSSProperties}>{t("faqMode.notice")}</p>}
+          <p className="chat-in rounded-xl bg-surface/70 px-3 py-2 text-[11.5px] leading-snug text-slate ring-1 ring-line">{t("aiNotice")}</p>
+          {mode === "faq" && <p className="chat-in rounded-xl bg-surface px-3 py-2.5 text-[12.5px] leading-snug text-graphite ring-1 ring-line-strong" style={{ "--d": 1 } as CSSProperties}>{t("faqMode.notice")}</p>}
 
           <div className="chat-in flex gap-2.5" style={{ "--d": 2 } as CSSProperties}>
             <BotAvatar size={28} idle={false} />
-            <div className="max-w-[85%] rounded-2xl rounded-tl-md bg-white px-3.5 py-2.5 text-[14px] leading-relaxed text-graphite ring-1 ring-line">
+            <div className="max-w-[85%] rounded-2xl rounded-tl-md bg-surface px-3.5 py-2.5 text-[14px] leading-relaxed text-graphite ring-1 ring-line">
               {t("welcome")}
             </div>
           </div>
@@ -273,7 +273,7 @@ export function ChatWidget() {
           {messages.map((m, i) =>
             m.role === "user" ? (
               <div key={i} className="msg-in-right flex justify-end">
-                <p className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tr-md bg-ink px-3.5 py-2.5 text-[14px] leading-relaxed text-white">
+                <p className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tr-md bg-ink px-3.5 py-2.5 text-[14px] leading-relaxed text-paper">
                   <span className="sr-only">{t("you")}: </span>
                   {m.content}
                 </p>
@@ -281,7 +281,7 @@ export function ChatWidget() {
             ) : (
               <div key={i} className="msg-in-left flex gap-2.5">
                 <BotAvatar size={28} idle={false} />
-                <div className={`max-w-[85%] rounded-2xl rounded-tl-md px-3.5 py-2.5 text-[14px] leading-relaxed ring-1 ${m.source === "notice" ? "bg-white text-slate ring-line-strong" : "bg-white text-graphite ring-line"}`}>
+                <div className={`max-w-[85%] rounded-2xl rounded-tl-md px-3.5 py-2.5 text-[14px] leading-relaxed ring-1 ${m.source === "notice" ? "bg-surface text-slate ring-line-strong" : "bg-surface text-graphite ring-line"}`}>
                   <span className="sr-only">{t("assistant")}: </span>
                   {m.source === "faq" && <span className="mb-1 inline-block rounded-full bg-mist px-2 py-0.5 text-[10.5px] font-semibold uppercase tracking-wide text-slate">{t("faqMode.badge")}</span>}
                   <RichText text={m.content} />
@@ -296,7 +296,7 @@ export function ChatWidget() {
           {loading && (
             <div className="msg-in-left flex items-center gap-2.5" role="status">
               <BotAvatar size={28} idle={false} />
-              <span className="flex items-center gap-1 rounded-2xl bg-white px-3.5 py-3 ring-1 ring-line">
+              <span className="flex items-center gap-1 rounded-2xl bg-surface px-3.5 py-3 ring-1 ring-line">
                 <span className="sr-only">{t("thinking")}</span>
                 {[0, 1, 2].map((d) => <span key={d} className="typing-dot h-1.5 w-1.5 rounded-full bg-steel" aria-hidden="true" />)}
               </span>
@@ -325,7 +325,7 @@ export function ChatWidget() {
                       type="button"
                       disabled={loading}
                       onClick={() => send(t(`suggestions.${s}`), s)}
-                      className="rounded-full bg-white px-3 py-1.5 text-left text-[13px] text-graphite ring-1 ring-line-strong transition hover:-translate-y-0.5 hover:text-ink hover:ring-ink/40 active:scale-95 disabled:opacity-50"
+                      className="rounded-full bg-surface px-3 py-1.5 text-left text-[13px] text-graphite ring-1 ring-line-strong transition hover:-translate-y-0.5 hover:text-ink hover:ring-ink/40 active:scale-95 disabled:opacity-50"
                     >
                       {t(`suggestions.${s}`)}
                     </button>
@@ -337,7 +337,7 @@ export function ChatWidget() {
         </div>
 
         <form
-          className="border-t border-line bg-white p-3"
+          className="border-t border-line bg-surface p-3"
           onSubmit={(e) => { e.preventDefault(); send(input); }}
         >
           <div className="flex items-end gap-2 rounded-2xl bg-mist p-1.5 ring-1 ring-line focus-within:ring-2 focus-within:ring-ink">
@@ -357,7 +357,7 @@ export function ChatWidget() {
             <button
               type="submit"
               disabled={!input.trim() || loading || tooLong}
-              className="group/send flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-signal text-white transition hover:bg-signal-deep active:scale-90 disabled:bg-line-strong"
+              className="group/send flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-signal text-white transition hover:bg-signal-hover active:scale-90 disabled:bg-line-strong"
               aria-label={t("send")}
             >
               <Icon name="send" size={17} className="transition-transform duration-200 group-hover/send:-translate-y-0.5 group-hover/send:translate-x-0.5" />

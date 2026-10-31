@@ -44,7 +44,7 @@ export function LanguageSwitcher() {
       <div
         id={listId}
         hidden={!open}
-        className="absolute right-0 top-[calc(100%+8px)] rounded-2xl bg-white p-1.5 shadow-[var(--shadow-lg)] ring-1 ring-line"
+        className="absolute right-0 top-[calc(100%+8px)] rounded-2xl bg-surface p-1.5 shadow-[var(--shadow-lg)] ring-1 ring-line"
       >
         <p className="px-3 pb-1 pt-2 font-mono text-[10.5px] uppercase tracking-[0.12em] text-steel">{t("language")}</p>
         <ul className="flex gap-1">

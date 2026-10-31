@@ -15,7 +15,7 @@ export async function TruckCategories() {
         <SectionHeading id="trucks-title" eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
         <ul className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {TRUCKS.map((k, i) => (
-            <li key={k} className="group flex flex-col rounded-[20px] bg-white p-5 ring-1 ring-line transition-shadow duration-300 hover:shadow-[var(--shadow)]">
+            <li key={k} className="group flex flex-col rounded-[20px] bg-surface p-5 ring-1 ring-line transition-shadow duration-300 hover:shadow-[var(--shadow)]">
               <span className="font-mono text-[11px] text-steel">0{i + 1}</span>
               <div className="mx-auto mt-3 w-full max-w-[200px] transition-transform duration-500 ease-out group-hover:-translate-y-0.5">
                 <TruckGlyph kind={k} />
@@ -66,7 +66,7 @@ export async function ClosingCta({ titleKey = "home.cta.title", bodyKey = "home.
   const t = await getTranslations();
   return (
     <section aria-labelledby="cta-title" className="px-3 pb-3 sm:px-5 sm:pb-5">
-      <div className="relative overflow-hidden rounded-[28px] bg-ink px-6 py-16 text-white sm:px-12 sm:py-20">
+      <div className="relative overflow-hidden rounded-[28px] bg-inverse ring-1 ring-inverse-ring px-6 py-16 text-white sm:px-12 sm:py-20">
         <svg className="pointer-events-none absolute -right-20 -top-20 h-[420px] w-[420px] opacity-[0.16]" viewBox="0 0 200 200" aria-hidden="true">
           {[30, 55, 80, 100].map((r) => <circle key={r} cx="100" cy="100" r={r} fill="none" stroke="#fff" strokeWidth="0.6" />)}
           <circle cx="100" cy="100" r="6" fill="#d7261e" />

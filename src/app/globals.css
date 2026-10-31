@@ -4,20 +4,77 @@
    MingAnji.ai design tokens
    White canvas · signal red for actions and live data · cool greys
 ------------------------------------------------------------------- */
+/* ------------------------------------------------------------------
+   Light and dark themes. Every colour the site uses is a token here, so
+   token-based utilities (bg-mist, text-ink, ring-line…) and SVG fills
+   written as var(--token) switch theme automatically.
+
+   <html data-theme="light|dark"> is set before first paint by ThemeScript
+   (src/components/theme/ThemeScript.tsx). Without JavaScript the
+   page stays light (there is no theme control without scripts either).
+   To add a colour: define it in BOTH token blocks (light and dark), then
+   expose it to Tailwind in @theme inline if utilities need it.
+------------------------------------------------------------------- */
 :root {
-  --paper: #ffffff;
-  --mist: #f5f6f7;        /* section backgrounds */
-  --cloud: #eceef0;       /* panels */
+  color-scheme: light;
+
+  --paper: #ffffff;       /* page background */
+  --surface: #ffffff;     /* cards, panels, fields */
+  --mist: #f5f6f7;        /* section backgrounds, insets */
+  --cloud: #eceef0;       /* tracks, placeholders */
   --line: #e2e5e8;        /* hairlines */
   --line-strong: #cfd4d9;
   --steel: #8a929b;       /* tertiary text, icons */
   --slate: #5b636c;       /* secondary text */
   --graphite: #2b3036;    /* body text */
   --ink: #111417;         /* headings, black accents */
-  --signal: #d7261e;      /* primary red */
-  --signal-deep: #b51d16;
+  --signal: #d7261e;      /* primary red: fills, buttons, live data */
+  --signal-text: #d7261e; /* red used as text on page backgrounds */
+  --signal-hover: #b51d16;
+  --signal-deep: #b51d16; /* error text on signal-soft */
   --signal-soft: #fdecea;
   --ok: #1f8a5b;
+  --amber: #e0a325;
+  --inverse: #111417;     /* dark call-to-action panels (white text) */
+  --inverse-ring: transparent;
+  --grid-line: rgb(17 20 23 / 0.045);
+
+  /* Illustration palette (story, maps, drawings) */
+  --chart-neutral: rgb(17 20 23 / 0.85); /* neutral bars beside red highlights */
+  --halo: #ffffff;              /* knock-out stroke behind SVG labels */
+  --callout: #111417;           /* leader lines from sensors to labels */
+  --ground: #cfd4d9;
+  --ground-shadow: rgb(17 20 23 / 0.07);
+  --soil: #d9d3c7;
+  --soil-chunk: #b9ae9c;
+  --pole: #b7bfc6;
+  --pole-arm: #a3acb4;
+  --wire: #9aa3ab;
+  --pole-route: #c9d0d6;
+  --truck-body: #ffffff;
+  --truck-body-shade: #eef0f2;
+  --truck-trim: #cfd4d9;
+  --truck-panel: #dfe3e7;
+  --tyre: #1d2126;
+  --glyph-chassis: #2b3036;     /* truck category silhouettes */
+  --glyph-tyre: #1d2126;
+  --glass-a: #e9eff4;
+  --glass-b: #c9d4dd;
+  --map-bg: #f4f5f3;
+  --map-block: #eaece7;
+  --map-water: #dbe6ef;
+  --map-street: #ffffff;
+  --map-street-mark: #e2e5e8;
+  --map-sidewalk: #e6e2d9;
+  --map-kerb: #d6d1c6;
+  --map-road-edge: #dde2e6;
+  --map-road: #ffffff;
+  --map-route: rgb(17 20 23 / 0.22);
+  --drawing-bg: #fbfbfa;
+  --bot-body: #111417;
+  --bot-face: #2b3036;
+  --logo-tile: #111417;
+  --logo-line: #ffffff;
 
   --radius-sm: 8px;
   --radius: 14px;
@@ -25,12 +82,96 @@
   --shadow-sm: 0 1px 2px rgb(17 20 23 / 0.06), 0 1px 1px rgb(17 20 23 / 0.04);
   --shadow: 0 12px 32px -12px rgb(17 20 23 / 0.18), 0 2px 6px rgb(17 20 23 / 0.05);
   --shadow-lg: 0 40px 80px -30px rgb(17 20 23 / 0.28), 0 8px 20px -8px rgb(17 20 23 / 0.08);
+  --shadow-xl: 0 40px 100px -20px rgb(17 20 23 / 0.45);
+  --shadow-stage: 0 60px 120px -40px rgb(17 20 23 / 0.35);
+  --shadow-hover: 0 18px 40px -14px rgb(17 20 23 / 0.35);
+  --shadow-signal: 0 8px 20px -8px rgb(215 38 30 / 0.7);
 
   --header-h: 72px;
 }
 
+/* Dark: deep graphite canvas, slightly lifted panels, soft light-grey text.
+   Contrast (WCAG AA): ink 15:1, graphite 12:1, slate 7.5:1, steel 5.4:1 and
+   signal-text 4.9:1 on surface; white on signal 4.9:1. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --paper: #0f1114;
+  --surface: #1a1e23;
+  --mist: #15181c;
+  --cloud: #272c33;
+  --line: #2a2f36;
+  --line-strong: #3b4149;
+  --steel: #8a939d;
+  --slate: #a7afb8;
+  --graphite: #d5d9de;
+  --ink: #f2f4f6;
+  --signal: #d92b22;
+  --signal-text: #f4554b;
+  --signal-hover: #b8201a;
+  --signal-deep: #ff8d84;
+  --signal-soft: #2b1715;
+  --ok: #3fbf86;
+  --amber: #e8b04a;
+  --inverse: #1c2127;
+  --inverse-ring: rgb(255 255 255 / 0.07);
+  --grid-line: rgb(255 255 255 / 0.04);
+
+  --chart-neutral: #9aa3ad;
+  --halo: #1a1e23;
+  --callout: #9aa3ad;
+  --ground: #3b4149;
+  --ground-shadow: rgb(0 0 0 / 0.45);
+  --soil: #4a4236;
+  --soil-chunk: #6e604b;
+  --pole: #4f565e;
+  --pole-arm: #5a626b;
+  --wire: #646d77;
+  --pole-route: #3b4149;
+  --truck-body: #eef1f4;
+  --truck-body-shade: #cdd3d9;
+  --truck-trim: #aeb6be;
+  --truck-panel: #c5ccd3;
+  --tyre: #07080a;
+  --glyph-chassis: #5d656e;
+  --glyph-tyre: #4f565f;
+  --glass-a: #9fb3c4;
+  --glass-b: #6d8395;
+  --map-bg: #14171b;
+  --map-block: #1b1f24;
+  --map-water: #16232e;
+  --map-street: #262b32;
+  --map-street-mark: #343a42;
+  --map-sidewalk: #2c2a25;
+  --map-kerb: #3d3a33;
+  --map-road-edge: #353b43;
+  --map-road: #2a3038;
+  --map-route: rgb(242 244 246 / 0.25);
+  --drawing-bg: #121519;
+  --bot-body: #2c323a;
+  --bot-face: #111417;
+  --logo-tile: #f2f4f6;
+  --logo-line: #111417;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5), 0 0 0 1px rgb(255 255 255 / 0.02);
+  --shadow: 0 14px 34px -12px rgb(0 0 0 / 0.65), 0 2px 6px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 40px 80px -30px rgb(0 0 0 / 0.8), 0 8px 20px -8px rgb(0 0 0 / 0.4);
+  --shadow-xl: 0 40px 100px -20px rgb(0 0 0 / 0.85);
+  --shadow-stage: 0 60px 120px -40px rgb(0 0 0 / 0.85);
+  --shadow-hover: 0 18px 40px -14px rgb(0 0 0 / 0.8);
+  --shadow-signal: 0 8px 22px -8px rgb(217 43 34 / 0.55);
+}
+/* `dark:` utilities follow the resolved theme on <html>. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @theme inline {
   --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-inverse: var(--inverse);
+  --color-inverse-ring: var(--inverse-ring);
+  --color-amber: var(--amber);
+  --color-signal-text: var(--signal-text);
+  --color-signal-hover: var(--signal-hover);
   --color-mist: var(--mist);
   --color-cloud: var(--cloud);
   --color-line: var(--line);
@@ -61,6 +202,25 @@ body {
   font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Red as text needs a brighter tone on dark backgrounds than red as a fill
+   (which carries white text). Any element coloured with text-signal uses
+   --signal-text for its red, including red icons and dots inside it. */
+[class*="text-signal"]:not([class*="text-signal-"]) {
+  --signal: var(--signal-text);
+}
+
+/* Theme switch: a brief cross-fade of colours (never on first load, and
+   not with reduced motion: ThemeProvider only adds the class when allowed). */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition-property: background-color, border-color, color, fill, stroke, stop-color, box-shadow, outline-color, text-decoration-color !important;
+  transition-duration: 280ms !important;
+  transition-timing-function: ease-out !important;
+  transition-delay: 0s !important;
 }
 
 ::selection {
@@ -121,7 +281,7 @@ body {
   font-size: 0.75rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--signal);
+  color: var(--signal-text);
 }
 :lang(zh) .eyebrow,
 :lang(lo) .eyebrow,
@@ -134,8 +294,8 @@ body {
 /* Subtle engineering grid used behind hero and stage. */
 .grid-paper {
   background-image:
-    linear-gradient(to right, rgb(17 20 23 / 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(17 20 23 / 0.045) 1px, transparent 1px);
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
@@ -249,7 +409,7 @@ body {
 .flow-line {
   position: relative;
   border-radius: 9999px;
-  background-image: repeating-linear-gradient(90deg, rgb(215 38 30 / 0.5) 0 6px, transparent 6px 12px);
+  background-image: repeating-linear-gradient(90deg, color-mix(in srgb, var(--signal) 55%, transparent) 0 6px, transparent 6px 12px);
   background-size: 24px 100%;
 }
 .flow-line::after {
@@ -261,7 +421,7 @@ body {
   height: 7px;
   margin-top: -3.5px;
   border-radius: 9999px;
-  background: #d7261e;
+  background: var(--signal);
   opacity: 0;
 }
 @keyframes flow-line { to { background-position: 24px 0; } }

@@ -19,7 +19,7 @@ export function SectionHeading({ eyebrow, title, lead, align = "left", as: Tag =
 
 export function IllustrativeTag({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 font-mono text-[10.5px] uppercase tracking-[0.08em] text-slate ring-1 ring-line backdrop-blur">
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-surface/90 px-2.5 py-1 font-mono text-[10.5px] uppercase tracking-[0.08em] text-slate ring-1 ring-line backdrop-blur">
       <span className="h-1.5 w-1.5 rounded-full bg-steel" aria-hidden="true" />
       {children}
     </span>

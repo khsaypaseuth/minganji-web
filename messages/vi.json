@@ -29,7 +29,14 @@
     "openMenu": "Mở menu",
     "closeMenu": "Đóng menu",
     "close": "Đóng",
-    "backToHome": "Về trang chủ"
+    "backToHome": "Về trang chủ",
+    "theme": {
+      "label": "Giao diện màu",
+      "light": "Sáng",
+      "dark": "Tối",
+      "system": "Theo hệ thống",
+      "current": "Giao diện màu: {theme}"
+    }
   },
   "nav": {
     "home": "Trang chủ",

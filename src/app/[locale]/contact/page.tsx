@@ -25,7 +25,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
           <div>
             <SectionHeading as="h1" eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
             <div className="mt-10 space-y-4">
-              <div className="rounded-[20px] bg-white p-6 ring-1 ring-line">
+              <div className="rounded-[20px] bg-surface p-6 ring-1 ring-line">
                 <h2 className="text-[13px] font-medium uppercase tracking-[0.1em] text-steel">{t("directTitle")}</h2>
                 <dl className="mt-4 space-y-4 text-[15px]">
                   <div className="flex items-start gap-3">
@@ -38,7 +38,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                   </div>
                 </dl>
               </div>
-              <div className="rounded-[20px] bg-ink p-6 text-white">
+              <div className="rounded-[20px] bg-inverse ring-1 ring-inverse-ring p-6 text-white">
                 <h2 className="text-[16px] font-semibold">{t("portalTitle")}</h2>
                 <p className="mt-1 text-[14px] text-white/70">{t("portalBody")}</p>
                 <a href={site.signInUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex min-h-10 items-center gap-1.5 text-[14.5px] font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">

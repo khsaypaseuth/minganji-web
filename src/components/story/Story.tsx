@@ -56,7 +56,7 @@ function StepCopy({ k, heading = "h3" }: { k: (typeof STEP_KEYS)[number]; headin
 function Closing() {
   const t = useTranslations();
   return (
-    <div className="mt-10 rounded-[20px] bg-ink p-7 text-white">
+    <div className="mt-10 rounded-[20px] bg-inverse ring-1 ring-inverse-ring p-7 text-white">
       <p className="font-display text-[22px] font-semibold">{t("home.story.closing.title")}</p>
       <p className="mt-2 text-[15px] leading-relaxed text-white/70">{t("home.story.closing.body")}</p>
       <div className="mt-5 flex flex-wrap gap-3">
@@ -83,7 +83,7 @@ function FrameChips({ scene }: { scene: number }) {
   return (
     <ul className="mt-4 flex flex-wrap gap-2">
       {items.map((x) => (
-        <li key={x} className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[13px] text-graphite ring-1 ring-line">
+        <li key={x} className="inline-flex items-center gap-1.5 rounded-full bg-surface px-3 py-1.5 text-[13px] text-graphite ring-1 ring-line">
           <span className="h-1.5 w-1.5 rounded-full bg-signal" aria-hidden="true" />
           {x}
         </li>

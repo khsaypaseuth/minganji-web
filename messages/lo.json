@@ -29,7 +29,14 @@
     "openMenu": "ເປີດເມນູ",
     "closeMenu": "ປິດເມນູ",
     "close": "ປິດ",
-    "backToHome": "ກັບໄປໜ້າຫຼັກ"
+    "backToHome": "ກັບໄປໜ້າຫຼັກ",
+    "theme": {
+      "label": "ຮູບແບບສີ",
+      "light": "ສະຫວ່າງ",
+      "dark": "ມືດ",
+      "system": "ຕາມລະບົບ",
+      "current": "ຮູບແບບສີ: {theme}"
+    }
   },
   "nav": {
     "home": "ໜ້າຫຼັກ",

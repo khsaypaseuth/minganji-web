@@ -49,8 +49,8 @@ const DONE = 7; // holes 0–6 recorded; the truck is at hole 7
 
 export function Window({ title, children, badge, className = "", style, k }: { title: string; children: ReactNode; badge?: ReactNode; className?: string; style?: CSSProperties; k?: StateKey }) {
   return (
-    <div data-k={k} style={style} className={`overflow-hidden rounded-[18px] bg-white shadow-[var(--shadow-lg)] ring-1 ring-line ${className}`}>
-      <div className="flex min-h-11 items-center gap-2 border-b border-line bg-white px-4 py-2">
+    <div data-k={k} style={style} className={`overflow-hidden rounded-[18px] bg-surface shadow-[var(--shadow-lg)] ring-1 ring-line ${className}`}>
+      <div className="flex min-h-11 items-center gap-2 border-b border-line bg-surface px-4 py-2">
         <span className="flex gap-1.5" aria-hidden="true">
           <span className="h-2.5 w-2.5 rounded-full bg-cloud" />
           <span className="h-2.5 w-2.5 rounded-full bg-cloud" />
@@ -94,30 +94,30 @@ const ROUTE = (() => {
 function MapBase() {
   return (
     <>
-      <rect width="746" height="436" fill="#f4f5f3" />
-      <g fill="#eaece7">
+      <rect width="746" height="436" fill="var(--map-bg)" />
+      <g fill="var(--map-block)">
         <rect x="30" y="30" width="170" height="90" rx="8" transform="rotate(-8 30 30)" />
         <rect x="420" y="250" width="200" height="110" rx="8" transform="rotate(6 420 250)" />
         <rect x="610" y="-24" width="150" height="62" rx="8" transform="rotate(-6 610 -24)" />
         <rect x="250" y="322" width="140" height="66" rx="8" transform="rotate(4 250 322)" />
         <rect x="26" y="184" width="118" height="62" rx="8" transform="rotate(-6 26 184)" />
       </g>
-      <path d="M-20 410 C 200 380, 380 460, 760 400" stroke="#dbe6ef" strokeWidth="22" fill="none" strokeLinecap="round" />
-      <g stroke="#ffffff" strokeWidth="9" fill="none" strokeLinecap="round">
+      <path d="M-20 410 C 200 380, 380 460, 760 400" stroke="var(--map-water)" strokeWidth="22" fill="none" strokeLinecap="round" />
+      <g stroke="var(--map-street)" strokeWidth="9" fill="none" strokeLinecap="round">
         <path d="M150 -10 L260 450" />
         <path d="M-10 170 L760 210" />
         <path d="M520 -10 L640 450" />
       </g>
-      <g stroke="#e2e5e8" strokeWidth="1" fill="none">
+      <g stroke="var(--map-street-mark)" strokeWidth="1" fill="none">
         <path d="M150 -10 L260 450" strokeDasharray="2 10" />
       </g>
       {/* main road with the sidewalk the holes are drilled along */}
-      <path d={ROUTE.sidewalk} stroke="#e6e2d9" strokeWidth="22" strokeLinecap="round" />
-      <path d={ROUTE.road} stroke="#dde2e6" strokeWidth="24" strokeLinecap="round" />
-      <path d={ROUTE.road} stroke="#ffffff" strokeWidth="20" strokeLinecap="round" />
-      <path d={ROUTE.road} stroke="#e2e5e8" strokeWidth="1.5" strokeDasharray="10 9" />
-      <path d={ROUTE.kerb} stroke="#d6d1c6" strokeWidth="1.2" />
-      <path d={`M${HOLES[0].x - 30} ${HOLES[0].y + 13} L${HOLES[11].x + 40} ${HOLES[11].y - 17}`} stroke="#111417" strokeOpacity="0.22" strokeWidth="2" strokeDasharray="7 6" />
+      <path d={ROUTE.sidewalk} stroke="var(--map-sidewalk)" strokeWidth="22" strokeLinecap="round" />
+      <path d={ROUTE.road} stroke="var(--map-road-edge)" strokeWidth="24" strokeLinecap="round" />
+      <path d={ROUTE.road} stroke="var(--map-road)" strokeWidth="20" strokeLinecap="round" />
+      <path d={ROUTE.road} stroke="var(--map-street-mark)" strokeWidth="1.5" strokeDasharray="10 9" />
+      <path d={ROUTE.kerb} stroke="var(--map-kerb)" strokeWidth="1.2" />
+      <path d={`M${HOLES[0].x - 30} ${HOLES[0].y + 13} L${HOLES[11].x + 40} ${HOLES[11].y - 17}`} stroke="var(--map-route)" strokeWidth="2" strokeDasharray="7 6" />
     </>
   );
 }
@@ -130,51 +130,51 @@ export function MapView({ d, styleOf = none }: { d: DashLabels; styleOf?: StyleO
       <MapBase />
       {/* planned positions */}
       <g data-k="planned" style={styleOf("planned")}>
-        <path d={`M${truck.x} ${truck.y} L${HOLES[DONE + 1].x} ${HOLES[DONE + 1].y}`} stroke="#d7261e" strokeWidth="2.5" className="flow-dash" />
+        <path d={`M${truck.x} ${truck.y} L${HOLES[DONE + 1].x} ${HOLES[DONE + 1].y}`} stroke="var(--signal)" strokeWidth="2.5" className="flow-dash" />
         {HOLES.slice(DONE + 1).map((h) => (
-          <circle key={h.i} className="spin-slow" cx={h.x} cy={h.y} r="8" fill="#fff" stroke="#8a929b" strokeWidth="2" strokeDasharray="3 3" />
+          <circle key={h.i} className="spin-slow" cx={h.x} cy={h.y} r="8" fill="var(--surface)" stroke="var(--steel)" strokeWidth="2" strokeDasharray="3 3" />
         ))}
       </g>
       {/* recorded holes */}
       <g data-k="holesDone" style={styleOf("holesDone")}>
         {HOLES.slice(0, DONE).map((h) => (
           <g key={h.i} data-hole>
-            <circle data-ripple cx={h.x} cy={h.y} r="9" fill="none" stroke="#111417" strokeWidth="2" opacity="0" />
-            <circle cx={h.x} cy={h.y} r="9" fill="#111417" stroke="#fff" strokeWidth="3" />
+            <circle data-ripple cx={h.x} cy={h.y} r="9" fill="none" stroke="var(--ink)" strokeWidth="2" opacity="0" />
+            <circle cx={h.x} cy={h.y} r="9" fill="var(--ink)" stroke="var(--surface)" strokeWidth="3" />
           </g>
         ))}
       </g>
       {/* selection */}
       <g data-k="selection" style={styleOf("selection")}>
-        <rect x={HOLES[1].x - 26} y={HOLES[6].y - 30} width={HOLES[6].x - HOLES[1].x + 52} height={HOLES[1].y - HOLES[6].y + 60} rx="12" fill="#d7261e" fillOpacity="0.06" stroke="#d7261e" strokeWidth="2" strokeDasharray="6 5" />
+        <rect x={HOLES[1].x - 26} y={HOLES[6].y - 30} width={HOLES[6].x - HOLES[1].x + 52} height={HOLES[1].y - HOLES[6].y + 60} rx="12" fill="var(--signal)" fillOpacity="0.08" stroke="var(--signal)" strokeWidth="2" strokeDasharray="6 5" />
         <g transform={`translate(${HOLES[1].x - 26} ${HOLES[1].y + 40})`}>
-          <rect width="150" height="30" rx="15" fill="#d7261e" />
+          <rect width="150" height="30" rx="15" fill="var(--signal)" />
           <text x="75" y="20" textAnchor="middle" fontSize="14" fontWeight="600" fill="#fff">{d.selected} · 6</text>
         </g>
       </g>
       {/* recent activity pulse */}
       <g data-k="recent" style={styleOf("recent")}>
         <g data-recent>
-          <circle className="pulse-ring" cx={recent.x} cy={recent.y} r="12" fill="none" stroke="#d7261e" strokeWidth="2.5" />
-          <circle cx={recent.x} cy={recent.y} r="9" fill="#d7261e" stroke="#fff" strokeWidth="3" />
+          <circle className="pulse-ring" cx={recent.x} cy={recent.y} r="12" fill="none" stroke="var(--signal)" strokeWidth="2.5" />
+          <circle cx={recent.x} cy={recent.y} r="9" fill="var(--signal)" stroke="var(--surface)" strokeWidth="3" />
           <g transform={`translate(${recent.x - 80} ${recent.y + 26})`}>
-            <rect width="160" height="30" rx="8" fill="#111417" />
-            <text x="80" y="20" textAnchor="middle" fontSize="13.5" fontWeight="600" fill="#fff">{d.recentHole}</text>
+            <rect width="160" height="30" rx="8" fill="var(--ink)" />
+            <text x="80" y="20" textAnchor="middle" fontSize="13.5" fontWeight="600" fill="var(--paper)">{d.recentHole}</text>
           </g>
         </g>
       </g>
       {/* truck marker */}
       <g data-k="truckMarker" style={styleOf("truckMarker")}>
         <g data-marker>
-        <circle cx={truck.x} cy={truck.y} r="26" fill="#d7261e" opacity="0.14" />
-        <circle className="pulse-ring" cx={truck.x} cy={truck.y} r="18" fill="none" stroke="#d7261e" strokeWidth="2" />
-        <circle cx={truck.x} cy={truck.y} r="15" fill="#d7261e" stroke="#fff" strokeWidth="3" />
+        <circle cx={truck.x} cy={truck.y} r="26" fill="var(--signal)" opacity="0.14" />
+        <circle className="pulse-ring" cx={truck.x} cy={truck.y} r="18" fill="none" stroke="var(--signal)" strokeWidth="2" />
+        <circle cx={truck.x} cy={truck.y} r="15" fill="var(--signal)" stroke="var(--surface)" strokeWidth="3" />
         <path d={`M${truck.x - 7} ${truck.y - 4} h8 v7 h-8z M${truck.x + 1} ${truck.y - 1} h4 l3 3 v4 h-7z`} fill="#fff" />
         <g transform={`translate(${truck.x + 24} ${truck.y - 44})`}>
-          <rect width="148" height="44" rx="10" fill="#fff" stroke="#e2e5e8" />
-          <text x="12" y="19" fontSize="13.5" fontWeight="700" fill="#111417">{d.truckId}</text>
-          <circle cx="16" cy="32" r="3.5" fill="#d7261e" />
-          <text x="25" y="36" fontSize="12" fill="#5b636c">{d.drilling}</text>
+          <rect width="148" height="44" rx="10" fill="var(--surface)" stroke="var(--line)" />
+          <text x="12" y="19" fontSize="13.5" fontWeight="700" fill="var(--ink)">{d.truckId}</text>
+          <circle cx="16" cy="32" r="3.5" fill="var(--signal)" />
+          <text x="25" y="36" fontSize="12" fill="var(--slate)">{d.drilling}</text>
         </g>
         </g>
       </g>
@@ -189,7 +189,7 @@ export function SummaryCard({ d, style, k, className = "" }: { d: DashLabels; st
     { label: d.remaining, value: 5, tone: "bg-signal" },
   ];
   return (
-    <div data-k={k} style={style} className={`rounded-[18px] bg-white p-5 shadow-[var(--shadow-lg)] ring-1 ring-line ${className}`}>
+    <div data-k={k} style={style} className={`rounded-[18px] bg-surface p-5 shadow-[var(--shadow-lg)] ring-1 ring-line ${className}`}>
       <p className="text-[14px] font-semibold text-ink">{d.summary}</p>
       <div className="mt-3 flex items-end gap-2">
         <span className="font-display text-[44px] font-semibold leading-none text-ink"><Count value={58} />%</span>
@@ -214,7 +214,7 @@ export function SummaryCard({ d, style, k, className = "" }: { d: DashLabels; st
 export function ExportCard({ d, style, k, className = "" }: { d: DashLabels; style?: CSSProperties; k?: StateKey; className?: string }) {
   const gid = `dgrid-${useId().replace(/[^a-zA-Z0-9]/g, "")}`;
   return (
-    <div data-k={k} style={style} className={`rounded-[18px] bg-white p-4 shadow-[var(--shadow-lg)] ring-1 ring-line ${className}`}>
+    <div data-k={k} style={style} className={`rounded-[18px] bg-surface p-4 shadow-[var(--shadow-lg)] ring-1 ring-line ${className}`}>
       <div className="flex items-center gap-2">
         <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-signal-soft text-signal" aria-hidden="true">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14" /></svg>
@@ -224,29 +224,29 @@ export function ExportCard({ d, style, k, className = "" }: { d: DashLabels; sty
           <p className="text-[12px] leading-snug text-slate">{d.exportNote}</p>
         </div>
       </div>
-      <div className="mt-3 rounded-xl bg-[#fbfbfa] p-2 ring-1 ring-line">
+      <div className="mt-3 rounded-xl bg-[var(--drawing-bg)] p-2 ring-1 ring-line">
         <svg viewBox="0 0 300 150" className="block h-auto w-full" aria-hidden="true">
           <defs>
             <pattern id={gid} width="15" height="15" patternUnits="userSpaceOnUse">
-              <path d="M15 0H0V15" fill="none" stroke="#e2e5e8" strokeWidth="0.8" />
+              <path d="M15 0H0V15" fill="none" stroke="var(--line)" strokeWidth="0.8" />
             </pattern>
           </defs>
           <rect width="300" height="150" fill={`url(#${gid})`} />
-          <path d="M20 125 L280 25" stroke="#111417" strokeWidth="1.4" />
+          <path d="M20 125 L280 25" stroke="var(--ink)" strokeWidth="1.4" />
           {Array.from({ length: 9 }, (_, i) => {
             const x = 30 + i * 30, y = 121 - i * 11.6;
             return (
               <g key={i} data-pop>
-                <path d={`M${x - 5} ${y - 5} l10 10 M${x + 5} ${y - 5} l-10 10`} stroke={i < 6 ? "#d7261e" : "#8a929b"} strokeWidth="1.6" />
-                <text x={x + 6} y={y + 16} fontSize="8" fill="#5b636c" fontFamily="var(--font-code)">{`H-${String(i + 1).padStart(2, "0")}`}</text>
+                <path d={`M${x - 5} ${y - 5} l10 10 M${x + 5} ${y - 5} l-10 10`} stroke={i < 6 ? "var(--signal)" : "var(--steel)"} strokeWidth="1.6" />
+                <text x={x + 6} y={y + 16} fontSize="8" fill="var(--slate)" fontFamily="var(--font-code)">{`H-${String(i + 1).padStart(2, "0")}`}</text>
               </g>
             );
           })}
-          <rect x="196" y="112" width="96" height="30" fill="#fff" stroke="#111417" strokeWidth="0.8" />
-          <path d="M196 124 h96" stroke="#111417" strokeWidth="0.6" />
-          <rect x="202" y="116" width="40" height="4" fill="#111417" />
-          <rect x="202" y="130" width="70" height="3" fill="#8a929b" />
-          <rect x="202" y="136" width="50" height="3" fill="#8a929b" />
+          <rect x="196" y="112" width="96" height="30" fill="var(--drawing-bg)" stroke="var(--ink)" strokeWidth="0.8" />
+          <path d="M196 124 h96" stroke="var(--ink)" strokeWidth="0.6" />
+          <rect x="202" y="116" width="40" height="4" fill="var(--ink)" />
+          <rect x="202" y="130" width="70" height="3" fill="var(--steel)" />
+          <rect x="202" y="136" width="50" height="3" fill="var(--steel)" />
         </svg>
       </div>
       <p className="mt-2 text-[12px] font-medium text-graphite">{d.drawing}</p>
@@ -258,7 +258,7 @@ export function ExportCard({ d, style, k, className = "" }: { d: DashLabels; sty
 
 function Tile({ title, children, className = "" }: { title: string; children: ReactNode; className?: string }) {
   return (
-    <div data-tile className={`flex flex-col rounded-[18px] bg-white p-5 shadow-[var(--shadow)] ring-1 ring-line ${className}`}>
+    <div data-tile className={`flex flex-col rounded-[18px] bg-surface p-5 shadow-[var(--shadow)] ring-1 ring-line ${className}`}>
       <p className="text-[16px] font-semibold text-ink">{title}</p>
       {children}
     </div>
@@ -270,7 +270,7 @@ const HOURS = [6.5, 7.2, 5.8, 7.6, 6.9, 3.1, 0];
 export function ActivityTile({ d, className }: { d: DashLabels; className?: string }) {
   const trucks = [
     { id: "Truck 07", st: d.drilling, c: "bg-signal", live: "ping" as const },
-    { id: "Truck 03", st: d.idle, c: "bg-[#e0a325]", live: "blink" as const },
+    { id: "Truck 03", st: d.idle, c: "bg-amber", live: "blink" as const },
     { id: "Truck 12", st: d.offline, c: "bg-steel", live: undefined },
   ];
   const max = 8;
@@ -289,7 +289,7 @@ export function ActivityTile({ d, className }: { d: DashLabels; className?: stri
       <div className="mt-2 flex h-[92px] items-end gap-2" aria-hidden="true">
         {HOURS.map((h, i) => (
           <div key={i} className="flex flex-1 flex-col items-center gap-1">
-            <div data-grow="y" className={`relative w-full rounded-md ${i === 4 ? "bg-signal bar-live" : "bg-ink/85"}`} style={{ height: `${Math.max(4, (h / max) * 70)}px` }} />
+            <div data-grow="y" className={`relative w-full rounded-md ${i === 4 ? "bg-signal bar-live" : "bg-[var(--chart-neutral)]"}`} style={{ height: `${Math.max(4, (h / max) * 70)}px` }} />
             <span className="text-[10.5px] text-steel">{d.days[i]}</span>
           </div>
         ))}
@@ -315,7 +315,7 @@ export function PlanningTile({ d, className }: { d: DashLabels; className?: stri
               <span className="font-mono text-slate"><Count value={r.p} />%</span>
             </div>
             <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-cloud">
-              <div data-grow="x" className={`h-full rounded-full ${r.p === 100 ? "bg-ink" : "bg-signal"} ${r.p > 0 && r.p < 100 ? "bar-live" : ""}`} style={{ width: `${r.p}%` }} />
+              <div data-grow="x" className={`h-full rounded-full ${r.p === 100 ? "bg-[var(--chart-neutral)]" : "bg-signal"} ${r.p > 0 && r.p < 100 ? "bar-live" : ""}`} style={{ width: `${r.p}%` }} />
             </div>
           </li>
         ))}
@@ -344,9 +344,9 @@ export function StaffTile({ d, className }: { d: DashLabels; className?: string 
       <ul className="mt-5 space-y-3">
         {staff.map((s) => (
           <li key={s.i} className="flex items-center gap-2.5 text-[14px]">
-            <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-ink text-[10.5px] font-semibold text-white">
+            <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-ink text-[10.5px] font-semibold text-paper">
               {s.i}
-              <span className="live-blink absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-[#1f8a5b] ring-2 ring-white" style={{ animationDelay: `${staff.indexOf(s) * 0.4}s` }} aria-hidden="true" />
+              <span className="live-blink absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-ok ring-2 ring-surface" style={{ animationDelay: `${staff.indexOf(s) * 0.4}s` }} aria-hidden="true" />
             </span>
             <span className="text-slate">{s.r}</span>
             <span className="ml-auto font-mono text-ink"><Count value={s.h} decimals={1} /> h</span>
@@ -371,11 +371,11 @@ export function BusinessTile({ d, className }: { d: DashLabels; className?: stri
         </div>
       </dl>
       <svg viewBox="0 0 240 70" className="mt-auto h-auto w-full pt-4" aria-hidden="true">
-        <path data-draw pathLength={1} d="M0 58 L30 50 L60 54 L90 38 L120 42 L150 28 L180 30 L210 16 L240 20" fill="none" stroke="#d7261e" strokeWidth="2.5" strokeLinejoin="round" />
-        <path d="M0 58 L30 50 L60 54 L90 38 L120 42 L150 28 L180 30 L210 16 L240 20 V70 H0Z" fill="#d7261e" opacity="0.07" data-fade="0.07" />
-        <circle className="pulse-ring" cx="240" cy="20" r="5" fill="none" stroke="#d7261e" strokeWidth="2" />
-        <circle data-pop cx="240" cy="20" r="4" fill="#d7261e" stroke="#fff" strokeWidth="2" />
-        <circle r="3" fill="#fff" stroke="#d7261e" strokeWidth="1.5" className="motion-only">
+        <path data-draw pathLength={1} d="M0 58 L30 50 L60 54 L90 38 L120 42 L150 28 L180 30 L210 16 L240 20" fill="none" stroke="var(--signal)" strokeWidth="2.5" strokeLinejoin="round" />
+        <path d="M0 58 L30 50 L60 54 L90 38 L120 42 L150 28 L180 30 L210 16 L240 20 V70 H0Z" fill="var(--signal)" opacity="0.1" data-fade="0.1" />
+        <circle className="pulse-ring" cx="240" cy="20" r="5" fill="none" stroke="var(--signal)" strokeWidth="2" />
+        <circle data-pop cx="240" cy="20" r="4" fill="var(--signal)" stroke="var(--surface)" strokeWidth="2" />
+        <circle r="3" fill="var(--surface)" stroke="var(--signal)" strokeWidth="1.5" className="motion-only">
           <animateMotion dur="3s" repeatCount="indefinite" path="M0 58 L30 50 L60 54 L90 38 L120 42 L150 28 L180 30 L210 16 L240 20" />
         </circle>
       </svg>

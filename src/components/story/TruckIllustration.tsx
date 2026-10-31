@@ -37,14 +37,15 @@ const FLOWS = {
   hours: "M800 440 C 760 444, 716 424, 700 398",
 } as const;
 
-const halo: CSSProperties = { paintOrder: "stroke", stroke: "#fff", strokeWidth: 7, strokeLinejoin: "round" };
+// Labels are knocked out of the scene with a stroke in the stage colour (theme-aware).
+const halo: CSSProperties = { paintOrder: "stroke", stroke: "var(--halo)", strokeWidth: 7, strokeLinejoin: "round" };
 
 function Sensor({ x, y, delay = 0 }: { x: number; y: number; delay?: number }) {
   return (
     <g>
-      <circle className="pulse-ring" cx={x} cy={y} r="14" fill="none" stroke="#d7261e" strokeWidth="2" style={{ animationDelay: `${delay}s` }} />
-      <circle cx={x} cy={y} r="9" fill="#fff" stroke="#d7261e" strokeWidth="2.5" />
-      <circle cx={x} cy={y} r="4" fill="#d7261e" />
+      <circle className="pulse-ring" cx={x} cy={y} r="14" fill="none" stroke="var(--signal)" strokeWidth="2" style={{ animationDelay: `${delay}s` }} />
+      <circle cx={x} cy={y} r="9" fill="#fff" stroke="var(--signal)" strokeWidth="2.5" />
+      <circle cx={x} cy={y} r="4" fill="var(--signal)" />
     </g>
   );
 }
@@ -53,13 +54,13 @@ function Callout({ from, to, title, note, anchor = "start" }: { from: { x: numbe
   const dx = anchor === "start" ? 10 : -10;
   return (
     <g>
-      <path d={`M${from.x} ${from.y} L${to.x} ${to.y} h${anchor === "start" ? 14 : -14}`} fill="none" stroke="#111417" strokeWidth="1.5" />
-      <circle cx={to.x} cy={to.y} r="2.5" fill="#111417" />
-      <text x={to.x + dx + (anchor === "start" ? 14 : -14)} y={to.y + 6} textAnchor={anchor} fontSize="19" fontWeight="600" fill="#111417" style={halo}>
+      <path d={`M${from.x} ${from.y} L${to.x} ${to.y} h${anchor === "start" ? 14 : -14}`} fill="none" stroke="var(--callout)" strokeWidth="1.5" />
+      <circle cx={to.x} cy={to.y} r="2.5" fill="var(--callout)" />
+      <text x={to.x + dx + (anchor === "start" ? 14 : -14)} y={to.y + 6} textAnchor={anchor} fontSize="19" fontWeight="600" fill="var(--ink)" style={halo}>
         {title}
       </text>
       {note && (
-        <text x={to.x + dx + (anchor === "start" ? 14 : -14)} y={to.y + 30} textAnchor={anchor} fontSize="14" fill="#5b636c" fontStyle="italic" style={halo}>
+        <text x={to.x + dx + (anchor === "start" ? 14 : -14)} y={to.y + 30} textAnchor={anchor} fontSize="14" fill="var(--slate)" fontStyle="italic" style={halo}>
           {note}
         </text>
       )}
@@ -70,7 +71,7 @@ function Callout({ from, to, title, note, anchor = "start" }: { from: { x: numbe
 function FlowChip({ x, y, label, anchor = "middle" }: { x: number; y: number; label: string; anchor?: "start" | "middle" | "end" }) {
   return (
     <g>
-      <text x={x} y={y} textAnchor={anchor} fontSize="24" fontWeight="600" fill="#d7261e" style={{ ...halo, strokeWidth: 9 }}>
+      <text x={x} y={y} textAnchor={anchor} fontSize="24" fontWeight="600" fill="var(--signal-text)" style={{ ...halo, strokeWidth: 9 }}>
         {label}
       </text>
     </g>
@@ -113,7 +114,7 @@ function PowerLine({ intro }: { intro: boolean }) {
     // Kept faint: background context only, the truck is the subject.
     <g className={intro ? "poles-intro" : undefined} opacity="0.4" aria-hidden="true">
       {/* pole route on the ground */}
-      <path d={`M${POLES[0].x} ${POLES[0].base} ${visible.map((p) => `L${p.x.toFixed(1)} ${p.base.toFixed(1)}`).join(" ")}`} fill="none" stroke="#c9d0d6" strokeWidth="2" strokeDasharray="2 10" strokeLinecap="round" />
+      <path d={`M${POLES[0].x} ${POLES[0].base} ${visible.map((p) => `L${p.x.toFixed(1)} ${p.base.toFixed(1)}`).join(" ")}`} fill="none" stroke="var(--pole-route)" strokeWidth="2" strokeDasharray="2 10" strokeLinecap="round" />
       {/* cables (far spans first) */}
       {POLES.slice(0, -1).map((a, k) => {
         const b = POLES[k + 1];
@@ -121,7 +122,7 @@ function PowerLine({ intro }: { intro: boolean }) {
         return (
           <g key={a.i} opacity={fade}>
             {[0, 1, 2, 3].map((w) => (
-              <path key={w} className="wire" pathLength={1} d={span(a, b, w)} fill="none" stroke="#9aa3ab" strokeWidth={Math.max(0.6, 1.6 * b.sc)} style={{ "--i": POLES.length - k } as CSSProperties} />
+              <path key={w} className="wire" pathLength={1} d={span(a, b, w)} fill="none" stroke="var(--wire)" strokeWidth={Math.max(0.6, 1.6 * b.sc)} style={{ "--i": POLES.length - k } as CSSProperties} />
             ))}
           </g>
         );
@@ -131,18 +132,18 @@ function PowerLine({ intro }: { intro: boolean }) {
         const w = 10 * p.sc;
         return (
           <g key={p.i} className="pole" opacity={Math.max(0.35, Math.min(1, p.sc + 0.3))} style={{ "--i": POLES.length - p.i } as CSSProperties}>
-            <path d={`M${p.x - w * 0.5} ${p.base} L${p.x - w * 0.32} ${p.top} H${p.x + w * 0.32} L${p.x + w * 0.5} ${p.base} Z`} fill="#b7bfc6" />
-            <rect x={p.x - 46 * p.sc} y={p.top + 16 * p.sc} width={92 * p.sc} height={6 * p.sc} rx={2 * p.sc} fill="#a3acb4" />
-            <rect x={p.x - 33 * p.sc} y={p.top + 48 * p.sc} width={66 * p.sc} height={5 * p.sc} rx={2 * p.sc} fill="#a3acb4" />
+            <path d={`M${p.x - w * 0.5} ${p.base} L${p.x - w * 0.32} ${p.top} H${p.x + w * 0.32} L${p.x + w * 0.5} ${p.base} Z`} fill="var(--pole)" />
+            <rect x={p.x - 46 * p.sc} y={p.top + 16 * p.sc} width={92 * p.sc} height={6 * p.sc} rx={2 * p.sc} fill="var(--pole-arm)" />
+            <rect x={p.x - 33 * p.sc} y={p.top + 48 * p.sc} width={66 * p.sc} height={5 * p.sc} rx={2 * p.sc} fill="var(--pole-arm)" />
             {anchors(p).map((a, j) => (
-              <rect key={j} x={a.x - 3 * p.sc} y={a.y - 7 * p.sc} width={6 * p.sc} height={9 * p.sc} rx={2 * p.sc} fill="#8a929b" />
+              <rect key={j} x={a.x - 3 * p.sc} y={a.y - 7 * p.sc} width={6 * p.sc} height={9 * p.sc} rx={2 * p.sc} fill="var(--wire)" />
             ))}
-            <ellipse cx={p.x} cy={p.base} rx={16 * p.sc} ry={3 * p.sc} fill="#111417" opacity="0.08" />
+            <ellipse cx={p.x} cy={p.base} rx={16 * p.sc} ry={3 * p.sc} fill="var(--ground-shadow)" />
           </g>
         );
       })}
       {/* current travelling along the line */}
-      <circle r="3.5" fill="#d7261e" className="motion-only line-pulse">
+      <circle r="3.5" fill="var(--signal)" className="motion-only line-pulse">
         <animateMotion dur="5s" repeatCount="indefinite" path={PULSE_PATH} />
       </circle>
     </g>
@@ -169,30 +170,30 @@ export function TruckIllustration({
     <svg data-truck-svg viewBox={viewBox} className="h-full w-full" role="img" aria-label={title} preserveAspectRatio="xMidYMid meet">
       <defs>
         <linearGradient id={id("glass")} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#e9eff4" />
-          <stop offset="1" stopColor="#c9d4dd" />
+          <stop offset="0" stopColor="var(--glass-a)" />
+          <stop offset="1" stopColor="var(--glass-b)" />
         </linearGradient>
         <linearGradient id={id("bodyShade")} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#ffffff" />
-          <stop offset="1" stopColor="#eef0f2" />
+          <stop offset="0" stopColor="var(--truck-body)" />
+          <stop offset="1" stopColor="var(--truck-body-shade)" />
         </linearGradient>
         <clipPath id={id("auger")}>
           <rect x="226" y="440" width="48" height="132" rx="4" />
         </clipPath>
         <linearGradient id={id("scan")} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#d7261e" stopOpacity="0" />
-          <stop offset="0.85" stopColor="#d7261e" stopOpacity="0.14" />
-          <stop offset="1" stopColor="#d7261e" stopOpacity="0" />
+          <stop offset="0" stopColor="var(--signal)" stopOpacity="0" />
+          <stop offset="0.85" stopColor="var(--signal)" stopOpacity="0.14" />
+          <stop offset="1" stopColor="var(--signal)" stopOpacity="0" />
         </linearGradient>
       </defs>
 
       {/* ground */}
-      <path d="M-200 586 H1400" stroke="#cfd4d9" strokeWidth="2" />
-      <ellipse cx="590" cy="598" rx="470" ry="14" fill="#111417" opacity="0.07" />
-      <path d="M210 586 q 18 -16 40 -16 q 22 0 40 16 z" fill="#d9d3c7" />
+      <path d="M-200 586 H1400" stroke="var(--ground)" strokeWidth="2" />
+      <ellipse cx="590" cy="598" rx="470" ry="14" fill="var(--ground-shadow)" />
+      <path d="M210 586 q 18 -16 40 -16 q 22 0 40 16 z" fill="var(--soil)" />
       <g className="motion-only" aria-hidden="true">
         {[[-34, -26, 5], [-18, -40, 4], [22, -36, 5], [38, -22, 4], [6, -48, 3]].map(([dx, dy, r], i) => (
-          <circle key={i} className="dirt" cx="250" cy="580" r={r} fill="#b9ae9c" style={{ "--dx": `${dx}px`, "--dy": `${dy}px` } as CSSProperties} />
+          <circle key={i} className="dirt" cx="250" cy="580" r={r} fill="var(--soil-chunk)" style={{ "--dx": `${dx}px`, "--dy": `${dy}px` } as CSSProperties} />
         ))}
       </g>
 
@@ -210,7 +211,7 @@ export function TruckIllustration({
       {/* wheels (drawn first so the chassis overlaps their tops) */}
       {[335, 450, 862].map((x) => (
         <g key={x} className="wheel">
-          <circle cx={x} cy="540" r="46" fill="#1d2126" />
+          <circle cx={x} cy="540" r="46" fill="var(--tyre)" />
           <circle cx={x} cy="540" r="24" fill="#cfd4d9" />
           {[0, 72, 144, 216, 288].map((a) => (
             <circle key={a} cx={x + 16 * Math.cos((a * Math.PI) / 180)} cy={540 + 16 * Math.sin((a * Math.PI) / 180)} r="3" fill="#8a929b" />
@@ -223,33 +224,33 @@ export function TruckIllustration({
       <rect x="150" y="470" width="812" height="30" rx="4" fill="#2b3036" />
 
       {/* rear body */}
-      <rect x="160" y="398" width="560" height="74" rx="6" fill={`url(#${id("bodyShade")})`} stroke="#cfd4d9" strokeWidth="2" />
+      <rect x="160" y="398" width="560" height="74" rx="6" fill={`url(#${id("bodyShade")})`} stroke="var(--truck-trim)" strokeWidth="2" />
       {[300, 440, 580].map((x) => (
-        <path key={x} d={`M${x} 404 V466`} stroke="#dfe3e7" strokeWidth="2" />
+        <path key={x} d={`M${x} 404 V466`} stroke="var(--truck-panel)" strokeWidth="2" />
       ))}
       {[230, 370, 510, 650].map((x) => (
-        <rect key={x} x={x - 12} y="430" width="24" height="5" rx="2.5" fill="#cfd4d9" />
+        <rect key={x} x={x - 12} y="430" width="24" height="5" rx="2.5" fill="var(--truck-trim)" />
       ))}
-      <rect x="160" y="452" width="560" height="5" fill="#d7261e" />
+      <rect x="160" y="452" width="560" height="5" fill="var(--signal)" />
 
       {/* controller cabinet behind the cab */}
       <g>
         <rect x="642" y="336" width="68" height="62" rx="7" fill="#2b3036" />
         <rect x="652" y="346" width="48" height="20" rx="3" fill="#111417" />
-        <path d="M656 360 l8 -6 6 4 8 -8 6 5 8 -3" fill="none" stroke="#d7261e" strokeWidth="2" />
+        <path d="M656 360 l8 -6 6 4 8 -8 6 5 8 -3" fill="none" stroke="var(--signal)" strokeWidth="2" />
         <circle cx="660" cy="384" r="3.5" fill="#1f8a5b" />
-        <circle cx="673" cy="384" r="3.5" fill="#d7261e" />
+        <circle cx="673" cy="384" r="3.5" fill="var(--signal)" />
         <rect x="684" y="381" width="18" height="6" rx="2" fill="#5b636c" />
       </g>
 
       {/* cab */}
-      <path d="M742 472 V304 Q742 292 754 292 H872 Q884 292 892 302 L952 380 Q962 392 962 404 V472 Z" fill={`url(#${id("bodyShade")})`} stroke="#cfd4d9" strokeWidth="2" />
+      <path d="M742 472 V304 Q742 292 754 292 H872 Q884 292 892 302 L952 380 Q962 392 962 404 V472 Z" fill={`url(#${id("bodyShade")})`} stroke="var(--truck-trim)" strokeWidth="2" />
       <path d="M760 312 H866 Q872 312 876 318 L924 378 H760 Z" fill={`url(#${id("glass")})`} />
       <path d="M786 312 L770 378" stroke="#ffffff" strokeWidth="6" opacity="0.55" />
-      <path d="M846 388 V466" stroke="#dfe3e7" strokeWidth="2" />
+      <path d="M846 388 V466" stroke="var(--truck-panel)" strokeWidth="2" />
       <rect x="826" y="404" width="14" height="4" rx="2" fill="#8a929b" />
-      <rect x="742" y="440" width="220" height="6" fill="#d7261e" />
-      <rect x="944" y="410" width="18" height="12" rx="3" fill="#f6d77a" stroke="#cfd4d9" />
+      <rect x="742" y="440" width="220" height="6" fill="var(--signal)" />
+      <rect x="944" y="410" width="18" height="12" rx="3" fill="#f6d77a" stroke="var(--truck-trim)" />
       <rect x="930" y="472" width="44" height="18" rx="4" fill="#2b3036" />
       {/* GNSS antenna puck (illustrative placement) */}
       <rect x="796" y="282" width="32" height="10" rx="5" fill="#2b3036" />
@@ -259,12 +260,12 @@ export function TruckIllustration({
 
       {/* turntable + boom */}
       <ellipse cx="470" cy="398" rx="56" ry="12" fill="#2b3036" />
-      <rect x="440" y="358" width="60" height="40" rx="6" fill="#ffffff" stroke="#cfd4d9" strokeWidth="2" />
+      <rect x="440" y="358" width="60" height="40" rx="6" fill="var(--truck-body)" stroke="var(--truck-trim)" strokeWidth="2" />
       <path d="M432 394 L384 300" stroke="#8a929b" strokeWidth="10" strokeLinecap="round" />
-      <path d="M430 392 L400 334" stroke="#cfd4d9" strokeWidth="5" strokeLinecap="round" />
-      <path d="M480 360 L260 166 L240 188 L460 382 Z" fill="#ffffff" stroke="#cfd4d9" strokeWidth="2" strokeLinejoin="round" />
-      <path d="M470 371 L250 177" stroke="#d7261e" strokeWidth="3" />
-      <path d="M330 248 L290 212" stroke="#dfe3e7" strokeWidth="14" />
+      <path d="M430 392 L400 334" stroke="var(--truck-trim)" strokeWidth="5" strokeLinecap="round" />
+      <path d="M480 360 L260 166 L240 188 L460 382 Z" fill="var(--truck-body)" stroke="var(--truck-trim)" strokeWidth="2" strokeLinejoin="round" />
+      <path d="M470 371 L250 177" stroke="var(--signal)" strokeWidth="3" />
+      <path d="M330 248 L290 212" stroke="var(--truck-panel)" strokeWidth="14" />
 
       {/* kelly bar + auger (digs in a loop), then the drill head on top */}
       <g className="auger-bob">
@@ -279,8 +280,8 @@ export function TruckIllustration({
         </g>
         <path d="M226 572 L250 592 L274 572 Z" fill="#5b636c" />
       </g>
-      <rect x="226" y="168" width="48" height="50" rx="7" fill="#ffffff" stroke="#cfd4d9" strokeWidth="2" />
-      <rect x="236" y="180" width="28" height="8" rx="3" fill="#dfe3e7" />
+      <rect x="226" y="168" width="48" height="50" rx="7" fill="var(--truck-body)" stroke="var(--truck-trim)" strokeWidth="2" />
+      <rect x="236" y="180" width="28" height="8" rx="3" fill="var(--truck-panel)" />
 
       </g>
 
@@ -288,14 +289,14 @@ export function TruckIllustration({
       <g data-k="flows" style={styleOf("flows")}>
         {Object.entries(FLOWS).map(([k, d]) => (
           <g key={k}>
-            <path d={d} fill="none" stroke="#d7261e" strokeOpacity="0.25" strokeWidth="6" strokeLinecap="round" />
-            <path d={d} fill="none" stroke="#d7261e" strokeWidth="2.5" strokeLinecap="round" className="flow-dash" />
-            <circle r="5" fill="#d7261e" className="motion-only">
+            <path d={d} fill="none" stroke="var(--signal)" strokeOpacity="0.25" strokeWidth="6" strokeLinecap="round" />
+            <path d={d} fill="none" stroke="var(--signal)" strokeWidth="2.5" strokeLinecap="round" className="flow-dash" />
+            <circle r="5" fill="var(--signal)" className="motion-only">
               <animateMotion dur="2.2s" repeatCount="indefinite" path={d} />
             </circle>
           </g>
         ))}
-        <circle cx={CONTROLLER.x} cy={CONTROLLER.y} r="46" fill="none" stroke="#d7261e" strokeWidth="2" strokeDasharray="3 6" />
+        <circle cx={CONTROLLER.x} cy={CONTROLLER.y} r="46" fill="none" stroke="var(--signal)" strokeWidth="2" strokeDasharray="3 6" />
       </g>
 
       {/* sensors */}
@@ -309,7 +310,7 @@ export function TruckIllustration({
       {/* uplink: controller sends data on to MingAnji.ai (scenes 4–5) */}
       <g data-k="uplink" style={styleOf("uplink")} className="motion-only">
         {[0, 0.8, 1.6].map((delay) => (
-          <path key={delay} className="uplink" d={`M${CONTROLLER.x - 60} 330 A 60 60 0 0 1 ${CONTROLLER.x + 60} 330`} fill="none" stroke="#d7261e" strokeWidth="5" strokeLinecap="round" style={{ animationDelay: `${delay}s` }} />
+          <path key={delay} className="uplink" d={`M${CONTROLLER.x - 60} 330 A 60 60 0 0 1 ${CONTROLLER.x + 60} 330`} fill="none" stroke="var(--signal)" strokeWidth="5" strokeLinecap="round" style={{ animationDelay: `${delay}s` }} />
         ))}
       </g>
 
@@ -317,7 +318,7 @@ export function TruckIllustration({
       <g data-k="callouts" style={styleOf("callouts")}>
         <g className="scan-sweep motion-only" aria-hidden="true">
           <rect x="-70" y="120" width="70" height="500" fill={`url(#${id("scan")})`} />
-          <rect x="-1.5" y="120" width="3" height="500" fill="#d7261e" opacity="0.55" />
+          <rect x="-1.5" y="120" width="3" height="500" fill="var(--signal)" opacity="0.55" />
         </g>
         <Callout from={SENSORS.drill} to={{ x: 330, y: 136 }} title={labels.drill} />
         <Callout from={SENSORS.boom} to={{ x: 552, y: 300 }} title={labels.boom} />
@@ -332,10 +333,10 @@ export function TruckIllustration({
         <FlowChip x={846} y={420} label={labels.hoursShort} anchor="start" />
       </g>
       <g data-k="ctrlLabel" style={styleOf("ctrlLabel")}>
-        <path d="M676 336 V250" stroke="#111417" strokeWidth="1.5" />
-        <rect x="580" y="176" width="192" height="74" rx="12" fill="#111417" />
-        <text x="676" y="210" textAnchor="middle" fontSize="19" fontWeight="600" fill="#fff">{labels.controller}</text>
-        <text x="676" y="236" textAnchor="middle" fontSize="13" fill="#cfd4d9" fontFamily="var(--font-code)">● ● ●</text>
+        <path d="M676 336 V250" stroke="var(--callout)" strokeWidth="1.5" />
+        <rect x="580" y="176" width="192" height="74" rx="12" fill="var(--ink)" />
+        <text x="676" y="210" textAnchor="middle" fontSize="19" fontWeight="600" fill="var(--paper)">{labels.controller}</text>
+        <text x="676" y="236" textAnchor="middle" fontSize="13" fill="var(--line-strong)" fontFamily="var(--font-code)">● ● ●</text>
       </g>
     </svg>
   );

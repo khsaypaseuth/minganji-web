@@ -43,7 +43,7 @@ export default async function FeaturesPage({ params }: { params: Promise<{ local
             <ol className="flex w-max gap-2">
               {AREAS.map(({ k, icon }, i) => (
                 <li key={k}>
-                  <a href={`#${k}`} className="flex items-center gap-2 rounded-full bg-white py-2 pl-2 pr-4 text-[14px] font-medium text-graphite ring-1 ring-line transition hover:ring-ink/30">
+                  <a href={`#${k}`} className="flex items-center gap-2 rounded-full bg-surface py-2 pl-2 pr-4 text-[14px] font-medium text-graphite ring-1 ring-line transition hover:ring-ink/30">
                     <span className="flex h-7 w-7 items-center justify-center rounded-full bg-mist text-ink"><Icon name={icon} size={15} /></span>
                     <span className="font-mono text-[11px] text-steel">0{i + 1}</span>
                     {t(`areas.${k}.nav`)}
@@ -57,12 +57,12 @@ export default async function FeaturesPage({ params }: { params: Promise<{ local
       </section>
 
       {AREAS.map(({ k, icon, status, Preview }, i) => (
-        <section key={k} id={k} aria-labelledby={`${k}-title`} className={`scroll-mt-24 py-16 sm:py-24 ${i % 2 === 0 ? "bg-mist" : "bg-white"}`}>
+        <section key={k} id={k} aria-labelledby={`${k}-title`} className={`scroll-mt-24 py-16 sm:py-24 ${i % 2 === 0 ? "bg-mist" : "bg-paper"}`}>
           <Container>
             <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
               <div className="lg:sticky lg:top-28">
                 <div className="flex items-center gap-3">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink text-white"><Icon name={icon} size={20} /></span>
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink text-paper"><Icon name={icon} size={20} /></span>
                   <span className="font-mono text-[12px] text-steel">0{i + 1} / 05</span>
                 </div>
                 <h2 id={`${k}-title`} className="font-display mt-6 text-[clamp(1.7rem,3vw,2.4rem)] font-semibold leading-[1.1] text-ink">{t(`areas.${k}.title`)}</h2>
@@ -76,9 +76,9 @@ export default async function FeaturesPage({ params }: { params: Promise<{ local
                     </li>
                   ))}
                 </ul>
-                <p className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-[12.5px] ring-1 ring-line">
+                <p className="mt-6 inline-flex items-center gap-2 rounded-full bg-surface px-3 py-1.5 text-[12.5px] ring-1 ring-line">
                   <span className="sr-only">{t("statusLabel")}: </span>
-                  <span className={`h-2 w-2 rounded-full ${status === "available" ? "bg-ok" : "bg-[#e0a325]"}`} aria-hidden="true" />
+                  <span className={`h-2 w-2 rounded-full ${status === "available" ? "bg-ok" : "bg-amber"}`} aria-hidden="true" />
                   {t(`status.${status}`)}
                 </p>
               </div>

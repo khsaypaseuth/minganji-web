@@ -8,6 +8,7 @@ import { Logo } from "./Logo";
 import { LanguageSwitcher, LanguageList } from "./LanguageSwitcher";
 import { Icon } from "@/components/icons/Icon";
 import { buttonClass } from "@/components/ui/Button";
+import { ThemeMenu, ThemeRadios } from "@/components/theme/ThemeToggle";
 
 export function Header() {
   const t = useTranslations();
@@ -34,7 +35,8 @@ export function Header() {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") { setOpen(false); toggleRef.current?.focus(); }
       if (e.key === "Tab" && panelRef.current) {
-        const items = Array.from(panelRef.current.querySelectorAll<HTMLElement>("a,button"));
+        // Radios: only the checked one of a group is a tab stop.
+        const items = Array.from(panelRef.current.querySelectorAll<HTMLElement>("a,button,input[type=radio]:checked"));
         const all = [toggleRef.current!, ...items];
         const i = all.indexOf(document.activeElement as HTMLElement);
         if (e.shiftKey && i <= 0) { e.preventDefault(); all[all.length - 1].focus(); }
@@ -58,10 +60,10 @@ export function Header() {
     <header
       className={`sticky top-0 z-50 h-[var(--header-h)] transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
         // No backdrop-filter while the menu is open: it would become the containing block for the fixed panel.
-        open ? "bg-white shadow-[0_1px_0_var(--line)]" : scrolled ? "bg-white/88 shadow-[0_1px_0_var(--line)] backdrop-blur-xl backdrop-saturate-150" : "bg-white/0"
+        open ? "bg-paper shadow-[0_1px_0_var(--line)]" : scrolled ? "bg-paper/88 shadow-[0_1px_0_var(--line)] backdrop-blur-xl backdrop-saturate-150" : "bg-paper/0"
       }`}
     >
-      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-white">
+      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-paper">
         {t("common.skipToContent")}
       </a>
       <div className="mx-auto flex h-full max-w-[1320px] items-center justify-between gap-4 px-5 sm:px-8">
@@ -88,6 +90,7 @@ export function Header() {
 
         <div className="hidden items-center gap-1.5 lg:flex">
           <LanguageSwitcher />
+          <ThemeMenu />
           <a href={site.signInUrl} target="_blank" rel="noopener noreferrer" className="flex h-9 items-center gap-1.5 rounded-full px-3.5 text-[14px] font-medium text-graphite hover:bg-mist">
             <Icon name="login" size={16} />
             {t("common.signIn")}
@@ -120,7 +123,7 @@ export function Header() {
         id="mobile-menu"
         ref={panelRef}
         hidden={!open}
-        className="fixed inset-x-0 bottom-0 top-[var(--header-h)] overflow-y-auto bg-white px-5 pb-10 pt-4 lg:hidden"
+        className="fixed inset-x-0 bottom-0 top-[var(--header-h)] overflow-y-auto bg-paper px-5 pb-10 pt-4 lg:hidden"
       >
         <nav aria-label={t("nav.primary")}>
           <ul className="divide-y divide-line border-y border-line">
@@ -147,6 +150,9 @@ export function Header() {
             {t("common.signIn")}
             <span className="sr-only"> {t("common.opensInNewTab")}</span>
           </a>
+        </div>
+        <div className="mt-8">
+          <ThemeRadios />
         </div>
         <section className="mt-8" aria-labelledby="mobile-lang">
           <h2 id="mobile-lang" className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-steel">

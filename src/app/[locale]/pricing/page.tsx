@@ -76,7 +76,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
             {PLANS.map((p) => (
               <li
                 key={p.id}
-                className={`relative flex flex-col rounded-[24px] bg-white p-7 ${
+                className={`relative flex flex-col rounded-[24px] bg-surface p-7 ${
                   p.featured ? "shadow-[var(--shadow-lg)] ring-2 ring-signal" : "ring-1 ring-line"
                 }`}
               >
@@ -118,7 +118,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
       <section aria-labelledby="compare-title" className="bg-mist py-16 sm:py-24">
         <Container>
           <h2 id="compare-title" className="font-display text-[clamp(1.6rem,3vw,2.3rem)] font-semibold text-ink">{t("compare.title")}</h2>
-          <div className="relative mt-8 overflow-x-auto rounded-[20px] bg-white ring-1 ring-line">
+          <div className="relative mt-8 overflow-x-auto rounded-[20px] bg-surface ring-1 ring-line">
             <table className="w-full min-w-[680px] border-collapse text-left">
               <thead>
                 <tr className="border-b border-line">
@@ -174,7 +174,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
             ))}
           </div>
 
-          <div className="mt-12 rounded-[24px] bg-ink p-8 text-white sm:p-10">
+          <div className="mt-12 rounded-[24px] bg-inverse ring-1 ring-inverse-ring p-8 text-white sm:p-10">
             <h2 className="font-display text-[clamp(1.4rem,2.6vw,1.9rem)] font-semibold">{t("help.title")}</h2>
             <p className="mt-3 max-w-[55ch] text-[15.5px] leading-relaxed text-white/75">{t("help.body")}</p>
             <div className="mt-7 flex flex-wrap items-center gap-3">

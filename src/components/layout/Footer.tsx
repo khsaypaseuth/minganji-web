@@ -17,7 +17,7 @@ export async function Footer() {
               <Wordmark />
             </Link>
             <p className="mt-4 max-w-[42ch] text-[14.5px] leading-relaxed text-slate">{t("footer.description")}</p>
-            <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-graphite ring-1 ring-line">
+            <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-graphite ring-1 ring-line">
               <span className="h-1.5 w-1.5 rounded-full bg-signal" aria-hidden="true" />
               {t("common.brandAttribution")}
             </p>

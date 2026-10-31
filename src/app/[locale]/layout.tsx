@@ -9,6 +9,9 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 import { ScrollReveal, REVEAL_TARGETS } from "@/components/layout/ScrollReveal";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { ThemeScript } from "@/components/theme/ThemeScript";
+import { THEME_COLOR } from "@/components/theme/theme";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -16,7 +19,11 @@ export function generateStaticParams() {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  // ThemeProvider updates these to the visitor's chosen theme.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: THEME_COLOR.light },
+    { media: "(prefers-color-scheme: dark)", color: THEME_COLOR.dark },
+  ],
   width: "device-width",
   initialScale: 1,
 };
@@ -46,21 +53,25 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   return (
     <html lang={localeMeta[locale as Locale].htmlLang} className={fontVariables} suppressHydrationWarning>
       <head>
+        {/* Sets data-theme on <html> before first paint (no flash of the wrong theme). */}
+        <ThemeScript />
         {/* Without JavaScript, never hide reveal targets. */}
         <noscript>
           <style>{`${REVEAL_TARGETS} { opacity: 1 !important; animation: none !important; }`}</style>
         </noscript>
       </head>
       <body className="min-h-screen bg-paper">
-        <NextIntlClientProvider>
-          <Header />
-          <main id="main" tabIndex={-1} className="outline-none">
-            {children}
-          </main>
-          <Footer />
-          <ChatWidget />
-          <ScrollReveal />
-        </NextIntlClientProvider>
+        <ThemeProvider>
+          <NextIntlClientProvider>
+            <Header />
+            <main id="main" tabIndex={-1} className="outline-none">
+              {children}
+            </main>
+            <Footer />
+            <ChatWidget />
+            <ScrollReveal />
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

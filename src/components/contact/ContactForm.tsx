@@ -11,7 +11,7 @@ import { buttonClass } from "@/components/ui/Button";
 type Status = "idle" | "sending" | "success" | "unavailable" | "error" | "rate_limited";
 
 const field =
-  "mt-2 block w-full rounded-xl bg-white px-4 py-3 text-[15px] text-ink ring-1 ring-inset ring-line-strong placeholder:text-steel transition-shadow focus:outline-none focus:ring-2 focus:ring-ink aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-signal";
+  "mt-2 block w-full rounded-xl bg-paper px-4 py-3 text-[15px] text-ink ring-1 ring-inset ring-line-strong placeholder:text-steel transition-shadow focus:outline-none focus:ring-2 focus:ring-ink aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-signal";
 
 export function ContactForm() {
   const t = useTranslations("contact.form");
@@ -68,7 +68,7 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div ref={resultRef} tabIndex={-1} role="status" className="rounded-[22px] bg-white p-8 ring-1 ring-line outline-none">
+      <div ref={resultRef} tabIndex={-1} role="status" className="rounded-[22px] bg-surface p-8 ring-1 ring-line outline-none">
         <span className="flex h-12 w-12 items-center justify-center rounded-full bg-ok/10 text-ok"><Icon name="check" size={24} /></span>
         <h2 className="font-display mt-5 text-[24px] font-semibold text-ink">{t("success.title")}</h2>
         <p className="mt-2 text-slate">{t("success.body")}</p>
@@ -77,7 +77,7 @@ export function ContactForm() {
   }
 
   return (
-    <form noValidate onSubmit={onSubmit} className="rounded-[22px] bg-white p-6 ring-1 ring-line sm:p-8" aria-labelledby="form-title">
+    <form noValidate onSubmit={onSubmit} className="rounded-[22px] bg-surface p-6 ring-1 ring-line sm:p-8" aria-labelledby="form-title">
       <div className="flex items-baseline justify-between gap-4">
         <h2 id="form-title" className="font-display text-[22px] font-semibold text-ink">{t("title")}</h2>
         <p className="text-[12.5px] text-steel"><span className="text-signal" aria-hidden="true">*</span> {t("required")}</p>
@@ -147,7 +147,7 @@ export function ContactForm() {
         <div className="mt-2 grid gap-2 sm:grid-cols-2">
           {TOPICS.map((tp) => (
             <label key={tp} className="flex cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-[14.5px] text-graphite ring-1 ring-inset ring-line-strong has-[:checked]:bg-signal-soft has-[:checked]:text-ink has-[:checked]:ring-2 has-[:checked]:ring-signal has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-signal">
-              <input type="radio" name="topic" value={tp} checked={v.topic === tp} onChange={() => set("topic", tp)} className="h-5 w-5 shrink-0 accent-[#d7261e]" />
+              <input type="radio" name="topic" value={tp} checked={v.topic === tp} onChange={() => set("topic", tp)} className="h-5 w-5 shrink-0 accent-[var(--signal)]" />
               {t(`topics.${tp}`)}
             </label>
           ))}
@@ -170,7 +170,7 @@ export function ContactForm() {
 
       <div className="mt-6">
         <label className="flex cursor-pointer items-start gap-3 text-[14px] text-graphite">
-          <input id="f-consent" type="checkbox" checked={v.consent} onChange={(e) => set("consent", e.target.checked)} aria-invalid={!!errors.consent} aria-describedby={describe("consent")} className="mt-0.5 h-5 w-5 shrink-0 accent-[#d7261e]" />
+          <input id="f-consent" type="checkbox" checked={v.consent} onChange={(e) => set("consent", e.target.checked)} aria-invalid={!!errors.consent} aria-describedby={describe("consent")} className="mt-0.5 h-5 w-5 shrink-0 accent-[var(--signal)]" />
           <span>{t("consent")} <span className="text-signal" aria-hidden="true">*</span></span>
         </label>
         {errors.consent && <p id="consent-error" className="mt-1.5 pl-7 text-[13px] text-signal-deep">{t(`errors.${errors.consent}`)}</p>}

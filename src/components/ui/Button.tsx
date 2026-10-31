@@ -8,10 +8,10 @@ type Size = "sm" | "md" | "lg";
 const base =
   "group inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-[background-color,color,box-shadow,transform] duration-200 ease-out active:translate-y-px disabled:opacity-60 disabled:pointer-events-none whitespace-nowrap";
 const variants: Record<Variant, string> = {
-  primary: "bg-signal text-white shadow-[0_8px_20px_-8px_rgb(215_38_30/0.7)] hover:bg-signal-deep",
-  secondary: "bg-white text-ink ring-1 ring-inset ring-line-strong hover:ring-ink/40 hover:bg-mist",
+  primary: "bg-signal text-white shadow-[var(--shadow-signal)] hover:bg-signal-hover",
+  secondary: "bg-surface text-ink ring-1 ring-inset ring-line-strong hover:ring-ink/40 hover:bg-mist",
   ghost: "text-ink hover:bg-mist",
-  dark: "bg-ink text-white hover:bg-graphite",
+  dark: "bg-ink text-paper hover:bg-graphite",
 };
 const sizes: Record<Size, string> = {
   sm: "h-9 px-4 text-[13.5px]",

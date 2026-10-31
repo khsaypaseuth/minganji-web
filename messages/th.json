@@ -29,7 +29,14 @@
     "openMenu": "เปิดเมนู",
     "closeMenu": "ปิดเมนู",
     "close": "ปิด",
-    "backToHome": "กลับหน้าแรก"
+    "backToHome": "กลับหน้าแรก",
+    "theme": {
+      "label": "ธีมสี",
+      "light": "สว่าง",
+      "dark": "มืด",
+      "system": "ตามระบบ",
+      "current": "ธีมสี: {theme}"
+    }
   },
   "nav": {
     "home": "หน้าแรก",
