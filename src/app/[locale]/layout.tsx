@@ -1,0 +1,59 @@
+import type { Metadata, Viewport } from "next";
+import { notFound } from "next/navigation";
+import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { routing, localeMeta, type Locale } from "@/i18n/routing";
+import { fontVariables } from "@/lib/fonts";
+import { site } from "@/lib/site";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { ChatWidget } from "@/components/chat/ChatWidget";
+import "../globals.css";
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
+  width: "device-width",
+  initialScale: 1,
+};
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "meta" });
+  return {
+    metadataBase: new URL(site.url),
+    title: { default: t("siteTitle"), template: `%s · ${site.name}` },
+    description: t("siteDescription"),
+    applicationName: site.name,
+    alternates: {
+      canonical: `/${locale}`,
+      languages: Object.fromEntries(routing.locales.map((l) => [localeMeta[l].htmlLang, `/${l}`])),
+    },
+    openGraph: { type: "website", siteName: site.name, title: t("siteTitle"), description: t("siteDescription"), locale },
+    twitter: { card: "summary_large_image", title: t("siteTitle"), description: t("siteDescription") },
+    icons: { icon: "/icon.svg" },
+  };
+}
+
+export default async function LocaleLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) notFound();
+  setRequestLocale(locale);
+  return (
+    <html lang={localeMeta[locale as Locale].htmlLang} className={fontVariables}>
+      <body className="min-h-screen bg-paper">
+        <NextIntlClientProvider>
+          <Header />
+          <main id="main" tabIndex={-1} className="outline-none">
+            {children}
+          </main>
+          <Footer />
+          <ChatWidget />
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  );
+}
