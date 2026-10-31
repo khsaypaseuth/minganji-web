@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useCallback, useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { Fragment, useCallback, useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import NextLink from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { BotAvatar } from "./BotAvatar";
@@ -69,11 +69,20 @@ export function ChatWidget() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<{ key: ErrKey; retry?: Msg[] } | null>(null);
   const [fieldFocus, setFieldFocus] = useState(false);
+  const [closing, setClosing] = useState(false);
   const launcherRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
+
+  // Close with a short exit animation (skipped with reduced motion).
+  const close = useCallback((refocus = true) => {
+    const finish = () => { setOpen(false); setClosing(false); };
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) finish();
+    else { setClosing(true); window.setTimeout(finish, 200); }
+    if (refocus) launcherRef.current?.focus();
+  }, []);
 
   // Step aside while the visitor types in a page form field (never cover inputs).
   useEffect(() => {
@@ -98,11 +107,11 @@ export function ChatWidget() {
     if (!open) return;
     requestAnimationFrame(() => inputRef.current?.focus());
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") { setOpen(false); launcherRef.current?.focus(); }
+      if (e.key === "Escape") close();
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [open]);
+  }, [open, close]);
 
   useEffect(() => {
     const el = listRef.current;
@@ -176,14 +185,20 @@ export function ChatWidget() {
       <button
         ref={launcherRef}
         type="button"
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => (open ? close(false) : setOpen(true))}
         aria-expanded={open}
         aria-controls="mj-chat"
         aria-label={open ? t("close") : t("launcher")}
-        className={`fixed bottom-4 right-4 z-40 flex items-center gap-2.5 rounded-full bg-white py-1.5 pl-1.5 pr-1.5 shadow-[var(--shadow-lg)] ring-1 ring-line transition-[transform,opacity] duration-300 hover:-translate-y-0.5 sm:bottom-6 sm:right-6 xl:pr-4 ${open ? "max-sm:pointer-events-none max-sm:opacity-0" : ""} ${fieldFocus && !open ? "pointer-events-none translate-y-4 opacity-0" : ""}`}
+        className={`chat-launcher group fixed bottom-4 right-4 z-40 flex items-center gap-2.5 rounded-full bg-white py-1.5 pl-1.5 pr-1.5 shadow-[var(--shadow-lg)] ring-1 ring-line transition-[transform,opacity,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-14px_rgb(17_20_23/0.35)] active:scale-95 sm:bottom-6 sm:right-6 xl:pr-4 ${open ? "max-sm:pointer-events-none max-sm:opacity-0" : ""} ${fieldFocus && !open ? "pointer-events-none translate-y-4 opacity-0" : ""}`}
       >
-        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-mist">
-          <BotAvatar size={34} />
+        <span className="relative flex h-11 w-11 items-center justify-center rounded-full bg-mist">
+          {!open && <span className="chat-halo pointer-events-none absolute inset-0 rounded-full ring-2 ring-signal/50" aria-hidden="true" />}
+          <span className={`flex transition-[transform,opacity] duration-300 ${open ? "rotate-90 scale-50 opacity-0" : "group-hover:scale-110"}`}>
+            <BotAvatar size={34} />
+          </span>
+          <span className={`absolute inset-0 flex items-center justify-center text-ink transition-[transform,opacity] duration-300 ${open ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-50 opacity-0"}`} aria-hidden="true">
+            <Icon name="close" size={20} />
+          </span>
         </span>
         <span className="hidden text-left leading-tight xl:block">
           <span className="block text-[14px] font-semibold text-ink">{t("launcherShort")}</span>
@@ -199,7 +214,7 @@ export function ChatWidget() {
         aria-modal="false"
         aria-labelledby={titleId}
         hidden={!open}
-        className="fixed inset-x-2 bottom-2 z-50 flex max-h-[min(640px,calc(100dvh-16px))] flex-col overflow-hidden rounded-[22px] bg-white shadow-[0_40px_100px_-20px_rgb(17_20_23/0.45)] ring-1 ring-line sm:inset-x-auto sm:bottom-24 sm:right-6 sm:w-[400px] sm:max-h-[min(640px,calc(100dvh-120px))]"
+        className={`chat-panel ${closing ? "is-closing" : ""} fixed inset-x-2 bottom-2 z-50 flex max-h-[min(640px,calc(100dvh-16px))] flex-col overflow-hidden rounded-[22px] bg-white shadow-[0_40px_100px_-20px_rgb(17_20_23/0.45)] ring-1 ring-line sm:inset-x-auto sm:bottom-24 sm:right-6 sm:w-[400px] sm:max-h-[min(640px,calc(100dvh-120px))]`}
       >
         <header className="flex items-center gap-3 border-b border-line px-4 py-3">
           <BotAvatar size={38} />
@@ -216,16 +231,16 @@ export function ChatWidget() {
               <Icon name="refresh" size={17} />
             </button>
           )}
-          <button type="button" onClick={() => { setOpen(false); launcherRef.current?.focus(); }} className="flex h-9 w-9 items-center justify-center rounded-full text-slate hover:bg-mist hover:text-ink" aria-label={t("close")}>
+          <button type="button" onClick={() => close()} className="flex h-9 w-9 items-center justify-center rounded-full text-slate hover:bg-mist hover:text-ink" aria-label={t("close")}>
             <Icon name="close" size={18} />
           </button>
         </header>
 
         <div ref={listRef} className="flex-1 space-y-3 overflow-y-auto overscroll-contain bg-mist/60 px-4 py-4" aria-live="polite" aria-relevant="additions">
-          <p className="rounded-xl bg-white/70 px-3 py-2 text-[11.5px] leading-snug text-slate ring-1 ring-line">{t("aiNotice")}</p>
-          {mode === "faq" && <p className="rounded-xl bg-white px-3 py-2.5 text-[12.5px] leading-snug text-graphite ring-1 ring-line-strong">{t("faqMode.notice")}</p>}
+          <p className="chat-in rounded-xl bg-white/70 px-3 py-2 text-[11.5px] leading-snug text-slate ring-1 ring-line">{t("aiNotice")}</p>
+          {mode === "faq" && <p className="chat-in rounded-xl bg-white px-3 py-2.5 text-[12.5px] leading-snug text-graphite ring-1 ring-line-strong" style={{ "--d": 1 } as CSSProperties}>{t("faqMode.notice")}</p>}
 
-          <div className="flex gap-2.5">
+          <div className="chat-in flex gap-2.5" style={{ "--d": 2 } as CSSProperties}>
             <BotAvatar size={28} idle={false} />
             <div className="max-w-[85%] rounded-2xl rounded-tl-md bg-white px-3.5 py-2.5 text-[14px] leading-relaxed text-graphite ring-1 ring-line">
               {t("welcome")}
@@ -234,14 +249,14 @@ export function ChatWidget() {
 
           {messages.map((m, i) =>
             m.role === "user" ? (
-              <div key={i} className="flex justify-end">
+              <div key={i} className="msg-in-right flex justify-end">
                 <p className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tr-md bg-ink px-3.5 py-2.5 text-[14px] leading-relaxed text-white">
                   <span className="sr-only">{t("you")}: </span>
                   {m.content}
                 </p>
               </div>
             ) : (
-              <div key={i} className="flex gap-2.5">
+              <div key={i} className="msg-in-left flex gap-2.5">
                 <BotAvatar size={28} idle={false} />
                 <div className={`max-w-[85%] rounded-2xl rounded-tl-md px-3.5 py-2.5 text-[14px] leading-relaxed ring-1 ${m.source === "notice" ? "bg-white text-slate ring-line-strong" : "bg-white text-graphite ring-line"}`}>
                   <span className="sr-only">{t("assistant")}: </span>
@@ -256,7 +271,7 @@ export function ChatWidget() {
           )}
 
           {loading && (
-            <div className="flex items-center gap-2.5" role="status">
+            <div className="msg-in-left flex items-center gap-2.5" role="status">
               <BotAvatar size={28} idle={false} />
               <span className="flex items-center gap-1 rounded-2xl bg-white px-3.5 py-3 ring-1 ring-line">
                 <span className="sr-only">{t("thinking")}</span>
@@ -279,15 +294,15 @@ export function ChatWidget() {
 
           {showSuggestions && (
             <div>
-              <p className="mb-2 mt-1 text-[12px] font-medium text-slate">{mode === "faq" ? t("faqMode.pick") : t("suggestionsLabel")}</p>
+              <p className="chat-in mb-2 mt-1 text-[12px] font-medium text-slate" style={{ "--d": 3 } as CSSProperties}>{mode === "faq" ? t("faqMode.pick") : t("suggestionsLabel")}</p>
               <ul className="flex flex-wrap gap-2">
-                {SUGGESTIONS.map((s) => (
-                  <li key={s}>
+                {SUGGESTIONS.map((s, i) => (
+                  <li key={s} className="chat-in" style={{ "--d": 4 + i } as CSSProperties}>
                     <button
                       type="button"
                       disabled={loading}
                       onClick={() => send(t(`suggestions.${s}`), s)}
-                      className="rounded-full bg-white px-3 py-1.5 text-left text-[13px] text-graphite ring-1 ring-line-strong transition hover:text-ink hover:ring-ink/40 disabled:opacity-50"
+                      className="rounded-full bg-white px-3 py-1.5 text-left text-[13px] text-graphite ring-1 ring-line-strong transition hover:-translate-y-0.5 hover:text-ink hover:ring-ink/40 active:scale-95 disabled:opacity-50"
                     >
                       {t(`suggestions.${s}`)}
                     </button>
@@ -319,10 +334,10 @@ export function ChatWidget() {
             <button
               type="submit"
               disabled={!input.trim() || loading || tooLong}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-signal text-white transition hover:bg-signal-deep disabled:bg-line-strong"
+              className="group/send flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-signal text-white transition hover:bg-signal-deep active:scale-90 disabled:bg-line-strong"
               aria-label={t("send")}
             >
-              <Icon name="send" size={17} />
+              <Icon name="send" size={17} className="transition-transform duration-200 group-hover/send:-translate-y-0.5 group-hover/send:translate-x-0.5" />
             </button>
           </div>
           {tooLong && <p id="mj-chat-err" className="mt-1.5 px-1 text-[12px] text-signal-deep">{t("tooLong", { max: MAX })}</p>}

@@ -1,4 +1,4 @@
-/** MingAnji assistant avatar: a calm "field unit" with a signal antenna. */
+/** AI-BO assistant avatar: a calm "field unit" with a signal antenna. */
 export function BotAvatar({ size = 40, idle = true }: { size?: number; idle?: boolean }) {
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden="true" focusable="false" className="shrink-0 overflow-visible">

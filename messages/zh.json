@@ -6,7 +6,7 @@
     "featuresTitle": "系统功能",
     "featuresDescription": "卡车与设备监控、地图、规划与导出、员工管理和业务仪表盘——集于一个平台。",
     "pricingTitle": "价格",
-    "pricingDescription": "MingAnji.ai 根据您的车队和所需功能进行配置。请联系我们获取定制报价。",
+    "pricingDescription": "MingAnji.ai 套餐：Basic（免费，1 辆车）、Pro（最多 3 辆）、Premium（最多 10 辆）以及面向大型车队的企业版。",
     "contactTitle": "联系我们",
     "contactDescription": "申请演示，或咨询 MingAnji.ai 和 Tian'An 卡车。",
     "notFoundTitle": "页面未找到"
@@ -263,32 +263,115 @@
   },
   "pricing": {
     "eyebrow": "价格",
-    "title": "为您的车队量身定价",
-    "lead": "MingAnji.ai 根据您的卡车和所需功能进行配置，因此我们会为每位客户单独准备报价。",
-    "cardTitle": "联系我们获取报价",
-    "cardBody": "请告诉我们您的车队和作业情况。我们的团队将推荐配置方案并发送报价。",
-    "cardCta": "申请报价",
-    "stepsTitle": "流程",
-    "steps": {
-      "one": { "title": "告诉我们您的作业情况", "body": "卡车类型、卡车数量以及您管理的作业。" },
-      "two": { "title": "观看定制演示", "body": "我们展示对您的团队重要的功能。" },
-      "three": { "title": "收到报价", "body": "针对您的配置出具书面方案。" }
+    "title": "简单的套餐，随车队一起成长",
+    "lead": "从一辆车免费开始。连接更多卡车、需要更多细节时再升级。",
+    "plansLabel": "套餐",
+    "free": "免费",
+    "custom": "定制",
+    "perMonth": "/ 月",
+    "featuredBadge": "最适合钻孔作业",
+    "note": "价格以老挝基普（LAK）按月计。超过 10 辆车？请选择企业版。",
+    "plans": {
+      "basic": {
+        "name": "Basic",
+        "tagline": "查看卡车的当前位置和行驶轨迹。",
+        "limit": "1 辆车",
+        "cta": "开始使用",
+        "features": [
+          "卡车实时地图",
+          "每日时间线和轨迹回放",
+          "卡车列表和详情",
+          "7 天历史记录"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "为小型车队记录里程和工作时间。",
+        "limit": "最多 3 辆车",
+        "cta": "选择 Pro",
+        "includes": "包含 Basic 全部功能，另加：",
+        "features": [
+          "行驶里程",
+          "工作时间",
+          "90 天历史记录"
+        ]
+      },
+      "premium": {
+        "name": "Premium",
+        "tagline": "记录钻孔作业并规划电杆线路。",
+        "limit": "最多 10 辆车",
+        "cta": "选择 Premium",
+        "includes": "包含 Pro 全部功能，另加：",
+        "features": [
+          "钻孔记录",
+          "电杆点位项目",
+          "CAD 导出",
+          "1 年历史记录"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "tagline": "适合大型车队和定制化部署。",
+        "limit": "超过 10 辆车",
+        "cta": "联系销售",
+        "includes": "包含 Premium 全部功能，另加：",
+        "features": [
+          "超过 10 辆车",
+          "按需设定历史记录期限",
+          "与我们的团队共同规划部署"
+        ]
+      }
     },
-    "askTitle": "我们会询问的内容",
-    "ask": [
-      "您运营或计划购买的卡车类别",
-      "您希望接入的卡车数量",
-      "您需要的功能：监控、地图、规划、员工或业务管理",
-      "您的团队作业地点和时间安排"
-    ],
+    "compare": {
+      "title": "套餐对比",
+      "feature": "功能",
+      "included": "包含",
+      "notIncluded": "不包含",
+      "groups": {
+        "fleet": "车队",
+        "tracking": "定位追踪",
+        "reports": "报表",
+        "drilling": "钻孔"
+      },
+      "rows": {
+        "vehicles": "车辆数",
+        "history": "历史记录保留",
+        "liveMap": "实时地图",
+        "timeline": "每日时间线和轨迹回放",
+        "trucks": "卡车列表和详情",
+        "distances": "行驶里程",
+        "workTime": "工作时间",
+        "holes": "钻孔记录",
+        "polePins": "电杆点位项目",
+        "cad": "CAD 导出"
+      },
+      "values": {
+        "v1": "1",
+        "v3": "最多 3",
+        "v10": "最多 10",
+        "v10plus": "10+",
+        "d7": "7 天",
+        "d90": "90 天",
+        "y1": "1 年",
+        "custom": "定制"
+      }
+    },
     "faqTitle": "常见问题",
     "faq": {
-      "q1": "为什么不公布价格？",
-      "a1": "每套方案取决于所涉及的卡车、设备和功能。我们宁愿给您一份准确的报价，也不愿提供容易误导的标价。",
-      "q2": "可以先试用平台吗？",
-      "a2": "可以——申请演示，我们将带您了解 MingAnji.ai。现有客户可登录门户。",
-      "q3": "必须使用 Tian'An 卡车吗？",
-      "a3": "MingAnji.ai 围绕 Tian'An 卡车及其传感器和控制器设计。请联系我们，讨论您现有的车队。"
+      "q1": "怎样算一辆车？",
+      "a1": "每辆通过设备连接到 MingAnji.ai 的卡车算作一辆车。设备开始发送数据后，卡车就会显示在地图上。",
+      "q2": "以后可以更换套餐吗？",
+      "a2": "可以。您可以随时升级。如果改为较小的套餐，超出该套餐的功能会在计费周期结束时锁定，数据不会被删除。",
+      "q3": "如何付款？",
+      "a3": "套餐以老挝基普按月计费，可通过银行转账或 BCEL 二维码付款。如需其他方式，请联系我们。",
+      "q4": "必须使用天安卡车吗？",
+      "a4": "MingAnji.ai 围绕天安卡车及其传感器和控制器设计。如需讨论您现有的车队，请联系我们。",
+      "q5": "可以先看看平台吗？",
+      "a5": "可以。预约演示，我们将为您介绍 MingAnji.ai。现有客户可登录门户。"
+    },
+    "help": {
+      "title": "不确定哪个套餐适合？",
+      "body": "告诉我们您的卡车和工作内容，我们会为您推荐套餐并演示平台。"
     }
   },
   "contact": {
@@ -350,12 +433,12 @@
     }
   },
   "chat": {
-    "launcher": "打开 MingAnji.ai 助手",
-    "launcherShort": "问 AI",
-    "title": "MingAnji 助手",
-    "subtitle": "AI 助手",
+    "launcher": "打开 AI 助手 AI-BO",
+    "launcherShort": "AI-BO",
+    "title": "AI-BO",
+    "subtitle": "AI Business Operation",
     "aiNotice": "AI 生成的回答可能有误。如需报价或做出承诺，请联系我们的团队。",
-    "welcome": "您好！我是 MingAnji.ai 助手，可以为您介绍我们的卡车、平台功能以及系统的工作方式。您想了解什么？",
+    "welcome": "您好！我是 AI-BO，MingAnji.ai 的 AI 助手，可以为您介绍我们的卡车、平台功能以及系统的工作方式。您想了解什么？",
     "suggestionsLabel": "推荐问题",
     "suggestions": {
       "what": "MingAnji.ai 是什么？",
@@ -369,8 +452,8 @@
     "send": "发送",
     "thinking": "思考中…",
     "you": "您",
-    "assistant": "助手",
-    "close": "关闭助手",
+    "assistant": "AI-BO",
+    "close": "关闭 AI-BO",
     "restart": "重新开始",
     "tooLong": "问题请控制在 {max} 个字符以内。",
     "errors": {

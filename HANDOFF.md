@@ -9,9 +9,9 @@ Screenshots are in `docs/screenshots/`.
 
 - **Home**: a scroll-driven story. Truck → sensors → controller → MingAnji.ai → map → planning and management. It continues into five truck categories, four benefits and a closing call to action.
 - **System Features**: five capability areas, each with a short explanation, a "What's included" list, a status tag and an illustrative interface preview.
-- **Pricing**: "Contact us for pricing" with the questions we'll ask, a three-step process and a FAQ (progressive disclosure). There are no prices.
+- **Pricing**: four plans (Basic free for 1 vehicle, Pro 200,000 LAK a month for up to 3, Premium 500,000 LAK a month for up to 10, Enterprise on request), a comparison table, a FAQ and a closing call to action. Plan data is in `src/lib/plans.ts`; text is under `pricing` in `messages/*.json`.
 - **Contact Us**: an accessible enquiry form with validation and the verified contact details. Delivery behaviour is honest: it never shows a false success.
-- **AI assistant**: a floating assistant with a curated public knowledge base, a guarded server route and an FAQ fallback that is clearly labelled.
+- **AI assistant (AI-BO, "AI Business Operation")**: a floating assistant with a curated public knowledge base, a guarded server route and an FAQ fallback that is clearly labelled.
 - **Five languages**: English, 简体中文, ລາວ, ไทย and Tiếng Việt. Every page has a URL per locale, and the selected language is preserved during navigation.
 - **Header and footer**: sticky, restrained header and an accessible mobile menu with the language list. The footer has a calm layout and verified links only.
 
@@ -75,9 +75,12 @@ These appear on the reference site or in the MVP but were not verified for the c
 - Product sub-brands (BoreProof, ShiftView, FleetView) and the "ANJI" brand
 - Outcome statistics (71% utilisation and so on)
 - Export formats (the MVP shows DXF in UTM 48N and CSV)
-- The MVP's example pricing in LAK
 
 Add any of these only once confirmed.
+
+### Pricing source (31 Oct 2026)
+
+The owner confirmed the tier names, vehicle limits (1 / 3 / 10 / more than 10) and the Pro and Premium prices (the MVP prototype's 200,000 and 500,000 LAK a month). Features per plan, history periods, the downgrade rule and the payment methods (bank transfer, BCEL QR) come from the MVP prototype's plans page. CAD export is listed as a Premium feature on the owner's instruction to use the prototype's features; the exact file format is still not named. Billing is monthly only; the prototype's yearly option and extra-vehicle packs are not offered on the site.
 
 ## 4. Working vs illustrative
 
@@ -92,6 +95,8 @@ Add any of these only once confirmed.
 | Truck category silhouettes | **Illustrative.** A note says they are not specific models |
 
 ## 5. AI assistant
+
+The assistant is branded **AI-BO** (AI Business Operation). The name is kept untranslated in every language, in the chat strings in `messages/*.json` and in the system prompt in `src/app/api/chat/route.ts`.
 
 - **Backend**: `src/app/api/chat/route.ts`, using the Anthropic SDK on the server. The key never reaches the browser.
   - The default model is `claude-opus-5-5` with `effort: "low"`. Set `CHAT_MODEL=claude-haiku-5-5` for much lower cost.
@@ -109,6 +114,15 @@ Add any of these only once confirmed.
 - **Rate limiting** is in memory, per server instance. For multi-instance or serverless hosting, swap `src/lib/rate-limit.ts` for a shared store (Upstash/Redis).
 - **Launcher**: bottom-right, never auto-opens, and steps aside while a page form field has focus. The footer has extra bottom padding so the launcher doesn't cover footer content. Escape closes the panel and returns focus to the launcher.
 
+## Motion system
+
+All motion respects `prefers-reduced-motion`: those visitors get the complete static content.
+
+- **Truck story (desktop):** `src/components/story/Story.tsx` with one scroll timeline driven by `states.ts`. The truck drives in, the auger digs, the beacon flashes, and a scan beam, signal waves and connectors animate. CSS keyframes live in `globals.css`. Each step's text rises in as it becomes active.
+- **Data arriving:** `src/components/story/chartMotion.ts`. Map holes are spotted one by one; bars grow (`data-grow`), numbers count up (`data-count` via the `Count` component), lines draw (`data-draw`), and items pop (`data-pop`). On the home story these start when each panel fades in; elsewhere `MotionInView` plays them when scrolled into view.
+- **Live dashboard details:** pulsing status dots, shimmer on in-progress bars, slowly turning planned positions, and a moving dot on the trend line. All are CSS only.
+- **Site-wide scroll reveal:** `src/components/layout/ScrollReveal.tsx` fades and lifts headings, paragraphs, cards, list items, tables, FAQs, forms and the footer as they enter the screen. It uses the Web Animations API, so HTML attributes are never changed. Add `data-no-reveal` to opt an element out, or `data-reveal` to opt one in.
+
 ## 6. Configuration required
 
 | Variable | Purpose |
@@ -125,7 +139,7 @@ The webhook payload is `{name, email, company, phone, country, topic, message, c
 
 1. **No logo files were supplied.** A provisional text treatment ("MingAnji.ai" with ".ai" in red, plus a small map-tile mark) is in `src/components/layout/Logo.tsx` and `public/icon.svg`. Replace it with the real assets.
 2. **Brand attribution.** "Powered by Tian'An" stays in English in every language.
-3. **English flag.** English uses the UK flag. The language name is always shown next to the flag.
+3. **Flags-only language selector.** At the owner's request the selector shows flags without visible names. Each flag link still carries the language name as `aria-label` and a hover `title`, so screen readers and mouse users can identify it. English uses the UK flag.
 4. **Legal links.** Privacy Policy and Terms are **not linked**. The reference site has `/legal/privacy` and `/legal/terms`, but they belong to the old "ANJI" site, and approved content for this site wasn't confirmed. Social links are omitted because none were found.
 5. **Contact consent.** The consent checkbox wording is generic. Have it reviewed against your privacy policy.
 6. **Pricing copy.** It says quotations are prepared individually and lists the questions we'll ask. No prices, limits or commitments are given.

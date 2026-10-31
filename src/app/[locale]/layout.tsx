@@ -8,6 +8,7 @@ import { site } from "@/lib/site";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/chat/ChatWidget";
+import { ScrollReveal, REVEAL_TARGETS } from "@/components/layout/ScrollReveal";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -43,7 +44,13 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
   return (
-    <html lang={localeMeta[locale as Locale].htmlLang} className={fontVariables}>
+    <html lang={localeMeta[locale as Locale].htmlLang} className={fontVariables} suppressHydrationWarning>
+      <head>
+        {/* Without JavaScript, never hide reveal targets. */}
+        <noscript>
+          <style>{`${REVEAL_TARGETS} { opacity: 1 !important; animation: none !important; }`}</style>
+        </noscript>
+      </head>
       <body className="min-h-screen bg-paper">
         <NextIntlClientProvider>
           <Header />
@@ -52,6 +59,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
           </main>
           <Footer />
           <ChatWidget />
+          <ScrollReveal />
         </NextIntlClientProvider>
       </body>
     </html>

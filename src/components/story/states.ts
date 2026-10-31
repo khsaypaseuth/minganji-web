@@ -39,11 +39,12 @@ export type StateKey =
   | "export"
   | "link"
   | "tiles"
-  | "links6";
+  | "links6"
+  | "uplink";
 
 /** Truck SVG world viewBox per scene (world is 1200 × 700). */
 export const TRUCK_VIEW: string[] = [
-  "0 0 1200 700",
+  "60 100 1080 630",
   "100 120 880 513",
   "0 0 1200 700",
   "0 0 1200 700",
@@ -71,6 +72,7 @@ export const STATES: Partial<Record<StateKey, Vars>>[] = [
     link: { opacity: 0 },
     tiles: { opacity: 0, y: 30 },
     links6: { opacity: 0 },
+    uplink: { opacity: 0 },
   },
   // 1 · sensors (zoom handled by TRUCK_VIEW)
   { callouts: { opacity: 1 } },
@@ -87,6 +89,7 @@ export const STATES: Partial<Record<StateKey, Vars>>[] = [
     truckMarker: { opacity: 1 },
     recent: { opacity: 1 },
     link: { opacity: 1 },
+    uplink: { opacity: 1 },
   },
   // 4 · plan & export
   {

@@ -21,9 +21,28 @@ export function buildDashLabels(t: T, p: T, c: T): DashLabels {
 }
 const none: StyleOf = () => ({});
 
+/** Status dot; "live" adds a soft ping, "blink" a slow fade (both hidden with reduced motion). */
+function StatusDot({ className, live }: { className: string; live?: "ping" | "blink" }) {
+  return (
+    <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
+      {live === "ping" && <span className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-60 motion-reduce:hidden ${className}`} />}
+      <span className={`relative inline-flex h-2 w-2 rounded-full ${className} ${live === "blink" ? "live-blink" : ""}`} />
+    </span>
+  );
+}
+
+/** A number that counts up when its chart animates (see chartMotion.ts). */
+export function Count({ value, decimals = 0 }: { value: number; decimals?: number }) {
+  return (
+    <span data-count={value} data-decimals={decimals || undefined} className="tabular-nums">
+      {value.toFixed(decimals)}
+    </span>
+  );
+}
+
 // Power-line route with 12 hole positions (map coords 746 × 436).
 export const HOLES = Array.from({ length: 12 }, (_, i) => {
-  const jitter = [0, 6, -4, 5, -6, 3, -3, 6, -2, 4, -5, 2][i];
+  const jitter = [0, 2, -1, 2, -2, 1, -1, 2, 0, 1, -2, 1][i];
   return { x: 70 + i * (600 / 11), y: 356 - i * (262 / 11) + jitter, i };
 });
 const DONE = 7; // holes 0–6 recorded; the truck is at hole 7
@@ -57,6 +76,21 @@ export function LivePill({ label }: { label: string }) {
   );
 }
 
+// The holes follow the sidewalk of a main road: the road runs parallel to the
+// drilling line, offset towards the top-left, with a pavement strip between.
+const ROUTE = (() => {
+  const a = { x: 70, y: 356 }, b = { x: 670, y: 94 };
+  const len = Math.hypot(b.x - a.x, b.y - a.y);
+  const d = { x: (b.x - a.x) / len, y: (b.y - a.y) / len };
+  const n = { x: d.y, y: -d.x }; // normal pointing to the road side (up-left)
+  const line = (off: number) => {
+    const p = { x: a.x - d.x * 120 + n.x * off, y: a.y - d.y * 120 + n.y * off };
+    const q = { x: b.x + d.x * 120 + n.x * off, y: b.y + d.y * 120 + n.y * off };
+    return `M${p.x.toFixed(1)} ${p.y.toFixed(1)} L${q.x.toFixed(1)} ${q.y.toFixed(1)}`;
+  };
+  return { road: line(26), kerb: line(14), sidewalk: line(5) };
+})();
+
 function MapBase() {
   return (
     <>
@@ -64,8 +98,9 @@ function MapBase() {
       <g fill="#eaece7">
         <rect x="30" y="30" width="170" height="90" rx="8" transform="rotate(-8 30 30)" />
         <rect x="420" y="250" width="200" height="110" rx="8" transform="rotate(6 420 250)" />
-        <rect x="560" y="40" width="150" height="80" rx="8" transform="rotate(-6 560 40)" />
-        <rect x="70" y="250" width="150" height="100" rx="8" transform="rotate(4 70 250)" />
+        <rect x="610" y="-24" width="150" height="62" rx="8" transform="rotate(-6 610 -24)" />
+        <rect x="250" y="322" width="140" height="66" rx="8" transform="rotate(4 250 322)" />
+        <rect x="26" y="184" width="118" height="62" rx="8" transform="rotate(-6 26 184)" />
       </g>
       <path d="M-20 410 C 200 380, 380 460, 760 400" stroke="#dbe6ef" strokeWidth="22" fill="none" strokeLinecap="round" />
       <g stroke="#ffffff" strokeWidth="9" fill="none" strokeLinecap="round">
@@ -76,7 +111,13 @@ function MapBase() {
       <g stroke="#e2e5e8" strokeWidth="1" fill="none">
         <path d="M150 -10 L260 450" strokeDasharray="2 10" />
       </g>
-      <path d={`M${HOLES[0].x - 30} ${HOLES[0].y + 14} L${HOLES[11].x + 40} ${HOLES[11].y - 18}`} stroke="#111417" strokeOpacity="0.28" strokeWidth="2" strokeDasharray="7 6" />
+      {/* main road with the sidewalk the holes are drilled along */}
+      <path d={ROUTE.sidewalk} stroke="#e6e2d9" strokeWidth="22" strokeLinecap="round" />
+      <path d={ROUTE.road} stroke="#dde2e6" strokeWidth="24" strokeLinecap="round" />
+      <path d={ROUTE.road} stroke="#ffffff" strokeWidth="20" strokeLinecap="round" />
+      <path d={ROUTE.road} stroke="#e2e5e8" strokeWidth="1.5" strokeDasharray="10 9" />
+      <path d={ROUTE.kerb} stroke="#d6d1c6" strokeWidth="1.2" />
+      <path d={`M${HOLES[0].x - 30} ${HOLES[0].y + 13} L${HOLES[11].x + 40} ${HOLES[11].y - 17}`} stroke="#111417" strokeOpacity="0.22" strokeWidth="2" strokeDasharray="7 6" />
     </>
   );
 }
@@ -89,14 +130,16 @@ export function MapView({ d, styleOf = none }: { d: DashLabels; styleOf?: StyleO
       <MapBase />
       {/* planned positions */}
       <g data-k="planned" style={styleOf("planned")}>
+        <path d={`M${truck.x} ${truck.y} L${HOLES[DONE + 1].x} ${HOLES[DONE + 1].y}`} stroke="#d7261e" strokeWidth="2.5" className="flow-dash" />
         {HOLES.slice(DONE + 1).map((h) => (
-          <circle key={h.i} cx={h.x} cy={h.y} r="8" fill="#fff" stroke="#8a929b" strokeWidth="2" strokeDasharray="3 3" />
+          <circle key={h.i} className="spin-slow" cx={h.x} cy={h.y} r="8" fill="#fff" stroke="#8a929b" strokeWidth="2" strokeDasharray="3 3" />
         ))}
       </g>
       {/* recorded holes */}
       <g data-k="holesDone" style={styleOf("holesDone")}>
         {HOLES.slice(0, DONE).map((h) => (
           <g key={h.i} data-hole>
+            <circle data-ripple cx={h.x} cy={h.y} r="9" fill="none" stroke="#111417" strokeWidth="2" opacity="0" />
             <circle cx={h.x} cy={h.y} r="9" fill="#111417" stroke="#fff" strokeWidth="3" />
           </g>
         ))}
@@ -111,16 +154,20 @@ export function MapView({ d, styleOf = none }: { d: DashLabels; styleOf?: StyleO
       </g>
       {/* recent activity pulse */}
       <g data-k="recent" style={styleOf("recent")}>
-        <circle className="pulse-ring" cx={recent.x} cy={recent.y} r="12" fill="none" stroke="#d7261e" strokeWidth="2.5" />
-        <circle cx={recent.x} cy={recent.y} r="9" fill="#d7261e" stroke="#fff" strokeWidth="3" />
-        <g transform={`translate(${recent.x - 80} ${recent.y + 26})`}>
-          <rect width="160" height="30" rx="8" fill="#111417" />
-          <text x="80" y="20" textAnchor="middle" fontSize="13.5" fontWeight="600" fill="#fff">{d.recentHole}</text>
+        <g data-recent>
+          <circle className="pulse-ring" cx={recent.x} cy={recent.y} r="12" fill="none" stroke="#d7261e" strokeWidth="2.5" />
+          <circle cx={recent.x} cy={recent.y} r="9" fill="#d7261e" stroke="#fff" strokeWidth="3" />
+          <g transform={`translate(${recent.x - 80} ${recent.y + 26})`}>
+            <rect width="160" height="30" rx="8" fill="#111417" />
+            <text x="80" y="20" textAnchor="middle" fontSize="13.5" fontWeight="600" fill="#fff">{d.recentHole}</text>
+          </g>
         </g>
       </g>
       {/* truck marker */}
       <g data-k="truckMarker" style={styleOf("truckMarker")}>
+        <g data-marker>
         <circle cx={truck.x} cy={truck.y} r="26" fill="#d7261e" opacity="0.14" />
+        <circle className="pulse-ring" cx={truck.x} cy={truck.y} r="18" fill="none" stroke="#d7261e" strokeWidth="2" />
         <circle cx={truck.x} cy={truck.y} r="15" fill="#d7261e" stroke="#fff" strokeWidth="3" />
         <path d={`M${truck.x - 7} ${truck.y - 4} h8 v7 h-8z M${truck.x + 1} ${truck.y - 1} h4 l3 3 v4 h-7z`} fill="#fff" />
         <g transform={`translate(${truck.x + 24} ${truck.y - 44})`}>
@@ -128,6 +175,7 @@ export function MapView({ d, styleOf = none }: { d: DashLabels; styleOf?: StyleO
           <text x="12" y="19" fontSize="13.5" fontWeight="700" fill="#111417">{d.truckId}</text>
           <circle cx="16" cy="32" r="3.5" fill="#d7261e" />
           <text x="25" y="36" fontSize="12" fill="#5b636c">{d.drilling}</text>
+        </g>
         </g>
       </g>
     </svg>
@@ -144,18 +192,18 @@ export function SummaryCard({ d, style, k, className = "" }: { d: DashLabels; st
     <div data-k={k} style={style} className={`rounded-[18px] bg-white p-5 shadow-[var(--shadow-lg)] ring-1 ring-line ${className}`}>
       <p className="text-[14px] font-semibold text-ink">{d.summary}</p>
       <div className="mt-3 flex items-end gap-2">
-        <span className="font-display text-[44px] font-semibold leading-none text-ink">58%</span>
+        <span className="font-display text-[44px] font-semibold leading-none text-ink"><Count value={58} />%</span>
         <span className="pb-1 text-[13px] text-slate">{d.progress}</span>
       </div>
       <div className="mt-3 h-2 overflow-hidden rounded-full bg-cloud">
-        <div className="h-full w-[58%] rounded-full bg-signal" />
+        <div data-grow="x" className="h-full w-[58%] rounded-full bg-signal" />
       </div>
       <dl className="mt-4 space-y-2">
         {rows.map((r) => (
           <div key={r.label} className="flex items-center gap-2 text-[13.5px]">
             <span className={`h-2 w-2 rounded-full ${r.tone}`} aria-hidden="true" />
             <dt className="flex-1 text-slate">{r.label}</dt>
-            <dd className="font-mono font-medium text-ink">{r.value}</dd>
+            <dd className="font-mono font-medium text-ink"><Count value={r.value} /></dd>
           </div>
         ))}
       </dl>
@@ -188,7 +236,7 @@ export function ExportCard({ d, style, k, className = "" }: { d: DashLabels; sty
           {Array.from({ length: 9 }, (_, i) => {
             const x = 30 + i * 30, y = 121 - i * 11.6;
             return (
-              <g key={i}>
+              <g key={i} data-pop>
                 <path d={`M${x - 5} ${y - 5} l10 10 M${x + 5} ${y - 5} l-10 10`} stroke={i < 6 ? "#d7261e" : "#8a929b"} strokeWidth="1.6" />
                 <text x={x + 6} y={y + 16} fontSize="8" fill="#5b636c" fontFamily="var(--font-code)">{`H-${String(i + 1).padStart(2, "0")}`}</text>
               </g>
@@ -221,9 +269,9 @@ const HOURS = [6.5, 7.2, 5.8, 7.6, 6.9, 3.1, 0];
 
 export function ActivityTile({ d, className }: { d: DashLabels; className?: string }) {
   const trucks = [
-    { id: "Truck 07", st: d.drilling, c: "bg-signal" },
-    { id: "Truck 03", st: d.idle, c: "bg-[#e0a325]" },
-    { id: "Truck 12", st: d.offline, c: "bg-steel" },
+    { id: "Truck 07", st: d.drilling, c: "bg-signal", live: "ping" as const },
+    { id: "Truck 03", st: d.idle, c: "bg-[#e0a325]", live: "blink" as const },
+    { id: "Truck 12", st: d.offline, c: "bg-steel", live: undefined },
   ];
   const max = 8;
   return (
@@ -231,7 +279,7 @@ export function ActivityTile({ d, className }: { d: DashLabels; className?: stri
       <ul className="mt-3 space-y-2">
         {trucks.map((t) => (
           <li key={t.id} className="flex items-center gap-2 rounded-lg bg-mist px-3 py-2 text-[14px]">
-            <span className={`h-2 w-2 rounded-full ${t.c}`} aria-hidden="true" />
+            <StatusDot className={t.c} live={t.live} />
             <span className="font-medium text-ink">{t.id}</span>
             <span className="ml-auto text-slate">{t.st}</span>
           </li>
@@ -241,7 +289,7 @@ export function ActivityTile({ d, className }: { d: DashLabels; className?: stri
       <div className="mt-2 flex h-[92px] items-end gap-2" aria-hidden="true">
         {HOURS.map((h, i) => (
           <div key={i} className="flex flex-1 flex-col items-center gap-1">
-            <div className={`w-full rounded-md ${i === 4 ? "bg-signal" : "bg-ink/85"}`} style={{ height: `${Math.max(4, (h / max) * 70)}px` }} />
+            <div data-grow="y" className={`relative w-full rounded-md ${i === 4 ? "bg-signal bar-live" : "bg-ink/85"}`} style={{ height: `${Math.max(4, (h / max) * 70)}px` }} />
             <span className="text-[10.5px] text-steel">{d.days[i]}</span>
           </div>
         ))}
@@ -264,10 +312,10 @@ export function PlanningTile({ d, className }: { d: DashLabels; className?: stri
           <li key={r.n}>
             <div className="flex justify-between text-[14px]">
               <span className="font-medium text-ink">{r.n}</span>
-              <span className="font-mono text-slate">{r.p}%</span>
+              <span className="font-mono text-slate"><Count value={r.p} />%</span>
             </div>
             <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-cloud">
-              <div className={`h-full rounded-full ${r.p === 100 ? "bg-ink" : "bg-signal"}`} style={{ width: `${r.p}%` }} />
+              <div data-grow="x" className={`h-full rounded-full ${r.p === 100 ? "bg-ink" : "bg-signal"} ${r.p > 0 && r.p < 100 ? "bar-live" : ""}`} style={{ width: `${r.p}%` }} />
             </div>
           </li>
         ))}
@@ -282,23 +330,26 @@ export function PlanningTile({ d, className }: { d: DashLabels; className?: stri
 
 export function StaffTile({ d, className }: { d: DashLabels; className?: string }) {
   const staff = [
-    { i: "KV", r: d.operator, h: "7.5 h" },
-    { i: "SP", r: d.crew, h: "7.0 h" },
-    { i: "TL", r: d.crew, h: "6.5 h" },
-    { i: "BK", r: d.operator, h: "6.0 h" },
+    { i: "KV", r: d.operator, h: 7.5 },
+    { i: "SP", r: d.crew, h: 7.0 },
+    { i: "TL", r: d.crew, h: 6.5 },
+    { i: "BK", r: d.operator, h: 6.0 },
   ];
   return (
     <Tile title={d.staff} className={className}>
       <div className="mt-3 flex items-end gap-2">
-        <span className="font-display text-[40px] font-semibold leading-none text-ink">6</span>
-        <span className="pb-0.5 text-[12.5px] text-slate">{d.onShift}</span>
+        <span className="font-display text-[40px] font-semibold leading-none text-ink"><Count value={6} /></span>
+        <span className="flex items-center gap-1.5 pb-0.5 text-[12.5px] text-slate"><StatusDot className="bg-signal" live="ping" />{d.onShift}</span>
       </div>
       <ul className="mt-5 space-y-3">
         {staff.map((s) => (
           <li key={s.i} className="flex items-center gap-2.5 text-[14px]">
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ink text-[10.5px] font-semibold text-white">{s.i}</span>
+            <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-ink text-[10.5px] font-semibold text-white">
+              {s.i}
+              <span className="live-blink absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-[#1f8a5b] ring-2 ring-white" style={{ animationDelay: `${staff.indexOf(s) * 0.4}s` }} aria-hidden="true" />
+            </span>
             <span className="text-slate">{s.r}</span>
-            <span className="ml-auto font-mono text-ink">{s.h}</span>
+            <span className="ml-auto font-mono text-ink"><Count value={s.h} decimals={1} /> h</span>
           </li>
         ))}
       </ul>
@@ -312,16 +363,21 @@ export function BusinessTile({ d, className }: { d: DashLabels; className?: stri
       <dl className="mt-3 grid grid-cols-2 gap-3">
         <div className="rounded-xl bg-mist p-3">
           <dt className="text-[13px] text-slate">{d.jobs}</dt>
-          <dd className="font-display text-[30px] font-semibold text-ink">3</dd>
+          <dd className="font-display text-[30px] font-semibold text-ink"><Count value={3} /></dd>
         </div>
         <div className="rounded-xl bg-mist p-3">
           <dt className="text-[13px] text-slate">{d.utilisation}</dt>
-          <dd className="font-display text-[30px] font-semibold text-ink">72%</dd>
+          <dd className="font-display text-[30px] font-semibold text-ink"><Count value={72} />%</dd>
         </div>
       </dl>
       <svg viewBox="0 0 240 70" className="mt-auto h-auto w-full pt-4" aria-hidden="true">
-        <path d="M0 58 L30 50 L60 54 L90 38 L120 42 L150 28 L180 30 L210 16 L240 20" fill="none" stroke="#d7261e" strokeWidth="2.5" strokeLinejoin="round" />
-        <path d="M0 58 L30 50 L60 54 L90 38 L120 42 L150 28 L180 30 L210 16 L240 20 V70 H0Z" fill="#d7261e" opacity="0.07" />
+        <path data-draw pathLength={1} d="M0 58 L30 50 L60 54 L90 38 L120 42 L150 28 L180 30 L210 16 L240 20" fill="none" stroke="#d7261e" strokeWidth="2.5" strokeLinejoin="round" />
+        <path d="M0 58 L30 50 L60 54 L90 38 L120 42 L150 28 L180 30 L210 16 L240 20 V70 H0Z" fill="#d7261e" opacity="0.07" data-fade="0.07" />
+        <circle className="pulse-ring" cx="240" cy="20" r="5" fill="none" stroke="#d7261e" strokeWidth="2" />
+        <circle data-pop cx="240" cy="20" r="4" fill="#d7261e" stroke="#fff" strokeWidth="2" />
+        <circle r="3" fill="#fff" stroke="#d7261e" strokeWidth="1.5" className="motion-only">
+          <animateMotion dur="3s" repeatCount="indefinite" path="M0 58 L30 50 L60 54 L90 38 L120 42 L150 28 L180 30 L210 16 L240 20" />
+        </circle>
       </svg>
     </Tile>
   );

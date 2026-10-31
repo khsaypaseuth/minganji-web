@@ -93,6 +93,7 @@ export function StoryStage({ scene = 0 }: { scene?: number }) {
           }}
           styleOf={s}
           title={t("stageLabel")}
+          intro={scene === 0}
         />
         </div>
       </div>

@@ -38,17 +38,16 @@ export function LanguageSwitcher() {
         onClick={() => setOpen((o) => !o)}
         className="flex h-9 items-center gap-2 rounded-full px-3 text-[13.5px] font-medium text-graphite transition-colors hover:bg-mist"
       >
-        <Flag code={current.flag} />
-        <span>{current.name}</span>
+        <Flag code={current.flag} className="!h-[18px] !w-[27px]" />
         <Icon name="chevronDown" size={14} className={`transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
       <div
         id={listId}
         hidden={!open}
-        className="absolute right-0 top-[calc(100%+8px)] w-60 rounded-2xl bg-white p-1.5 shadow-[var(--shadow-lg)] ring-1 ring-line"
+        className="absolute right-0 top-[calc(100%+8px)] rounded-2xl bg-white p-1.5 shadow-[var(--shadow-lg)] ring-1 ring-line"
       >
         <p className="px-3 pb-1 pt-2 font-mono text-[10.5px] uppercase tracking-[0.12em] text-steel">{t("language")}</p>
-        <ul>
+        <ul className="flex gap-1">
           {locales.map((l) => (
             <li key={l}>
               <Link
@@ -56,13 +55,12 @@ export function LanguageSwitcher() {
                 locale={l}
                 lang={localeMeta[l].htmlLang}
                 aria-current={l === locale ? "true" : undefined}
+                aria-label={localeMeta[l].name}
+                title={localeMeta[l].name}
                 onClick={() => setOpen(false)}
-                className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-[14px] text-graphite transition-colors hover:bg-mist aria-[current=true]:bg-mist aria-[current=true]:font-semibold aria-[current=true]:text-ink"
+                className="flex h-10 w-12 items-center justify-center rounded-xl ring-1 ring-transparent transition-colors hover:bg-mist aria-[current=true]:bg-mist aria-[current=true]:ring-signal"
               >
-                <Flag code={localeMeta[l].flag} />
-                <span className="flex-1">{localeMeta[l].name}</span>
-                {l !== "en" && <span className="text-[11.5px] text-steel" lang="en">{localeMeta[l].english}</span>}
-                {l === locale && <Icon name="check" size={16} className="text-signal" />}
+                <Flag code={localeMeta[l].flag} className="!h-[18px] !w-[27px]" />
               </Link>
             </li>
           ))}
@@ -77,7 +75,7 @@ export function LanguageList({ onSelect }: { onSelect?: () => void }) {
   const locale = useLocale() as Locale;
   const pathname = usePathname();
   return (
-    <ul className="grid grid-cols-1 gap-1 sm:grid-cols-2">
+    <ul className="flex flex-wrap gap-2">
       {locales.map((l) => (
         <li key={l}>
           <Link
@@ -85,12 +83,12 @@ export function LanguageList({ onSelect }: { onSelect?: () => void }) {
             locale={l}
             lang={localeMeta[l].htmlLang}
             aria-current={l === locale ? "true" : undefined}
+            aria-label={localeMeta[l].name}
+            title={localeMeta[l].name}
             onClick={onSelect}
-            className="flex items-center gap-3 rounded-xl px-3 py-3 text-[15px] text-graphite ring-1 ring-transparent hover:bg-mist aria-[current=true]:bg-mist aria-[current=true]:font-semibold aria-[current=true]:ring-line"
+            className="flex h-12 w-14 items-center justify-center rounded-xl ring-1 ring-line hover:bg-mist aria-[current=true]:bg-mist aria-[current=true]:ring-2 aria-[current=true]:ring-signal"
           >
-            <Flag code={localeMeta[l].flag} />
-            <span className="flex-1">{localeMeta[l].name}</span>
-            {l !== "en" && <span className="text-[12px] text-steel" lang="en">{localeMeta[l].english}</span>}
+            <Flag code={localeMeta[l].flag} className="!h-[20px] !w-[30px]" />
           </Link>
         </li>
       ))}

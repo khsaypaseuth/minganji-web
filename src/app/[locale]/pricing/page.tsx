@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container, SectionHeading } from "@/components/ui/Section";
 import { ButtonLink } from "@/components/ui/Button";
 import { Icon } from "@/components/icons/Icon";
+import { COMPARE, PLANS, type Cell, type Plan } from "@/lib/plans";
 import { site } from "@/lib/site";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -11,57 +12,138 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return { title: t("pricingTitle"), description: t("pricingDescription"), alternates: { canonical: `/${locale}/pricing` } };
 }
 
-// No prices, packages or limits are published: none were verified. See HANDOFF.md.
+const groupIcon = { fleet: "gauge", tracking: "map", reports: "chart", drilling: "drill" } as const;
+
+// Plans and prices come from src/lib/plans.ts. See HANDOFF.md ("Pricing source").
 export default async function PricingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("pricing");
   const c = await getTranslations("common");
-  const steps = ["one", "two", "three"] as const;
+  const nf = new Intl.NumberFormat(locale === "zh" ? "zh-CN" : locale);
+  const faqs = [1, 2, 3, 4, 5];
+
+  const price = (p: Plan) =>
+    p.priceLak === null ? (
+      <span className="font-display text-[34px] font-semibold leading-none text-ink">{t("custom")}</span>
+    ) : p.priceLak === 0 ? (
+      <span className="font-display text-[34px] font-semibold leading-none text-ink">{t("free")}</span>
+    ) : (
+      <span className="flex flex-wrap items-baseline gap-x-1.5">
+        <span className="font-display text-[34px] font-semibold leading-none tabular-nums text-ink">{nf.format(p.priceLak)}</span>
+        <span className="text-[14px] font-semibold text-graphite">LAK</span>
+        <span className="text-[14px] text-slate">{t("perMonth")}</span>
+      </span>
+    );
+
+  const cell = (v: Cell) =>
+    v === true ? (
+      <>
+        <Icon name="check" size={18} className="mx-auto text-signal" />
+        <span className="sr-only">{t("compare.included")}</span>
+      </>
+    ) : v === false ? (
+      <>
+        <span className="block text-center text-steel" aria-hidden="true">—</span>
+        <span className="sr-only">{t("compare.notIncluded")}</span>
+      </>
+    ) : (
+      <span className="block text-center text-[14px] font-medium text-graphite">{t(`compare.values.${v}`)}</span>
+    );
 
   return (
     <>
-      <section className="relative overflow-hidden pb-16 pt-14 sm:pb-24 sm:pt-20">
-        <div className="pointer-events-none absolute inset-0 grid-paper [mask-image:linear-gradient(to_bottom,black,transparent_75%)]" aria-hidden="true" />
+      <section className="relative overflow-hidden pb-10 pt-14 sm:pt-20">
+        <div className="pointer-events-none absolute inset-0 grid-paper [mask-image:linear-gradient(to_bottom,black,transparent_70%)]" aria-hidden="true" />
         <Container className="relative">
-          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]">
-            <SectionHeading as="h1" eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
-            <div className="relative rounded-[26px] bg-white p-7 shadow-[var(--shadow-lg)] ring-1 ring-line sm:p-9">
-              <span className="absolute right-6 top-6 h-2.5 w-2.5 rounded-full bg-signal" aria-hidden="true" />
-              <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-steel">MingAnji.ai</p>
-              <h2 className="font-display mt-3 text-[28px] font-semibold leading-tight text-ink">{t("cardTitle")}</h2>
-              <p className="mt-3 text-[15.5px] leading-relaxed text-slate">{t("cardBody")}</p>
-              <ul className="mt-6 space-y-2.5 border-t border-line pt-6">
-                {(t.raw("ask") as string[]).map((a) => (
-                  <li key={a} className="flex gap-3 text-[14.5px] text-graphite">
-                    <Icon name="check" size={18} className="mt-0.5 shrink-0 text-signal" />
-                    {a}
-                  </li>
-                ))}
-              </ul>
-              <ButtonLink href={{ pathname: "/contact", query: { topic: "pricing" } }} size="lg" arrow className="mt-8 w-full">
-                {t("cardCta")}
-              </ButtonLink>
-              <p className="mt-4 text-center text-[13px] text-slate">
-                <a href={`mailto:${site.email}`} className="underline decoration-line-strong underline-offset-4 hover:text-signal">{site.email}</a>
-              </p>
-            </div>
-          </div>
+          <SectionHeading as="h1" align="center" eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
         </Container>
       </section>
 
-      <section aria-labelledby="steps-title" className="bg-mist py-16 sm:py-24">
+      <section aria-label={t("plansLabel")} className="pb-16 sm:pb-24">
         <Container>
-          <h2 id="steps-title" className="font-display text-[clamp(1.6rem,3vw,2.3rem)] font-semibold text-ink">{t("stepsTitle")}</h2>
-          <ol className="mt-10 grid gap-4 md:grid-cols-3">
-            {steps.map((s, i) => (
-              <li key={s} className="rounded-[20px] bg-white p-6 ring-1 ring-line">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-ink font-mono text-[13px] text-white">{i + 1}</span>
-                <h3 className="mt-5 text-[17px] font-semibold text-ink">{t(`steps.${s}.title`)}</h3>
-                <p className="mt-2 text-[14.5px] leading-relaxed text-slate">{t(`steps.${s}.body`)}</p>
+          <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {PLANS.map((p) => (
+              <li
+                key={p.id}
+                className={`relative flex flex-col rounded-[24px] bg-white p-7 ${
+                  p.featured ? "shadow-[var(--shadow-lg)] ring-2 ring-signal" : "ring-1 ring-line"
+                }`}
+              >
+                {p.featured && (
+                  <span className="absolute -top-3 left-7 rounded-full bg-signal px-3 py-1 text-[12px] font-semibold text-white">
+                    {t("featuredBadge")}
+                  </span>
+                )}
+                <h2 className="font-display text-[22px] font-semibold text-ink">{t(`plans.${p.id}.name`)}</h2>
+                <p className="mt-2 min-h-[3em] text-[14.5px] leading-relaxed text-slate">{t(`plans.${p.id}.tagline`)}</p>
+                <div className="mt-6 flex min-h-[44px] items-end">{price(p)}</div>
+                <p className="mt-2 text-[13.5px] font-medium text-graphite">{t(`plans.${p.id}.limit`)}</p>
+                <ButtonLink
+                  href={{ pathname: "/contact", query: { topic: p.id === "basic" ? "demo" : "pricing" } }}
+                  variant={p.featured ? "primary" : p.id === "enterprise" ? "dark" : "secondary"}
+                  arrow
+                  className="mt-6 w-full"
+                >
+                  {t(`plans.${p.id}.cta`)}
+                </ButtonLink>
+                <div className="mt-7 border-t border-line pt-6">
+                  {p.id !== "basic" && <p className="mb-3 text-[13.5px] font-semibold text-ink">{t(`plans.${p.id}.includes`)}</p>}
+                  <ul className="space-y-2.5">
+                    {(t.raw(`plans.${p.id}.features`) as string[]).map((f) => (
+                      <li key={f} className="flex gap-2.5 text-[14.5px] text-graphite">
+                        <Icon name="check" size={17} className="mt-0.5 shrink-0 text-signal" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </li>
             ))}
-          </ol>
+          </ul>
+          <p className="mt-6 text-center text-[13.5px] text-slate">{t("note")}</p>
+        </Container>
+      </section>
+
+      <section aria-labelledby="compare-title" className="bg-mist py-16 sm:py-24">
+        <Container>
+          <h2 id="compare-title" className="font-display text-[clamp(1.6rem,3vw,2.3rem)] font-semibold text-ink">{t("compare.title")}</h2>
+          <div className="relative mt-8 overflow-x-auto rounded-[20px] bg-white ring-1 ring-line">
+            <table className="w-full min-w-[680px] border-collapse text-left">
+              <thead>
+                <tr className="border-b border-line">
+                  <th scope="col" className="w-[34%] px-5 py-4 text-[13px] font-medium text-slate">
+                    <span className="sr-only">{t("compare.feature")}</span>
+                  </th>
+                  {PLANS.map((p) => (
+                    <th key={p.id} scope="col" className={`px-3 py-4 text-center text-[15px] font-semibold ${p.featured ? "text-signal" : "text-ink"}`}>
+                      {t(`plans.${p.id}.name`)}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              {COMPARE.map((g) => (
+                <tbody key={g.group}>
+                  <tr className="bg-mist/60">
+                    <th scope="colgroup" colSpan={5} className="px-5 py-2.5">
+                      <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-steel">
+                        <Icon name={groupIcon[g.group as keyof typeof groupIcon]} size={14} />
+                        {t(`compare.groups.${g.group}`)}
+                      </span>
+                    </th>
+                  </tr>
+                  {g.rows.map((r) => (
+                    <tr key={r.key} className="border-t border-line">
+                      <th scope="row" className="px-5 py-3.5 text-[14.5px] font-medium text-graphite">{t(`compare.rows.${r.key}`)}</th>
+                      {r.cells.map((v, i) => (
+                        <td key={PLANS[i].id} className="px-3 py-3.5">{cell(v)}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              ))}
+            </table>
+          </div>
         </Container>
       </section>
 
@@ -69,7 +151,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
         <Container className="max-w-[860px]">
           <h2 id="faq-title" className="font-display text-[clamp(1.6rem,3vw,2.3rem)] font-semibold text-ink">{t("faqTitle")}</h2>
           <div className="mt-8 divide-y divide-line border-y border-line">
-            {[1, 2, 3].map((n) => (
+            {faqs.map((n) => (
               <details key={n} className="group py-5">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[17px] font-semibold text-ink [&::-webkit-details-marker]:hidden">
                   {t(`faq.q${n}`)}
@@ -81,9 +163,14 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
               </details>
             ))}
           </div>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <ButtonLink href={{ pathname: "/contact", query: { topic: "pricing" } }} arrow>{t("cardCta")}</ButtonLink>
-            <ButtonLink href="/features" variant="secondary">{c("exploreFeatures")}</ButtonLink>
+
+          <div className="mt-12 rounded-[24px] bg-ink p-8 text-white sm:p-10">
+            <h2 className="font-display text-[clamp(1.4rem,2.6vw,1.9rem)] font-semibold">{t("help.title")}</h2>
+            <p className="mt-3 max-w-[55ch] text-[15.5px] leading-relaxed text-white/75">{t("help.body")}</p>
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <ButtonLink href={{ pathname: "/contact", query: { topic: "demo" } }} arrow>{c("requestDemo")}</ButtonLink>
+              <a href={`mailto:${site.email}`} className="text-[14.5px] text-white/80 underline decoration-white/30 underline-offset-4 hover:text-white">{site.email}</a>
+            </div>
           </div>
         </Container>
       </section>

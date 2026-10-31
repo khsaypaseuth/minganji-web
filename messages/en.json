@@ -6,7 +6,7 @@
     "featuresTitle": "System features",
     "featuresDescription": "Truck and equipment monitoring, mapping, planning and exports, staff management and business dashboards — in one platform.",
     "pricingTitle": "Pricing",
-    "pricingDescription": "MingAnji.ai is configured to your fleet and the capabilities you need. Contact us for a tailored quotation.",
+    "pricingDescription": "MingAnji.ai plans: Basic (free, 1 vehicle), Pro (up to 3), Premium (up to 10) and Enterprise for larger fleets.",
     "contactTitle": "Contact us",
     "contactDescription": "Request a demo or ask about MingAnji.ai and Tian'An trucks.",
     "notFoundTitle": "Page not found"
@@ -263,32 +263,115 @@
   },
   "pricing": {
     "eyebrow": "Pricing",
-    "title": "Pricing tailored to your fleet",
-    "lead": "MingAnji.ai is configured around your trucks and the capabilities you need, so we prepare each quotation individually.",
-    "cardTitle": "Contact us for pricing",
-    "cardBody": "Tell us about your fleet and work. Our team will recommend a setup and send a quotation.",
-    "cardCta": "Request a quotation",
-    "stepsTitle": "How it works",
-    "steps": {
-      "one": { "title": "Tell us about your work", "body": "Truck types, number of trucks and the jobs you manage." },
-      "two": { "title": "See a tailored demo", "body": "We show the capabilities that matter to your team." },
-      "three": { "title": "Receive a quotation", "body": "A written proposal for your configuration." }
+    "title": "Simple plans that grow with your fleet",
+    "lead": "Start free with one vehicle. Move up as you connect more trucks and need more detail.",
+    "plansLabel": "Plans",
+    "free": "Free",
+    "custom": "Custom",
+    "perMonth": "/ month",
+    "featuredBadge": "Best for drilling work",
+    "note": "Prices are in Lao kip (LAK) per month. Need more than 10 vehicles? Choose Enterprise.",
+    "plans": {
+      "basic": {
+        "name": "Basic",
+        "tagline": "See where your truck is and where it has been.",
+        "limit": "1 vehicle",
+        "cta": "Get started",
+        "features": [
+          "Live map of your truck",
+          "Day timeline and route playback",
+          "Truck list and details",
+          "7 days of history"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Track distance and working time for a small fleet.",
+        "limit": "Up to 3 vehicles",
+        "cta": "Choose Pro",
+        "includes": "Everything in Basic, plus:",
+        "features": [
+          "Distances driven",
+          "Work time",
+          "90 days of history"
+        ]
+      },
+      "premium": {
+        "name": "Premium",
+        "tagline": "Record drilling work and plan pole lines.",
+        "limit": "Up to 10 vehicles",
+        "cta": "Choose Premium",
+        "includes": "Everything in Pro, plus:",
+        "features": [
+          "Hole tracking",
+          "Pole pin projects",
+          "CAD export",
+          "1 year of history"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "tagline": "For larger fleets and tailored setups.",
+        "limit": "More than 10 vehicles",
+        "cta": "Contact sales",
+        "includes": "Everything in Premium, plus:",
+        "features": [
+          "More than 10 vehicles",
+          "History period to suit your needs",
+          "Setup planned with our team"
+        ]
+      }
     },
-    "askTitle": "What we'll ask about",
-    "ask": [
-      "Which truck categories you operate or plan to buy",
-      "How many trucks you want to connect",
-      "Which capabilities you need: monitoring, mapping, planning, staff or business management",
-      "Where your teams work and your timeline"
-    ],
+    "compare": {
+      "title": "Compare plans",
+      "feature": "Feature",
+      "included": "Included",
+      "notIncluded": "Not included",
+      "groups": {
+        "fleet": "Fleet",
+        "tracking": "Tracking",
+        "reports": "Reports",
+        "drilling": "Drilling"
+      },
+      "rows": {
+        "vehicles": "Vehicles",
+        "history": "History kept",
+        "liveMap": "Live map",
+        "timeline": "Day timeline and route playback",
+        "trucks": "Truck list and details",
+        "distances": "Distances driven",
+        "workTime": "Work time",
+        "holes": "Hole tracking",
+        "polePins": "Pole pin projects",
+        "cad": "CAD export"
+      },
+      "values": {
+        "v1": "1",
+        "v3": "Up to 3",
+        "v10": "Up to 10",
+        "v10plus": "10+",
+        "d7": "7 days",
+        "d90": "90 days",
+        "y1": "1 year",
+        "custom": "Custom"
+      }
+    },
     "faqTitle": "Questions",
     "faq": {
-      "q1": "Why aren't prices listed?",
-      "a1": "Each setup depends on the trucks, equipment and capabilities involved. We'd rather give you an accurate quotation than a misleading list price.",
-      "q2": "Can I try the platform first?",
-      "a2": "Yes — request a demo and we'll walk you through MingAnji.ai. Existing customers can sign in to the portal.",
-      "q3": "Do I need Tian'An trucks?",
-      "a3": "MingAnji.ai is designed around Tian'An trucks and their sensors and controllers. Contact us to discuss your existing fleet."
+      "q1": "What counts as a vehicle?",
+      "a1": "Each truck connected to MingAnji.ai through its device counts as one vehicle. A truck appears on the map once its device starts sending data.",
+      "q2": "Can I change my plan later?",
+      "a2": "Yes. You can move up at any time. If you move to a smaller plan, features outside it lock at the end of your billing period. No data is deleted.",
+      "q3": "How do I pay?",
+      "a3": "Plans are billed monthly in Lao kip. You can pay by bank transfer or BCEL QR code. Contact us if you need another option.",
+      "q4": "Do I need Tian'An trucks?",
+      "a4": "MingAnji.ai is designed around Tian'An trucks and their sensors and controllers. Contact us to discuss your existing fleet.",
+      "q5": "Can I see the platform first?",
+      "a5": "Yes. Request a demo and we'll walk you through MingAnji.ai. Existing customers can sign in to the portal."
+    },
+    "help": {
+      "title": "Not sure which plan fits?",
+      "body": "Tell us about your trucks and the work you do. We'll recommend a plan and show you the platform."
     }
   },
   "contact": {
@@ -350,12 +433,12 @@
     }
   },
   "chat": {
-    "launcher": "Open the MingAnji.ai assistant",
-    "launcherShort": "Ask AI",
-    "title": "MingAnji Assistant",
-    "subtitle": "AI assistant",
+    "launcher": "Open AI-BO, the AI assistant",
+    "launcherShort": "AI-BO",
+    "title": "AI-BO",
+    "subtitle": "AI Business Operation",
     "aiNotice": "AI-generated answers can be wrong. For quotes and commitments, contact our team.",
-    "welcome": "Hello! I'm the MingAnji.ai assistant. I can explain our trucks, platform features and how the system works. What would you like to know?",
+    "welcome": "Hello! I'm AI-BO, the MingAnji.ai AI assistant. I can explain our trucks, platform features and how the system works. What would you like to know?",
     "suggestionsLabel": "Suggested questions",
     "suggestions": {
       "what": "What is MingAnji.ai?",
@@ -369,8 +452,8 @@
     "send": "Send",
     "thinking": "Thinking…",
     "you": "You",
-    "assistant": "Assistant",
-    "close": "Close assistant",
+    "assistant": "AI-BO",
+    "close": "Close AI-BO",
     "restart": "Start over",
     "tooLong": "Please keep your question under {max} characters.",
     "errors": {

@@ -6,10 +6,14 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SCENES, STATES, TRUCK_VIEW, type StateKey, type Vars } from "./states";
 import { StoryStage } from "./StoryStage";
+import { playFor, prepareFor, type MotionKind } from "./chartMotion";
+import { MotionInView } from "./MotionInView";
 import { ButtonLink } from "@/components/ui/Button";
 import { IllustrativeTag } from "@/components/ui/Section";
 
 const STEP_KEYS = ["truck", "sensors", "controller", "platform", "plan", "manage"] as const;
+/** Which motion each static frame plays when scrolled into view. */
+const FRAME_MOTION: MotionKind[][] = [[], [], [], ["holes"], ["charts"], ["charts"]];
 
 function toGsap(v: Vars) {
   const { opacity, ...rest } = v;
@@ -19,9 +23,9 @@ function toGsap(v: Vars) {
 function HeroCopy({ titleId }: { titleId?: string }) {
   const t = useTranslations();
   return (
-    <div className="hero-in">
+    <div className="hero-in" data-no-reveal>
       <p className="eyebrow">{t("home.hero.eyebrow")}</p>
-      <h1 id={titleId} className="font-display mt-5 text-[clamp(2.4rem,5.2vw,4.4rem)] font-semibold leading-[1.02] text-ink">
+      <h1 id={titleId} className="font-display mt-5 text-[clamp(2.4rem,4.4vw,4rem)] font-semibold leading-[1.02] text-ink">
         {t("home.hero.title")}
       </h1>
       <p className="mt-6 max-w-[52ch] text-[17.5px] leading-relaxed text-slate">{t("home.hero.lead")}</p>
@@ -111,10 +115,7 @@ export function Story() {
         const at = i - 0.6;
         if (TRUCK_VIEW[i] !== TRUCK_VIEW[i - 1]) tl.to(q("[data-truck-svg]"), { attr: { viewBox: TRUCK_VIEW[i] } }, at);
         for (const [k, v] of Object.entries(STATES[i]) as [StateKey, Vars][]) {
-          if (k === "holesDone" && v.opacity === 1) {
-            tl.set(q(`[data-k="holesDone"]`), { autoAlpha: 1 }, at);
-            tl.fromTo(q(`[data-k="holesDone"] [data-hole]`), { opacity: 0 }, { opacity: 1, stagger: 0.05, duration: 0.25 }, at + 0.1);
-          } else if (k === "tiles" && v.opacity === 1) {
+          if (k === "tiles" && v.opacity === 1) {
             tl.set(q(`[data-k="tiles"]`), { autoAlpha: 1, y: 0 }, at);
             tl.fromTo(q("[data-tile]"), { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, stagger: 0.07, duration: 0.35 }, at + 0.15);
           } else {
@@ -132,6 +133,25 @@ export function Story() {
         animation: tl,
       });
 
+      // Time-based "data arriving" moments (holes spotted on the map, charts filling and
+      // counting). Each starts when its picture has faded in on the scroll timeline,
+      // and resets when the visitor scrolls back above it.
+      const finishers: (() => void)[] = [];
+      const moment = (time: number, el: Element | undefined, kind: MotionKind) => {
+        if (!el) return;
+        let run: gsap.core.Timeline | undefined;
+        prepareFor(kind)(el);
+        tl.call(() => {
+          run?.kill();
+          if (main.direction >= 0) run = playFor(kind)(el);
+          else { run = undefined; prepareFor(kind)(el); }
+        }, [], time);
+        finishers.push(() => run?.progress(1).kill());
+      };
+      moment(2.75, q('[data-k="map"]')[0], "holes");
+      moment(3.7, q('[data-k="summary"]')[0], "charts");
+      q("[data-tile]").forEach((tile, i) => moment(4.4 + 0.15 + i * 0.07 + 0.25, tile, "charts"));
+
       const steps = gsap.utils.toArray<HTMLElement>("[data-step]", root);
       const dots = gsap.utils.toArray<HTMLElement>("[data-dot]", root);
       const triggers = steps.map((el, i) =>
@@ -148,9 +168,10 @@ export function Story() {
       return () => {
         main.kill();
         triggers.forEach((x) => x.kill());
+        finishers.forEach((f) => f());
         delete root.dataset.anim;
         steps.forEach((s) => s.classList.remove("is-active"));
-        gsap.set(q("[data-k], [data-hole], [data-tile], [data-truck-svg]"), { clearProps: "all" });
+        gsap.set(q("[data-k], [data-tile], [data-truck-svg]"), { clearProps: "all" });
       };
     });
     return () => mm.revert();
@@ -161,7 +182,7 @@ export function Story() {
       {/* ---------- Desktop: sticky stage + scroll-driven story ---------- */}
       <div ref={rootRef} className="story-anim relative hidden lg:motion-safe:block">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[120vh] grid-paper [mask-image:linear-gradient(to_bottom,black,transparent)]" aria-hidden="true" />
-        <div className="relative mx-auto grid max-w-[1320px] grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-10 px-8">
+        <div className="relative mx-auto grid max-w-[1560px] grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-8 px-8 xl:gap-12">
           <ol ref={stepsRef} className="relative">
             {STEP_KEYS.map((k, i) => (
               <li
@@ -198,7 +219,7 @@ export function Story() {
 
           <div className="relative">
             <div className="sticky top-[var(--header-h)] flex h-[calc(100vh-var(--header-h))] items-center">
-              <div className="relative w-full">
+              <div className="relative mx-auto w-full max-w-[calc((100vh-var(--header-h)-56px)*1000/820)]">
                 <div ref={stageRef} className="relative">
                   <StoryStage scene={0} />
                 </div>
@@ -251,9 +272,9 @@ export function Story() {
                   {i === SCENES.length - 1 && <div className="hidden lg:block"><Closing /></div>}
                 </div>
                 <div>
-                  <div className="rounded-[22px] bg-mist p-3 ring-1 ring-line sm:p-5">
+                  <MotionInView kinds={FRAME_MOTION[i]} className="rounded-[22px] bg-mist p-3 ring-1 ring-line sm:p-5">
                     <StoryStage scene={i} />
-                  </div>
+                  </MotionInView>
                   <FrameChips scene={i} />
                 </div>
                 {i === SCENES.length - 1 && <div className="lg:hidden"><Closing /></div>}

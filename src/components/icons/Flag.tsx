@@ -1,5 +1,5 @@
-// Simplified flag glyphs for the language selector. Flags are decorative —
-// every flag is always shown next to the language name.
+// Simplified flag glyphs for the language selector. The selector shows flags
+// only, so each flag link carries the language name as aria-label and title.
 type Code = "gb" | "cn" | "la" | "th" | "vn";
 
 export function Flag({ code, className = "" }: { code: Code; className?: string }) {

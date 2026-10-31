@@ -6,4 +6,4 @@
 - Phone number: not published.
 - Existing customers sign in at https://demo.minganji.ai/signin
 - There is no public self-registration link. New customers should request access through the Contact Us page.
-- Pricing: prices are not published. MingAnji.ai is configured to the customer's fleet and required capabilities, and the team prepares a quotation. Use the Pricing page (/pricing) or Contact Us page.
+- Pricing: plans and monthly prices are listed on the Pricing page (/pricing) and in the plans note. Enterprise (more than 10 vehicles) is priced on request through the Contact Us page.

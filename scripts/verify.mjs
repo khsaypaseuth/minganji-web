@@ -106,7 +106,8 @@ for (const l of ["en", "zh", "lo", "th", "vi"]) {
   await p.fill("#mj-chat-input", "x".repeat(900));
   ok("chat length limit enforced", await p.isDisabled('#mj-chat button[type="submit"]'));
   await p.keyboard.press("Escape");
-  ok("Escape closes chat", await p.isHidden("#mj-chat"));
+  // The panel plays a short exit animation before it is hidden.
+  ok("Escape closes chat", await p.waitForSelector("#mj-chat", { state: "hidden", timeout: 1000 }).then(() => true, () => false));
   ok("focus returns to launcher", await p.evaluate(() => document.activeElement?.getAttribute("aria-controls") === "mj-chat"));
   const api = await p.request.post(`${base}/api/chat`, { data: { messages: [{ role: "assistant", content: "hi" }], locale: "en" } });
   ok("chat API rejects malformed input", api.status() === 400, String(api.status()));

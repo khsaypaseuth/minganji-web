@@ -6,7 +6,7 @@
     "featuresTitle": "Tính năng hệ thống",
     "featuresDescription": "Giám sát xe tải và thiết bị, bản đồ, lập kế hoạch và xuất dữ liệu, quản lý nhân sự và bảng điều khiển kinh doanh — trên một nền tảng.",
     "pricingTitle": "Bảng giá",
-    "pricingDescription": "MingAnji.ai được cấu hình theo đội xe và các chức năng bạn cần. Hãy liên hệ để nhận báo giá riêng.",
+    "pricingDescription": "Các gói MingAnji.ai: Basic (miễn phí, 1 xe), Pro (tối đa 3 xe), Premium (tối đa 10 xe) và Enterprise cho đội xe lớn.",
     "contactTitle": "Liên hệ",
     "contactDescription": "Yêu cầu demo hoặc hỏi về MingAnji.ai và xe tải Tian'An.",
     "notFoundTitle": "Không tìm thấy trang"
@@ -263,32 +263,115 @@
   },
   "pricing": {
     "eyebrow": "Bảng giá",
-    "title": "Giá được thiết kế riêng cho đội xe của bạn",
-    "lead": "MingAnji.ai được cấu hình theo xe của bạn và các chức năng bạn cần, vì vậy chúng tôi chuẩn bị từng báo giá riêng.",
-    "cardTitle": "Liên hệ để biết giá",
-    "cardBody": "Hãy cho chúng tôi biết về đội xe và công việc của bạn. Đội ngũ của chúng tôi sẽ đề xuất cấu hình phù hợp và gửi báo giá.",
-    "cardCta": "Yêu cầu báo giá",
-    "stepsTitle": "Cách thực hiện",
-    "steps": {
-      "one": { "title": "Chia sẻ về công việc của bạn", "body": "Loại xe, số lượng xe và các công việc bạn quản lý." },
-      "two": { "title": "Xem demo theo yêu cầu", "body": "Chúng tôi trình bày những chức năng quan trọng với đội ngũ của bạn." },
-      "three": { "title": "Nhận báo giá", "body": "Đề xuất bằng văn bản cho cấu hình của bạn." }
+    "title": "Gói đơn giản, mở rộng cùng đội xe của bạn",
+    "lead": "Bắt đầu miễn phí với một xe. Nâng cấp khi bạn kết nối thêm xe và cần thông tin chi tiết hơn.",
+    "plansLabel": "Các gói",
+    "free": "Miễn phí",
+    "custom": "Tùy chỉnh",
+    "perMonth": "/ tháng",
+    "featuredBadge": "Phù hợp nhất cho công việc khoan",
+    "note": "Giá tính bằng kíp Lào (LAK) mỗi tháng. Cần hơn 10 xe? Hãy chọn Enterprise.",
+    "plans": {
+      "basic": {
+        "name": "Basic",
+        "tagline": "Xem xe của bạn đang ở đâu và đã đi những đâu.",
+        "limit": "1 xe",
+        "cta": "Bắt đầu",
+        "features": [
+          "Bản đồ trực tiếp của xe",
+          "Dòng thời gian trong ngày và phát lại hành trình",
+          "Danh sách và chi tiết xe",
+          "Lịch sử 7 ngày"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Theo dõi quãng đường và giờ làm việc cho đội xe nhỏ.",
+        "limit": "Tối đa 3 xe",
+        "cta": "Chọn Pro",
+        "includes": "Mọi tính năng của Basic, thêm:",
+        "features": [
+          "Quãng đường đã đi",
+          "Giờ làm việc",
+          "Lịch sử 90 ngày"
+        ]
+      },
+      "premium": {
+        "name": "Premium",
+        "tagline": "Ghi nhận công việc khoan và lập kế hoạch tuyến cột.",
+        "limit": "Tối đa 10 xe",
+        "cta": "Chọn Premium",
+        "includes": "Mọi tính năng của Pro, thêm:",
+        "features": [
+          "Theo dõi hố khoan",
+          "Dự án cọc định vị cột",
+          "Xuất CAD",
+          "Lịch sử 1 năm"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "tagline": "Dành cho đội xe lớn và triển khai theo yêu cầu.",
+        "limit": "Hơn 10 xe",
+        "cta": "Liên hệ kinh doanh",
+        "includes": "Mọi tính năng của Premium, thêm:",
+        "features": [
+          "Hơn 10 xe",
+          "Thời gian lưu lịch sử theo nhu cầu",
+          "Lập kế hoạch triển khai cùng đội ngũ của chúng tôi"
+        ]
+      }
     },
-    "askTitle": "Chúng tôi sẽ hỏi về",
-    "ask": [
-      "Loại xe tải bạn đang vận hành hoặc dự định mua",
-      "Số lượng xe bạn muốn kết nối",
-      "Chức năng bạn cần: giám sát, bản đồ, lập kế hoạch, nhân sự hoặc quản lý doanh nghiệp",
-      "Nơi đội ngũ của bạn làm việc và thời gian dự kiến"
-    ],
-    "faqTitle": "Câu hỏi thường gặp",
+    "compare": {
+      "title": "So sánh các gói",
+      "feature": "Tính năng",
+      "included": "Có",
+      "notIncluded": "Không có",
+      "groups": {
+        "fleet": "Đội xe",
+        "tracking": "Theo dõi",
+        "reports": "Báo cáo",
+        "drilling": "Khoan"
+      },
+      "rows": {
+        "vehicles": "Số xe",
+        "history": "Thời gian lưu lịch sử",
+        "liveMap": "Bản đồ trực tiếp",
+        "timeline": "Dòng thời gian và phát lại hành trình",
+        "trucks": "Danh sách và chi tiết xe",
+        "distances": "Quãng đường đã đi",
+        "workTime": "Giờ làm việc",
+        "holes": "Theo dõi hố khoan",
+        "polePins": "Dự án cọc định vị cột",
+        "cad": "Xuất CAD"
+      },
+      "values": {
+        "v1": "1",
+        "v3": "Tối đa 3",
+        "v10": "Tối đa 10",
+        "v10plus": "10+",
+        "d7": "7 ngày",
+        "d90": "90 ngày",
+        "y1": "1 năm",
+        "custom": "Tùy chỉnh"
+      }
+    },
+    "faqTitle": "Câu hỏi",
     "faq": {
-      "q1": "Vì sao không niêm yết giá?",
-      "a1": "Mỗi cấu hình phụ thuộc vào xe, thiết bị và chức năng liên quan. Chúng tôi muốn gửi báo giá chính xác hơn là một bảng giá niêm yết dễ gây hiểu lầm.",
-      "q2": "Tôi có thể dùng thử nền tảng trước không?",
-      "a2": "Có — hãy yêu cầu demo và chúng tôi sẽ hướng dẫn bạn dùng MingAnji.ai. Khách hàng hiện tại có thể đăng nhập vào cổng.",
-      "q3": "Tôi có cần xe tải Tian'An không?",
-      "a3": "MingAnji.ai được thiết kế xoay quanh xe tải Tian'An cùng cảm biến và bộ điều khiển của xe. Hãy liên hệ để trao đổi về đội xe hiện có của bạn."
+      "q1": "Thế nào được tính là một xe?",
+      "a1": "Mỗi xe tải kết nối với MingAnji.ai qua thiết bị được tính là một xe. Xe sẽ hiện trên bản đồ khi thiết bị bắt đầu gửi dữ liệu.",
+      "q2": "Tôi có thể đổi gói sau không?",
+      "a2": "Có. Bạn có thể nâng cấp bất cứ lúc nào. Nếu chuyển sang gói nhỏ hơn, các tính năng ngoài gói sẽ bị khóa khi kết thúc kỳ thanh toán. Không có dữ liệu nào bị xóa.",
+      "q3": "Thanh toán như thế nào?",
+      "a3": "Các gói được tính phí hằng tháng bằng kíp Lào. Bạn có thể thanh toán bằng chuyển khoản ngân hàng hoặc mã QR BCEL. Hãy liên hệ nếu bạn cần phương thức khác.",
+      "q4": "Tôi có cần xe Tian'An không?",
+      "a4": "MingAnji.ai được thiết kế cho xe Tian'An cùng cảm biến và bộ điều khiển. Hãy liên hệ để trao đổi về đội xe hiện có của bạn.",
+      "q5": "Tôi có thể xem nền tảng trước không?",
+      "a5": "Có. Hãy yêu cầu demo và chúng tôi sẽ giới thiệu MingAnji.ai. Khách hàng hiện tại có thể đăng nhập cổng thông tin."
+    },
+    "help": {
+      "title": "Chưa chắc gói nào phù hợp?",
+      "body": "Hãy cho chúng tôi biết về xe và công việc của bạn. Chúng tôi sẽ đề xuất gói và giới thiệu nền tảng."
     }
   },
   "contact": {
@@ -350,12 +433,12 @@
     }
   },
   "chat": {
-    "launcher": "Mở trợ lý MingAnji.ai",
-    "launcherShort": "Hỏi AI",
-    "title": "Trợ lý MingAnji",
-    "subtitle": "Trợ lý AI",
+    "launcher": "Mở AI-BO, trợ lý AI",
+    "launcherShort": "AI-BO",
+    "title": "AI-BO",
+    "subtitle": "AI Business Operation",
     "aiNotice": "Câu trả lời do AI tạo ra có thể sai. Với báo giá và cam kết, vui lòng liên hệ đội ngũ của chúng tôi.",
-    "welcome": "Xin chào! Tôi là trợ lý MingAnji.ai. Tôi có thể giải thích về xe tải, tính năng nền tảng và cách hệ thống hoạt động. Bạn muốn biết điều gì?",
+    "welcome": "Xin chào! Tôi là AI-BO, trợ lý AI của MingAnji.ai. Tôi có thể giải thích về xe tải, tính năng nền tảng và cách hệ thống hoạt động. Bạn muốn biết điều gì?",
     "suggestionsLabel": "Câu hỏi gợi ý",
     "suggestions": {
       "what": "MingAnji.ai là gì?",
@@ -369,8 +452,8 @@
     "send": "Gửi",
     "thinking": "Đang suy nghĩ…",
     "you": "Bạn",
-    "assistant": "Trợ lý",
-    "close": "Đóng trợ lý",
+    "assistant": "AI-BO",
+    "close": "Đóng AI-BO",
     "restart": "Bắt đầu lại",
     "tooLong": "Vui lòng giữ câu hỏi dưới {max} ký tự.",
     "errors": {

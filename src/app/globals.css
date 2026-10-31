@@ -175,13 +175,123 @@ body {
   .pulse-ring, .motion-only { display: none; }
 }
 
+/* Truck story: entrance, digging loop and ambient effects (SVG user units). */
+.wheel, .outrigger, .auger-bob, .auger-spin, .dirt, .beacon-glow, .uplink {
+  transform-box: fill-box;
+}
+.wheel { transform-origin: center; }
+.outrigger { transform-origin: top; }
+.beacon-glow { transform-origin: center; opacity: 0; }
+.uplink { transform-origin: bottom; opacity: 0; }
+.dirt { opacity: 0; }
+@keyframes truck-drive {
+  0% { transform: translateX(-1150px); }
+  72% { transform: translateX(14px); }
+  86% { transform: translateX(-4px); }
+  100% { transform: none; }
+}
+@keyframes wheel-roll {
+  from { transform: rotate(-900deg); }
+  to { transform: none; }
+}
+@keyframes outrigger-drop {
+  from { transform: scaleY(0.08); }
+  to { transform: none; }
+}
+@keyframes auger-bob {
+  0%, 12% { transform: none; }
+  42%, 58% { transform: translateY(-40px); }
+  92%, 100% { transform: none; }
+}
+@keyframes auger-spin {
+  to { transform: translateY(16px); }
+}
+@keyframes dirt {
+  0%, 84% { opacity: 0; transform: none; }
+  88% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)); }
+}
+@keyframes beacon {
+  0%, 100% { opacity: 0; transform: scale(0.6); }
+  50% { opacity: 0.45; transform: scale(1.25); }
+}
+@keyframes scan {
+  0% { transform: translateX(110px); opacity: 0; }
+  10%, 85% { opacity: 1; }
+  100% { transform: translateX(990px); opacity: 0; }
+}
+@keyframes uplink {
+  0% { transform: scale(0.3); opacity: 0.9; }
+  100% { transform: translateY(-70px) scale(1.5); opacity: 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .truck-drive { animation: truck-drive 1.9s cubic-bezier(0.16, 0.84, 0.3, 1) both; }
+  .truck-drive .wheel { animation: wheel-roll 1.9s cubic-bezier(0.16, 0.84, 0.3, 1) both; }
+  .truck-drive .outrigger { animation: outrigger-drop 0.7s cubic-bezier(0.3, 1.5, 0.5, 1) 1.9s both; }
+  .auger-bob { animation: auger-bob 3.4s ease-in-out 2.6s infinite; }
+  .auger-spin { animation: auger-spin 0.45s linear infinite; }
+  .dirt { animation: dirt 3.4s ease-out 2.6s infinite; }
+  .beacon-glow { animation: beacon 1.3s ease-in-out infinite; }
+  .scan-sweep { animation: scan 3.6s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+  .uplink { animation: uplink 2.4s ease-out infinite; }
+}
+
+/* Background power line: poles rise far-to-near, then cables draw in. */
+.pole { transform-box: fill-box; transform-origin: bottom; }
+@keyframes pole-rise { from { transform: scaleY(0); } to { transform: none; } }
+@keyframes wire-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: no-preference) {
+  .poles-intro .pole { animation: pole-rise 0.7s cubic-bezier(0.3, 1.3, 0.5, 1) calc(0.2s + var(--i) * 0.1s) both; }
+  .poles-intro .wire { stroke-dasharray: 1; animation: wire-draw 1s ease-out calc(1s + var(--i) * 0.08s) both; }
+}
+
+/* Dashboard "live" motion: slow-turning planned positions, shimmer on active bars, blinking status. */
+.spin-slow { transform-box: fill-box; transform-origin: center; }
+.bar-live { position: relative; overflow: hidden; }
+.bar-live::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 45%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.5), transparent);
+  transform: translateX(-120%);
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes shimmer { to { transform: translateX(260%); } }
+@keyframes live-blink { 50% { opacity: 0.35; } }
+@media (prefers-reduced-motion: no-preference) {
+  .spin-slow { animation: spin 9s linear infinite; }
+  .bar-live::after { animation: shimmer 2.4s ease-in-out 1.4s infinite; }
+  .live-blink { animation: live-blink 1.8s ease-in-out infinite; }
+}
+
 /* Hide scrollbars on horizontal chip rows while keeping them scrollable */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
 
-/* Scroll story: dim inactive steps only once the animation is running. */
-[data-anim="on"] .story-step:not(.is-active) {
-  opacity: 0.22;
+/* Scroll story: the active step's text rises and fades in, piece by piece;
+   steps you have scrolled past fade back down. Only while the animation runs. */
+.story-step > * {
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+[data-anim="on"] .story-step:not(.is-active) > * {
+  opacity: 0.12;
+  transform: translateY(32px);
+}
+[data-anim="on"] .story-step.is-active > :nth-child(2) { transition-delay: 0.08s; }
+[data-anim="on"] .story-step.is-active > :nth-child(3) { transition-delay: 0.16s; }
+[data-anim="on"] .story-step.is-active > :nth-child(4) { transition-delay: 0.24s; }
+[data-anim="on"] .story-step.is-active > :nth-child(5) { transition-delay: 0.32s; }
+
+/* Site-wide scroll reveal: hide targets until ScrollReveal.tsx takes over
+   (keep this selector in sync with REVEAL_TARGETS). If scripts never run,
+   the fallback animation shows everything after 3 s. */
+@keyframes reveal-fallback { to { opacity: 1; } }
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.reveal-ready) :is(main, footer) :is(h1, h2, h3, p, li, details, table, form, dl, figure, [data-reveal]):not(.story-anim *, [data-no-reveal], [data-no-reveal] *, .no-scrollbar *) {
+    opacity: 0;
+    animation: reveal-fallback 0.01s linear 3s forwards;
+  }
 }
 
 @keyframes hero-in {
@@ -202,6 +312,48 @@ body {
   .bot-float { animation: float-y 4s ease-in-out infinite; }
   .bot-blink { animation: blink 5s ease-in-out infinite; }
 }
+/* AI-BO chat: launcher entrance and halo, panel pop, cascading intro, message slide-ins. */
+@keyframes chat-launch-in {
+  from { opacity: 0; transform: translateY(28px) scale(0.6); }
+  60% { opacity: 1; transform: translateY(-5px) scale(1.04); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes chat-halo {
+  0% { transform: scale(1); opacity: 0.6; }
+  70%, 100% { transform: scale(1.9); opacity: 0; }
+}
+@keyframes chat-pop-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.92); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes chat-pop-out {
+  to { opacity: 0; transform: translateY(14px) scale(0.95); }
+}
+@keyframes chat-item-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes msg-in-left {
+  from { opacity: 0; transform: translateX(-14px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes msg-in-right {
+  from { opacity: 0; transform: translateX(14px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+.chat-halo { opacity: 0; }
+.chat-panel { transform-origin: bottom center; }
+@media (min-width: 640px) { .chat-panel { transform-origin: bottom right; } }
+@media (prefers-reduced-motion: no-preference) {
+  .chat-launcher { animation: chat-launch-in 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.2) 0.9s backwards; }
+  .chat-halo { animation: chat-halo 3.4s ease-out 2.2s infinite; }
+  .chat-panel { animation: chat-pop-in 0.36s cubic-bezier(0.2, 0.9, 0.3, 1.12) both; }
+  .chat-panel.is-closing { animation: chat-pop-out 0.2s ease-in both; }
+  .chat-in { animation: chat-item-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.14s + var(--d, 0) * 0.06s) both; }
+  .msg-in-left { animation: msg-in-left 0.4s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
+  .msg-in-right { animation: msg-in-right 0.35s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
+}
+
 @keyframes typing {
   0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
   30% { opacity: 1; transform: translateY(-2px); }
