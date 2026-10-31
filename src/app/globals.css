@@ -245,6 +245,36 @@ body {
   .poles-intro .wire { stroke-dasharray: 1; animation: wire-draw 1s ease-out calc(1s + var(--i) * 0.08s) both; }
 }
 
+/* Feature diagram connectors: data flowing from one step to the next. */
+.flow-line {
+  position: relative;
+  border-radius: 9999px;
+  background-image: repeating-linear-gradient(90deg, rgb(215 38 30 / 0.5) 0 6px, transparent 6px 12px);
+  background-size: 24px 100%;
+}
+.flow-line::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  border-radius: 9999px;
+  background: #d7261e;
+  opacity: 0;
+}
+@keyframes flow-line { to { background-position: 24px 0; } }
+@keyframes flow-dot {
+  0% { left: 0; opacity: 0; }
+  15%, 85% { opacity: 1; }
+  100% { left: calc(100% - 7px); opacity: 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .flow-line { animation: flow-line 0.9s linear infinite; }
+  .flow-line::after { animation: flow-dot 1.8s ease-in-out infinite; animation-delay: inherit; }
+}
+
 /* Dashboard "live" motion: slow-turning planned positions, shimmer on active bars, blinking status. */
 .spin-slow { transform-box: fill-box; transform-origin: center; }
 .bar-live { position: relative; overflow: hidden; }

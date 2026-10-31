@@ -82,6 +82,8 @@ Add any of these only once confirmed.
 
 The owner confirmed the tier names, vehicle limits (1 / 3 / 10 / more than 10) and the Pro and Premium prices (the MVP prototype's 200,000 and 500,000 LAK a month). Features per plan, history periods, the downgrade rule and the payment methods (bank transfer, BCEL QR) come from the MVP prototype's plans page. CAD export is listed as a Premium feature on the owner's instruction to use the prototype's features; the exact file format is still not named. Billing is monthly only; the prototype's yearly option and extra-vehicle packs are not offered on the site.
 
+**Currencies (31 Oct 2026):** each language shows its own currency (Lao → LAK, English → USD, Thai → THB, Vietnamese → VND, Chinese → CNY), and the owner confirmed customers are billed in the currency shown. Non-LAK prices are a fixed, rounded list in `src/lib/plans.ts`, converted at rates of 30 Oct 2026 (US$1 ≈ 22,520 LAK, 33.7 THB, 25,800 VND, 6.65 CNY). They do not update automatically; review them when exchange rates move. Payment methods outside Laos still need confirming.
+
 ## 4. Working vs illustrative
 
 | Item | State |

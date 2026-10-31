@@ -147,7 +147,7 @@ export function ContactForm() {
         <div className="mt-2 grid gap-2 sm:grid-cols-2">
           {TOPICS.map((tp) => (
             <label key={tp} className="flex cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-[14.5px] text-graphite ring-1 ring-inset ring-line-strong has-[:checked]:bg-signal-soft has-[:checked]:text-ink has-[:checked]:ring-2 has-[:checked]:ring-signal has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-signal">
-              <input type="radio" name="topic" value={tp} checked={v.topic === tp} onChange={() => set("topic", tp)} className="h-4 w-4 accent-[#d7261e]" />
+              <input type="radio" name="topic" value={tp} checked={v.topic === tp} onChange={() => set("topic", tp)} className="h-5 w-5 shrink-0 accent-[#d7261e]" />
               {t(`topics.${tp}`)}
             </label>
           ))}
@@ -170,7 +170,7 @@ export function ContactForm() {
 
       <div className="mt-6">
         <label className="flex cursor-pointer items-start gap-3 text-[14px] text-graphite">
-          <input id="f-consent" type="checkbox" checked={v.consent} onChange={(e) => set("consent", e.target.checked)} aria-invalid={!!errors.consent} aria-describedby={describe("consent")} className="mt-0.5 h-4.5 w-4.5 shrink-0 accent-[#d7261e]" />
+          <input id="f-consent" type="checkbox" checked={v.consent} onChange={(e) => set("consent", e.target.checked)} aria-invalid={!!errors.consent} aria-describedby={describe("consent")} className="mt-0.5 h-5 w-5 shrink-0 accent-[#d7261e]" />
           <span>{t("consent")} <span className="text-signal" aria-hidden="true">*</span></span>
         </label>
         {errors.consent && <p id="consent-error" className="mt-1.5 pl-7 text-[13px] text-signal-deep">{t(`errors.${errors.consent}`)}</p>}

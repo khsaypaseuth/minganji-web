@@ -9,8 +9,11 @@ import { buildDashLabels, ActivityTile, BusinessTile, ExportCard, LivePill, MapV
 export const CANVAS_W = 1000;
 export const CANVAS_H = 820;
 
-/** Scales a fixed 1000 × 820 canvas to the width of its container. */
-export function StageCanvas({ children, className = "" }: { children: ReactNode; className?: string }) {
+/** Vertical crop [top, height] of the canvas for static truck-only frames. */
+export const FRAME_CROP: ([number, number] | undefined)[] = [[125, 480], [100, 620], [190, 440]];
+
+/** Scales a fixed 1000 × 820 canvas to the width of its container, optionally showing only a band of it. */
+export function StageCanvas({ children, className = "", crop }: { children: ReactNode; className?: string; crop?: [number, number] }) {
   const ref = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState<number | null>(null);
   useLayoutEffect(() => {
@@ -21,10 +24,10 @@ export function StageCanvas({ children, className = "" }: { children: ReactNode;
     return () => ro.disconnect();
   }, []);
   return (
-    <div ref={ref} className={`relative w-full ${className}`} style={{ aspectRatio: `${CANVAS_W} / ${CANVAS_H}` }}>
+    <div ref={ref} className={`relative w-full ${crop ? "overflow-hidden" : ""} ${className}`} style={{ aspectRatio: `${CANVAS_W} / ${crop ? crop[1] : CANVAS_H}` }}>
       <div
         className="absolute left-0 top-0 origin-top-left"
-        style={{ width: CANVAS_W, height: CANVAS_H, transform: `scale(${scale ?? 0.5})`, visibility: scale === null ? "hidden" : "visible" }}
+        style={{ width: CANVAS_W, height: CANVAS_H, transform: `scale(${scale ?? 0.5}) translateY(${crop ? -crop[0] : 0}px)`, visibility: scale === null ? "hidden" : "visible" }}
       >
         {children}
       </div>
@@ -41,14 +44,14 @@ export function useDashLabels(): DashLabels {
  * the GSAP timeline (Story.tsx) takes over; in static mode it renders the
  * final state of the given scene.
  */
-export function StoryStage({ scene = 0 }: { scene?: number }) {
+export function StoryStage({ scene = 0, crop }: { scene?: number; crop?: [number, number] }) {
   const t = useTranslations("home.story");
   const d = useDashLabels();
   const s = (k: StateKey) => styleFor(k, scene);
   const L = (k: string) => t(`labels.${k}`);
 
   return (
-    <StageCanvas>
+    <StageCanvas crop={crop}>
       {/* S6 connectors (map → tiles) */}
       <svg data-k="links6" style={s("links6")} className="pointer-events-none absolute inset-0" width={CANVAS_W} height={CANVAS_H} aria-hidden="true">
         {["M561 197 H609", "M150 370 V418", "M400 370 C 400 396, 505 392, 505 418", "M540 370 C 540 396, 830 392, 830 418"].map((p) => (

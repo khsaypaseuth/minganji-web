@@ -50,13 +50,13 @@ const DONE = 7; // holes 0–6 recorded; the truck is at hole 7
 export function Window({ title, children, badge, className = "", style, k }: { title: string; children: ReactNode; badge?: ReactNode; className?: string; style?: CSSProperties; k?: StateKey }) {
   return (
     <div data-k={k} style={style} className={`overflow-hidden rounded-[18px] bg-white shadow-[var(--shadow-lg)] ring-1 ring-line ${className}`}>
-      <div className="flex h-11 items-center gap-2 border-b border-line bg-white px-4">
+      <div className="flex min-h-11 items-center gap-2 border-b border-line bg-white px-4 py-2">
         <span className="flex gap-1.5" aria-hidden="true">
           <span className="h-2.5 w-2.5 rounded-full bg-cloud" />
           <span className="h-2.5 w-2.5 rounded-full bg-cloud" />
           <span className="h-2.5 w-2.5 rounded-full bg-cloud" />
         </span>
-        <span className="ml-2 truncate text-[14px] font-semibold text-ink">{title}</span>
+        <span className="ml-2 min-w-0 text-[14px] font-semibold leading-tight text-ink">{title}</span>
         <span className="ml-auto flex items-center gap-2">{badge}</span>
       </div>
       {children}
@@ -221,7 +221,7 @@ export function ExportCard({ d, style, k, className = "" }: { d: DashLabels; sty
         </span>
         <div className="min-w-0">
           <p className="text-[14px] font-semibold text-ink">{d.export}</p>
-          <p className="truncate text-[12px] text-slate">{d.exportNote}</p>
+          <p className="text-[12px] leading-snug text-slate">{d.exportNote}</p>
         </div>
       </div>
       <div className="mt-3 rounded-xl bg-[#fbfbfa] p-2 ring-1 ring-line">

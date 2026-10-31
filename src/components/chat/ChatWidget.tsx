@@ -2,6 +2,7 @@
 
 import { Fragment, useCallback, useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import NextLink from "next/link";
+import { usePathname } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { BotAvatar } from "./BotAvatar";
 import { Icon } from "@/components/icons/Icon";
@@ -70,6 +71,8 @@ export function ChatWidget() {
   const [error, setError] = useState<{ key: ErrKey; retry?: Msg[] } | null>(null);
   const [fieldFocus, setFieldFocus] = useState(false);
   const [closing, setClosing] = useState(false);
+  const [formInView, setFormInView] = useState(false);
+  const pathname = usePathname();
   const launcherRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
@@ -93,6 +96,26 @@ export function ChatWidget() {
     document.addEventListener("focusout", onOut);
     return () => { document.removeEventListener("focusin", onIn); document.removeEventListener("focusout", onOut); };
   }, []);
+
+  // On phones and tablets, step aside while a page form is on screen so the
+  // launcher never covers its fields.
+  useEffect(() => {
+    const forms = Array.from(document.querySelectorAll("main form"));
+    const seen = new Set<Element>();
+    if (!forms.length) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)));
+        setFormInView(seen.size > 0);
+      },
+      { rootMargin: "0px 0px -72px 0px" },
+    );
+    forms.forEach((f) => io.observe(f));
+    return () => {
+      io.disconnect();
+      setFormInView(false);
+    };
+  }, [pathname]);
 
   // Check (once, when first opened) whether an AI provider is configured.
   useEffect(() => {
@@ -189,7 +212,7 @@ export function ChatWidget() {
         aria-expanded={open}
         aria-controls="mj-chat"
         aria-label={open ? t("close") : t("launcher")}
-        className={`chat-launcher group fixed bottom-4 right-4 z-40 flex items-center gap-2.5 rounded-full bg-white py-1.5 pl-1.5 pr-1.5 shadow-[var(--shadow-lg)] ring-1 ring-line transition-[transform,opacity,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-14px_rgb(17_20_23/0.35)] active:scale-95 sm:bottom-6 sm:right-6 xl:pr-4 ${open ? "max-sm:pointer-events-none max-sm:opacity-0" : ""} ${fieldFocus && !open ? "pointer-events-none translate-y-4 opacity-0" : ""}`}
+        className={`chat-launcher group fixed bottom-4 right-4 z-40 flex items-center gap-2.5 rounded-full bg-white py-1.5 pl-1.5 pr-1.5 shadow-[var(--shadow-lg)] ring-1 ring-line transition-[transform,opacity,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-14px_rgb(17_20_23/0.35)] active:scale-95 sm:bottom-6 sm:right-6 xl:pr-4 ${open ? "max-sm:pointer-events-none max-sm:opacity-0" : ""} ${fieldFocus && !open ? "pointer-events-none translate-y-4 opacity-0" : ""} ${formInView && !open ? "max-lg:pointer-events-none max-lg:translate-y-4 max-lg:opacity-0" : ""}`}
       >
         <span className="relative flex h-11 w-11 items-center justify-center rounded-full bg-mist">
           {!open && <span className="chat-halo pointer-events-none absolute inset-0 rounded-full ring-2 ring-signal/50" aria-hidden="true" />}
@@ -220,10 +243,10 @@ export function ChatWidget() {
           <BotAvatar size={38} />
           <div className="min-w-0 flex-1">
             <h2 id={titleId} className="truncate text-[15.5px] font-semibold text-ink">{t("title")}</h2>
-            <p className="flex items-center gap-1.5 text-[12px] text-slate">
+            <p className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[12px] text-slate">
               <Icon name="sparkle" size={13} className="text-signal" />
               {t("subtitle")}
-              {mode === "faq" && <span className="ml-1 rounded-full bg-mist px-2 py-0.5 text-[10.5px] font-semibold uppercase tracking-wide text-graphite ring-1 ring-line">{t("faqMode.badge")}</span>}
+              {mode === "faq" && <span className="whitespace-nowrap rounded-full bg-mist px-2 py-0.5 text-[10.5px] font-semibold uppercase tracking-wide text-graphite ring-1 ring-line">{t("faqMode.badge")}</span>}
             </p>
           </div>
           {hasUser && (

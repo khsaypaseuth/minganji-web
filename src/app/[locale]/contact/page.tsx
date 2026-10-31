@@ -30,7 +30,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                 <dl className="mt-4 space-y-4 text-[15px]">
                   <div className="flex items-start gap-3">
                     <Icon name="mail" size={20} className="mt-0.5 text-signal" />
-                    <div><dt className="text-[13px] text-slate">{t("emailLabel")}</dt><dd><a href={`mailto:${site.email}`} className="font-medium text-ink hover:text-signal">{site.email}</a></dd></div>
+                    <div><dt className="text-[13px] text-slate">{t("emailLabel")}</dt><dd><a href={`mailto:${site.email}`} className="inline-flex min-h-10 items-center font-medium text-ink hover:text-signal">{site.email}</a></dd></div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Icon name="pin" size={20} className="mt-0.5 text-signal" />
@@ -41,7 +41,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
               <div className="rounded-[20px] bg-ink p-6 text-white">
                 <h2 className="text-[16px] font-semibold">{t("portalTitle")}</h2>
                 <p className="mt-1 text-[14px] text-white/70">{t("portalBody")}</p>
-                <a href={site.signInUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-1.5 text-[14.5px] font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">
+                <a href={site.signInUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex min-h-10 items-center gap-1.5 text-[14.5px] font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">
                   {c("signIn")}<Icon name="arrowUpRight" size={15} /><span className="sr-only"> {c("opensInNewTab")}</span>
                 </a>
               </div>

@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SCENES, STATES, TRUCK_VIEW, type StateKey, type Vars } from "./states";
-import { StoryStage } from "./StoryStage";
+import { FRAME_CROP, StoryStage } from "./StoryStage";
 import { playFor, prepareFor, type MotionKind } from "./chartMotion";
 import { MotionInView } from "./MotionInView";
 import { ButtonLink } from "@/components/ui/Button";
@@ -25,11 +25,11 @@ function HeroCopy({ titleId }: { titleId?: string }) {
   return (
     <div className="hero-in" data-no-reveal>
       <p className="eyebrow">{t("home.hero.eyebrow")}</p>
-      <h1 id={titleId} className="font-display mt-5 text-[clamp(2.4rem,4.4vw,4rem)] font-semibold leading-[1.02] text-ink">
+      <h1 id={titleId} className="font-display mt-5 text-[clamp(2.4rem,4.4vw,4rem)] font-semibold leading-[1.02] text-ink [@media(max-height:820px)_and_(min-width:1024px)]:mt-3 [@media(max-height:820px)_and_(min-width:1024px)]:text-[clamp(2.1rem,3.6vw,3.1rem)]">
         {t("home.hero.title")}
       </h1>
-      <p className="mt-6 max-w-[52ch] text-[17.5px] leading-relaxed text-slate">{t("home.hero.lead")}</p>
-      <div className="mt-8 flex flex-wrap gap-3">
+      <p className="mt-6 max-w-[52ch] text-[17.5px] leading-relaxed text-slate [@media(max-height:820px)_and_(min-width:1024px)]:mt-4 [@media(max-height:820px)_and_(min-width:1024px)]:text-[16px]">{t("home.hero.lead")}</p>
+      <div className="mt-8 flex flex-wrap gap-3 [@media(max-height:820px)_and_(min-width:1024px)]:mt-6">
         <ButtonLink href={{ pathname: "/contact", query: { topic: "demo" } }} size="lg" arrow>
           {t("common.requestDemo")}
         </ButtonLink>
@@ -194,7 +194,7 @@ export function Story() {
                 {i === 0 ? (
                   <>
                     <HeroCopy titleId="hero-title" />
-                    <div className="mt-14 flex items-center gap-3 text-[13px] text-steel">
+                    <div className="mt-14 flex items-center gap-3 text-[13px] text-steel [@media(max-height:820px)]:mt-8">
                       <span className="flex h-9 w-6 justify-center rounded-full ring-1 ring-line-strong" aria-hidden="true">
                         <span className="mt-2 h-2 w-0.5 animate-bounce rounded-full bg-signal" />
                       </span>
@@ -234,7 +234,7 @@ export function Story() {
                             data-dot
                             {...(i === 0 ? { "data-active": "" } : {})}
                             aria-label={t(`home.story.steps.${k}.title`)}
-                            className="block h-2 w-2 rounded-full bg-line-strong transition-all duration-300 hover:bg-steel data-[active]:w-6 data-[active]:bg-signal"
+                            className="relative block h-2 w-2 rounded-full bg-line-strong transition-all duration-300 before:absolute before:-inset-4 before:content-[''] hover:bg-steel data-[active]:w-6 data-[active]:bg-signal"
                           />
                         </li>
                       ))}
@@ -254,7 +254,7 @@ export function Story() {
           <div className="relative mx-auto max-w-[1240px] px-5 pb-10 pt-10 sm:px-8 sm:pt-16 lg:grid lg:grid-cols-2 lg:items-center lg:gap-12">
             <HeroCopy titleId="hero-title-static" />
             <div className="mt-10 lg:mt-0">
-              <StoryStage scene={0} />
+              <StoryStage scene={0} crop={FRAME_CROP[0]} />
               <div className="mt-2"><IllustrativeTag>{t("common.illustrative")}</IllustrativeTag></div>
             </div>
           </div>
@@ -273,7 +273,7 @@ export function Story() {
                 </div>
                 <div>
                   <MotionInView kinds={FRAME_MOTION[i]} className="rounded-[22px] bg-mist p-3 ring-1 ring-line sm:p-5">
-                    <StoryStage scene={i} />
+                    <StoryStage scene={i} crop={FRAME_CROP[i]} />
                   </MotionInView>
                   <FrameChips scene={i} />
                 </div>

@@ -23,7 +23,7 @@ export function MonitoringPreview({ d, p, diagram }: P) {
               <Icon name={c.icon} size={20} />
             </span>
             <span className="min-w-0 break-words text-[13px] font-semibold text-ink sm:text-[13.5px]">{c.label}</span>
-            {i < chain.length - 1 && <span className="mx-1 hidden h-px flex-1 border-t-2 border-dashed border-signal/50 sm:block" aria-hidden="true" />}
+            {i < chain.length - 1 && <span className="flow-line mx-1 hidden h-0.5 flex-1 sm:block" style={{ animationDelay: `${i * 0.4}s` }} aria-hidden="true" />}
           </li>
         ))}
       </ol>
@@ -42,7 +42,14 @@ export function MonitoringPreview({ d, p, diagram }: P) {
               <tr key={r.id}>
                 <td className="px-4 py-3 font-medium text-ink">{r.id}</td>
                 <td className="px-4 py-3"><span className="inline-flex items-center gap-2 text-graphite"><span className={`h-2 w-2 rounded-full ${r.dot}`} aria-hidden="true" />{r.st}</span></td>
-                <td className="px-4 py-3 font-mono text-ink"><Count value={r.h} decimals={1} /> h</td>
+                <td className="px-4 py-3 font-mono text-ink">
+                  <span className="flex items-center gap-3">
+                    <span className="w-12 shrink-0"><Count value={r.h} decimals={1} /> h</span>
+                    <span className="hidden h-1.5 w-full max-w-[120px] overflow-hidden rounded-full bg-cloud sm:block" aria-hidden="true">
+                      <span data-grow="x" className={`block h-full rounded-full ${r.dot}`} style={{ width: `${(r.h / 8) * 100}%` }} />
+                    </span>
+                  </span>
+                </td>
                 <td className="hidden px-4 py-3 text-slate sm:table-cell">{r.seen}</td>
               </tr>
             ))}
@@ -109,7 +116,14 @@ export function StaffPreview({ d, p }: P) {
                 </span>
               </td>
               <td className="px-4 py-3 text-slate">{r.a}</td>
-              <td className="px-4 py-3 text-right font-mono text-ink"><Count value={r.h} decimals={1} /> h</td>
+              <td className="px-4 py-3 font-mono text-ink">
+                <span className="flex items-center justify-end gap-3">
+                  <span className="hidden h-1.5 w-full max-w-[110px] overflow-hidden rounded-full bg-cloud sm:block" aria-hidden="true">
+                    <span data-grow="x" className="block h-full rounded-full bg-ink/85" style={{ width: `${(r.h / 8) * 100}%` }} />
+                  </span>
+                  <span className="w-12 shrink-0 text-right"><Count value={r.h} decimals={1} /> h</span>
+                </span>
+              </td>
             </tr>
           ))}
         </tbody>

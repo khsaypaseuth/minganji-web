@@ -12,7 +12,7 @@ export async function Footer() {
       <div className="mx-auto max-w-[1240px] px-5 pb-28 pt-14 sm:px-8 sm:pt-16 lg:pb-24">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-5">
-            <Link href="/" className="inline-flex items-center gap-2.5 rounded-lg" aria-label={`${site.name} — ${t("nav.home")}`}>
+            <Link href="/" className="inline-flex min-h-11 items-center gap-2.5 rounded-lg" aria-label={`${site.name} — ${t("nav.home")}`}>
               <LogoMark size={28} />
               <Wordmark />
             </Link>
@@ -25,10 +25,10 @@ export async function Footer() {
 
           <nav aria-labelledby="footer-explore" className="md:col-span-2">
             <h2 id="footer-explore" className="font-mono text-[11px] uppercase tracking-[0.12em] text-steel">{t("footer.explore")}</h2>
-            <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2.5 text-[14.5px] md:grid-cols-1">
+            <ul className="mt-2 grid grid-cols-2 gap-x-4 text-[14.5px] md:grid-cols-1">
               {nav.map((item) => (
                 <li key={item.key}>
-                  <Link href={item.href} className="text-graphite hover:text-signal">{t(`nav.${item.key}`)}</Link>
+                  <Link href={item.href} className="inline-flex min-h-10 items-center text-graphite hover:text-signal">{t(`nav.${item.key}`)}</Link>
                 </li>
               ))}
             </ul>
@@ -36,7 +36,7 @@ export async function Footer() {
 
           <div className="md:col-span-2">
             <h2 className="font-mono text-[11px] uppercase tracking-[0.12em] text-steel">{t("footer.portal")}</h2>
-            <a href={site.signInUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-1.5 text-[14.5px] text-graphite hover:text-signal">
+            <a href={site.signInUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex min-h-10 items-center gap-1.5 text-[14.5px] text-graphite hover:text-signal">
               {t("footer.portalSignIn")}
               <Icon name="arrowUpRight" size={14} />
               <span className="sr-only"> {t("common.opensInNewTab")}</span>
@@ -45,9 +45,9 @@ export async function Footer() {
 
           <div className="md:col-span-3">
             <h2 className="font-mono text-[11px] uppercase tracking-[0.12em] text-steel">{t("footer.contact")}</h2>
-            <ul className="mt-4 space-y-2.5 text-[14.5px] text-graphite">
+            <ul className="mt-2 space-y-1 text-[14.5px] text-graphite">
               <li>
-                <a href={`mailto:${site.email}`} className="inline-flex items-center gap-2 hover:text-signal">
+                <a href={`mailto:${site.email}`} className="inline-flex min-h-10 items-center gap-2 hover:text-signal">
                   <Icon name="mail" size={16} className="text-steel" />
                   {site.email}
                 </a>

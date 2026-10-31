@@ -3,7 +3,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container, SectionHeading } from "@/components/ui/Section";
 import { ButtonLink } from "@/components/ui/Button";
 import { Icon } from "@/components/icons/Icon";
-import { COMPARE, PLANS, type Cell, type Plan } from "@/lib/plans";
+import { Fragment } from "react";
+import { COMPARE, CURRENCY, PLANS, type Cell, type Plan } from "@/lib/plans";
 import { site } from "@/lib/site";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -20,18 +21,27 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
   setRequestLocale(locale);
   const t = await getTranslations("pricing");
   const c = await getTranslations("common");
-  const nf = new Intl.NumberFormat(locale === "zh" ? "zh-CN" : locale);
+  const currency = CURRENCY[locale as keyof typeof CURRENCY] ?? "USD";
+  const money = new Intl.NumberFormat(locale === "zh" ? "zh-CN" : locale, { style: "currency", currency, maximumFractionDigits: 0 });
   const faqs = [1, 2, 3, 4, 5];
 
   const price = (p: Plan) =>
-    p.priceLak === null ? (
-      <span className="font-display text-[34px] font-semibold leading-none text-ink">{t("custom")}</span>
-    ) : p.priceLak === 0 ? (
+    p.price === null ? (
+      <span className="font-display text-[clamp(1.6rem,2.4vw,2.125rem)] font-semibold leading-none text-ink">{t("custom")}</span>
+    ) : p.price === 0 ? (
       <span className="font-display text-[34px] font-semibold leading-none text-ink">{t("free")}</span>
     ) : (
       <span className="flex flex-wrap items-baseline gap-x-1.5">
-        <span className="font-display text-[34px] font-semibold leading-none tabular-nums text-ink">{nf.format(p.priceLak)}</span>
-        <span className="text-[14px] font-semibold text-graphite">LAK</span>
+        {/* Amount large, currency symbol small, in the order the locale writes them */}
+        <span className="font-display text-[34px] font-semibold leading-none tabular-nums text-ink">
+          {money.formatToParts(p.price[currency]).map((part, i) =>
+            part.type === "currency" ? (
+              <span key={i} className="mx-0.5 align-top text-[18px] font-semibold text-graphite">{part.value}</span>
+            ) : (
+              <Fragment key={i}>{part.value.trim() === "" ? "" : part.value}</Fragment>
+            ),
+          )}
+        </span>
         <span className="text-[14px] text-slate">{t("perMonth")}</span>
       </span>
     );
@@ -76,7 +86,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
                   </span>
                 )}
                 <h2 className="font-display text-[22px] font-semibold text-ink">{t(`plans.${p.id}.name`)}</h2>
-                <p className="mt-2 min-h-[3em] text-[14.5px] leading-relaxed text-slate">{t(`plans.${p.id}.tagline`)}</p>
+                <p className="mt-2 min-h-[3.25em] text-[14.5px] leading-relaxed text-slate">{t(`plans.${p.id}.tagline`)}</p>
                 <div className="mt-6 flex min-h-[44px] items-end">{price(p)}</div>
                 <p className="mt-2 text-[13.5px] font-medium text-graphite">{t(`plans.${p.id}.limit`)}</p>
                 <ButtonLink
@@ -152,14 +162,14 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
           <h2 id="faq-title" className="font-display text-[clamp(1.6rem,3vw,2.3rem)] font-semibold text-ink">{t("faqTitle")}</h2>
           <div className="mt-8 divide-y divide-line border-y border-line">
             {faqs.map((n) => (
-              <details key={n} className="group py-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[17px] font-semibold text-ink [&::-webkit-details-marker]:hidden">
+              <details key={n} className="group">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-[17px] font-semibold text-ink [&::-webkit-details-marker]:hidden">
                   {t(`faq.q${n}`)}
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full ring-1 ring-line transition-transform group-open:rotate-45">
                     <Icon name="plus" size={16} />
                   </span>
                 </summary>
-                <p className="mt-3 max-w-[65ch] text-[15.5px] leading-relaxed text-slate">{t(`faq.a${n}`)}</p>
+                <p className="-mt-2 max-w-[65ch] pb-5 text-[15.5px] leading-relaxed text-slate">{t(`faq.a${n}`)}</p>
               </details>
             ))}
           </div>
@@ -169,7 +179,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
             <p className="mt-3 max-w-[55ch] text-[15.5px] leading-relaxed text-white/75">{t("help.body")}</p>
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <ButtonLink href={{ pathname: "/contact", query: { topic: "demo" } }} arrow>{c("requestDemo")}</ButtonLink>
-              <a href={`mailto:${site.email}`} className="text-[14.5px] text-white/80 underline decoration-white/30 underline-offset-4 hover:text-white">{site.email}</a>
+              <a href={`mailto:${site.email}`} className="inline-flex min-h-10 items-center text-[14.5px] text-white/80 underline decoration-white/30 underline-offset-4 hover:text-white">{site.email}</a>
             </div>
           </div>
         </Container>

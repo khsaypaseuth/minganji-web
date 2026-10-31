@@ -65,8 +65,8 @@ export function Header() {
         {t("common.skipToContent")}
       </a>
       <div className="mx-auto flex h-full max-w-[1320px] items-center justify-between gap-4 px-5 sm:px-8">
-        <Link href="/" className="shrink-0 rounded-lg" aria-label={`${site.name} — ${t("nav.home")}`}>
-          <Logo attribution={t("common.brandAttribution")} />
+        <Link href="/" className="flex min-h-11 shrink-0 items-center rounded-lg" aria-label={`${site.name} — ${t("nav.home")}`}>
+          <Logo />
         </Link>
 
         <nav aria-label={t("nav.primary")} className="hidden lg:block">

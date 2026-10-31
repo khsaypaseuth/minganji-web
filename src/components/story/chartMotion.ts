@@ -35,14 +35,14 @@ export function prepareCharts(root: Element) {
 export function playCharts(root: Element) {
   prepareCharts(root);
   const tl = gsap.timeline();
-  tl.to(all(root, '[data-grow="y"]'), { scaleY: 1, duration: 0.9, ease: "power3.out", stagger: 0.07 }, 0.1);
-  tl.to(all(root, '[data-grow="x"]'), { scaleX: 1, duration: 1.1, ease: "power3.out", stagger: 0.1 }, 0.1);
+  tl.to(all(root, '[data-grow="y"]'), { scaleY: 1, duration: 1.2, ease: "power3.out", stagger: 0.09 }, 0.1);
+  tl.to(all(root, '[data-grow="x"]'), { scaleX: 1, duration: 1.4, ease: "power3.out", stagger: 0.12 }, 0.1);
   tl.to(all(root, "[data-draw]"), { strokeDashoffset: 0, duration: 1.4, ease: "power2.inOut" }, 0.2);
   for (const el of all(root, "[data-fade]")) tl.to(el, { opacity: Number(el.dataset.fade ?? 1), duration: 0.8 }, 0.9);
   tl.to(all(root, "[data-pop]"), { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(3)", stagger: 0.09 }, 0.1);
   for (const el of all(root, "[data-count]")) {
     const n = { v: 0 };
-    tl.to(n, { v: Number(el.dataset.count), duration: 1.3, ease: "power2.out", onUpdate: () => { el.textContent = fmt(n.v, el); } }, 0.1);
+    tl.to(n, { v: Number(el.dataset.count), duration: 1.6, ease: "power2.out", onUpdate: () => { el.textContent = fmt(n.v, el); } }, 0.1);
   }
   return tl;
 }

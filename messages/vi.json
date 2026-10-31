@@ -270,7 +270,7 @@
     "custom": "Tùy chỉnh",
     "perMonth": "/ tháng",
     "featuredBadge": "Phù hợp nhất cho công việc khoan",
-    "note": "Giá tính bằng kíp Lào (LAK) mỗi tháng. Cần hơn 10 xe? Hãy chọn Enterprise.",
+    "note": "Giá tính bằng đồng Việt Nam (VND) mỗi tháng. Cần hơn 10 xe? Hãy chọn Enterprise.",
     "plans": {
       "basic": {
         "name": "Basic",
@@ -363,7 +363,7 @@
       "q2": "Tôi có thể đổi gói sau không?",
       "a2": "Có. Bạn có thể nâng cấp bất cứ lúc nào. Nếu chuyển sang gói nhỏ hơn, các tính năng ngoài gói sẽ bị khóa khi kết thúc kỳ thanh toán. Không có dữ liệu nào bị xóa.",
       "q3": "Thanh toán như thế nào?",
-      "a3": "Các gói được tính phí hằng tháng bằng kíp Lào. Bạn có thể thanh toán bằng chuyển khoản ngân hàng hoặc mã QR BCEL. Hãy liên hệ nếu bạn cần phương thức khác.",
+      "a3": "Các gói được tính phí hằng tháng theo đơn vị tiền tệ hiển thị trên trang này. Tại Lào, bạn có thể thanh toán bằng chuyển khoản ngân hàng hoặc mã QR BCEL. Ở các quốc gia khác, đội ngũ của chúng tôi sẽ xác nhận phương thức thanh toán với bạn.",
       "q4": "Tôi có cần xe Tian'An không?",
       "a4": "MingAnji.ai được thiết kế cho xe Tian'An cùng cảm biến và bộ điều khiển. Hãy liên hệ để trao đổi về đội xe hiện có của bạn.",
       "q5": "Tôi có thể xem nền tảng trước không?",
