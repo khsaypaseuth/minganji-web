@@ -1,0 +1,406 @@
+{
+  "meta": {
+    "siteTitle": "MingAnji.ai — Truck monitoring and business management",
+    "siteDescription": "MingAnji.ai turns sensor and controller data from Tian'An trucks into maps, dashboards, reports and planning tools for field and office teams.",
+    "homeTitle": "Truck intelligence, from the field to the office",
+    "featuresTitle": "System features",
+    "featuresDescription": "Truck and equipment monitoring, mapping, planning and exports, staff management and business dashboards — in one platform.",
+    "pricingTitle": "Pricing",
+    "pricingDescription": "MingAnji.ai is configured to your fleet and the capabilities you need. Contact us for a tailored quotation.",
+    "contactTitle": "Contact us",
+    "contactDescription": "Request a demo or ask about MingAnji.ai and Tian'An trucks.",
+    "notFoundTitle": "Page not found"
+  },
+  "common": {
+    "skipToContent": "Skip to content",
+    "brandAttribution": "Powered by Tian'An",
+    "requestDemo": "Request a demo",
+    "signIn": "Sign in",
+    "exploreFeatures": "Explore the platform",
+    "contactUs": "Contact us",
+    "learnMore": "Learn more",
+    "illustrative": "Illustrative",
+    "sampleData": "Sample data",
+    "illustrativeInterface": "Illustrative interface · sample data",
+    "opensInNewTab": "(opens in a new tab)",
+    "language": "Language",
+    "selectLanguage": "Select language",
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "close": "Close",
+    "backToHome": "Back to home"
+  },
+  "nav": {
+    "home": "Home",
+    "features": "System Features",
+    "pricing": "Pricing",
+    "contact": "Contact Us",
+    "primary": "Primary"
+  },
+  "footer": {
+    "description": "MingAnji.ai turns the operating information collected by truck sensors and controllers into maps, dashboards and tools for planning and managing work.",
+    "explore": "Explore",
+    "portal": "Customer portal",
+    "portalSignIn": "Sign in to the portal",
+    "contact": "Contact",
+    "location": "Shenzhen, China",
+    "rights": "All rights reserved.",
+    "availability": "Product capabilities and availability may vary by configuration and region."
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Intelligent truck platform",
+      "title": "Every truck becomes a source of clear information.",
+      "lead": "Sensors and controllers on Tian'An trucks record where they are and what they do. MingAnji.ai turns that activity into maps, dashboards and plans your team can act on.",
+      "scrollHint": "Scroll to see how it works"
+    },
+    "story": {
+      "eyebrow": "How it works",
+      "title": "From truck to decision, in six steps",
+      "stageLabel": "Animated illustration: a drilling truck's sensor data flowing to the MingAnji.ai dashboard",
+      "steps": {
+        "truck": {
+          "kicker": "01 · The truck",
+          "title": "A connected working truck",
+          "body": "Each Tian'An truck can be equipped with sensors and an onboard controller. Equipment varies by truck model and configuration."
+        },
+        "sensors": {
+          "kicker": "02 · Sensors",
+          "title": "Sensors record the work",
+          "body": "Sensors on the drilling assembly and vehicle record activity, while positioning shows where it happened — so each drilled hole can be recorded with its location."
+        },
+        "controller": {
+          "kicker": "03 · Controller",
+          "title": "The controller gathers it",
+          "body": "Signals flow to the onboard controller, which combines location, operating hours and equipment activity into one record."
+        },
+        "platform": {
+          "kicker": "04 · MingAnji.ai",
+          "title": "The office sees the field",
+          "body": "Records reach MingAnji.ai. Office teams see trucks on the map and new drilling locations appear as work is completed."
+        },
+        "plan": {
+          "kicker": "05 · Plan and export",
+          "title": "Review, then plan the next job",
+          "body": "Select mapped drilling locations, check a summary of completed work and export maps, drawings and work information to prepare upcoming tasks."
+        },
+        "manage": {
+          "kicker": "06 · Management",
+          "title": "One view for the whole operation",
+          "body": "Field information feeds management dashboards: truck activity, work progress, staff and timesheets, and business summaries in one place."
+        }
+      },
+      "labels": {
+        "gnss": "Positioning antenna",
+        "gnssNote": "illustrative placement",
+        "boom": "Boom position",
+        "drill": "Drill activity",
+        "hours": "Operating hours",
+        "controller": "Onboard controller",
+        "location": "Location",
+        "activity": "Activity",
+        "hoursShort": "Hours",
+        "platform": "MingAnji.ai",
+        "field": "Field",
+        "office": "Office"
+      },
+      "dash": {
+        "liveMap": "Live map",
+        "online": "Online",
+        "truckId": "Truck 07",
+        "drilling": "Drilling",
+        "recentHole": "New hole recorded",
+        "holes": "Holes",
+        "selected": "Selected",
+        "summary": "Work summary",
+        "completed": "Completed",
+        "planned": "Planned",
+        "remaining": "Remaining",
+        "export": "Export",
+        "drawing": "Site drawing",
+        "exportNote": "Maps, drawings and work information",
+        "activity": "Truck activity",
+        "hoursWeek": "Operating hours · this week",
+        "planning": "Work planning",
+        "progress": "Progress",
+        "staff": "Staff and timesheets",
+        "onShift": "On shift",
+        "business": "Business overview",
+        "jobs": "Active jobs",
+        "utilisation": "Fleet activity",
+        "days": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+      },
+      "closing": {
+        "title": "See it with your own fleet.",
+        "body": "We'll walk you through MingAnji.ai using the trucks and work you manage."
+      }
+    },
+    "trucks": {
+      "eyebrow": "What we sell and equip",
+      "title": "Five truck categories. One platform.",
+      "lead": "Tian'An trucks are supplied and equipped for utility, infrastructure and emergency work. Sensor and controller options depend on the truck and configuration.",
+      "items": {
+        "bucket": { "name": "Non-insulated bucket trucks", "body": "Aerial access for maintenance, installation and inspection work." },
+        "insulated": { "name": "Insulated bucket trucks", "body": "Insulated aerial platforms for work near energised lines." },
+        "generator": { "name": "Mobile generator trucks", "body": "Power on the move for sites, outages and temporary supply." },
+        "drilling": { "name": "Drilling trucks", "body": "Truck-mounted drilling for pole holes and foundations." },
+        "fire": { "name": "Fire trucks", "body": "Firefighting vehicles for emergency response." }
+      },
+      "note": "Silhouettes are illustrative and do not represent specific models or specifications."
+    },
+    "benefits": {
+      "eyebrow": "Why MingAnji.ai",
+      "title": "Less guesswork. More finished work.",
+      "items": {
+        "visibility": { "title": "Know where work happens", "body": "Truck positions and recorded drilling locations on one map." },
+        "records": { "title": "Records from the machine", "body": "Activity is captured by sensors and controllers, reducing manual reporting." },
+        "planning": { "title": "Plan from what's done", "body": "Review completed work and prepare the next tasks with exports and drawings." },
+        "management": { "title": "Run the business", "body": "Staff, timesheets and operational summaries alongside the field data." }
+      }
+    },
+    "cta": {
+      "title": "Ready to see your trucks on the map?",
+      "body": "Book a guided demo, or sign in to the portal if you already have an account.",
+      "existing": "Already a customer?"
+    }
+  },
+  "features": {
+    "eyebrow": "System features",
+    "title": "Everything from the truck to the boardroom",
+    "lead": "MingAnji.ai groups its capabilities into five areas. Each one builds on the information collected in the field.",
+    "legend": "Interface previews use sample data and are illustrative. Availability may vary by truck model, configuration and region.",
+    "jumpTo": "Jump to",
+    "details": "What's included",
+    "statusLabel": "Status",
+    "status": {
+      "available": "Core capability",
+      "confirm": "Ask about availability"
+    },
+    "areas": {
+      "monitoring": {
+        "nav": "Monitoring",
+        "title": "Truck and equipment monitoring",
+        "summary": "See every connected truck: where it is, whether it's working and how many hours its equipment has run.",
+        "points": [
+          "Sensors and an onboard controller collect operating information",
+          "GPS location and tracking for each connected truck",
+          "Equipment operating hours and activity",
+          "Online, idle and offline status at a glance"
+        ],
+        "diagram": "Sensors → Controller → MingAnji.ai"
+      },
+      "mapping": {
+        "nav": "Mapping",
+        "title": "Mapping and field operations",
+        "summary": "Recorded drilling locations and truck movements on one map, so progress in the field is visible from the office.",
+        "points": [
+          "Drilling activity with recorded hole locations",
+          "Truck tracking and daily movement",
+          "Map layers for holes, routes and planned positions",
+          "Work progress across sites"
+        ]
+      },
+      "planning": {
+        "nav": "Planning",
+        "title": "Planning and exports",
+        "summary": "Review completed work, understand exactly where it happened and prepare the next tasks.",
+        "points": [
+          "Select and review mapped drilling locations",
+          "Summaries of completed and remaining work",
+          "Export maps, drawings and work information",
+          "Prepare upcoming tasks from what's already done"
+        ]
+      },
+      "staff": {
+        "nav": "Staff",
+        "title": "Staff management",
+        "summary": "Keep staff records, work assignments and timesheets connected to the work actually done in the field.",
+        "points": [
+          "Staff records",
+          "Work assignments",
+          "Timesheets",
+          "Work time linked to truck activity"
+        ]
+      },
+      "business": {
+        "nav": "Business",
+        "title": "Business management",
+        "summary": "Operational summaries and dashboards that help managers make decisions from reliable field information.",
+        "points": [
+          "Operational summaries",
+          "Reports",
+          "Management dashboards",
+          "One view across trucks, work and people"
+        ]
+      }
+    },
+    "preview": {
+      "status": "Status",
+      "hours": "Hours",
+      "lastSeen": "Last seen",
+      "now": "now",
+      "idle": "Idle",
+      "offline": "Offline",
+      "route": "Route",
+      "plannedPositions": "Planned positions",
+      "drilled": "Drilled",
+      "exportReady": "Export prepared",
+      "name": "Name",
+      "role": "Assignment",
+      "hoursToday": "Today",
+      "operator": "Operator",
+      "crew": "Crew",
+      "thisMonth": "This month",
+      "jobsDone": "Jobs completed",
+      "holesDrilled": "Holes drilled",
+      "activeTrucks": "Active trucks"
+    },
+    "cta": {
+      "title": "Want to see these features with your data?",
+      "body": "We'll tailor the demo to your trucks and the work you manage."
+    }
+  },
+  "pricing": {
+    "eyebrow": "Pricing",
+    "title": "Pricing tailored to your fleet",
+    "lead": "MingAnji.ai is configured around your trucks and the capabilities you need, so we prepare each quotation individually.",
+    "cardTitle": "Contact us for pricing",
+    "cardBody": "Tell us about your fleet and work. Our team will recommend a setup and send a quotation.",
+    "cardCta": "Request a quotation",
+    "stepsTitle": "How it works",
+    "steps": {
+      "one": { "title": "Tell us about your work", "body": "Truck types, number of trucks and the jobs you manage." },
+      "two": { "title": "See a tailored demo", "body": "We show the capabilities that matter to your team." },
+      "three": { "title": "Receive a quotation", "body": "A written proposal for your configuration." }
+    },
+    "askTitle": "What we'll ask about",
+    "ask": [
+      "Which truck categories you operate or plan to buy",
+      "How many trucks you want to connect",
+      "Which capabilities you need: monitoring, mapping, planning, staff or business management",
+      "Where your teams work and your timeline"
+    ],
+    "faqTitle": "Questions",
+    "faq": {
+      "q1": "Why aren't prices listed?",
+      "a1": "Each setup depends on the trucks, equipment and capabilities involved. We'd rather give you an accurate quotation than a misleading list price.",
+      "q2": "Can I try the platform first?",
+      "a2": "Yes — request a demo and we'll walk you through MingAnji.ai. Existing customers can sign in to the portal.",
+      "q3": "Do I need Tian'An trucks?",
+      "a3": "MingAnji.ai is designed around Tian'An trucks and their sensors and controllers. Contact us to discuss your existing fleet."
+    }
+  },
+  "contact": {
+    "eyebrow": "Contact us",
+    "title": "Let's talk about your trucks and your work",
+    "lead": "Request a demo or send us a question. We'll reply by email.",
+    "directTitle": "Direct contact",
+    "emailLabel": "Email",
+    "locationLabel": "Location",
+    "portalTitle": "Existing customers",
+    "portalBody": "Sign in to the MingAnji.ai portal.",
+    "form": {
+      "title": "Send an enquiry",
+      "required": "Required",
+      "optional": "optional",
+      "name": "Full name",
+      "email": "Work email",
+      "company": "Company",
+      "phone": "Phone",
+      "country": "Country",
+      "topic": "I'm interested in",
+      "topics": {
+        "demo": "A demo of MingAnji.ai",
+        "pricing": "Pricing and quotation",
+        "trucks": "Tian'An trucks",
+        "other": "Something else"
+      },
+      "message": "Message",
+      "messagePlaceholder": "Tell us about your fleet and what you'd like to achieve.",
+      "consent": "I agree that MingAnji.ai may use these details to respond to my enquiry.",
+      "submit": "Send enquiry",
+      "sending": "Sending…",
+      "errors": {
+        "summary": "Please correct the highlighted fields.",
+        "nameRequired": "Please enter your name.",
+        "emailRequired": "Please enter your email address.",
+        "emailInvalid": "Please enter a valid email address, like name@company.com.",
+        "messageRequired": "Please enter a message.",
+        "messageShort": "Please write at least 10 characters.",
+        "messageLong": "Please keep your message under 2,000 characters.",
+        "consentRequired": "Please confirm we may use your details to respond."
+      },
+      "success": {
+        "title": "Thank you — your enquiry has been sent.",
+        "body": "Our team will reply by email."
+      },
+      "unavailable": {
+        "title": "Online sending isn't available yet",
+        "body": "Your enquiry was not sent. Please email us directly — we've prepared the message for you.",
+        "cta": "Open in my email app",
+        "copy": "Copy message",
+        "copied": "Copied"
+      },
+      "error": {
+        "title": "Something went wrong",
+        "body": "Your enquiry was not sent. Please try again, or email us directly.",
+        "rateLimited": "Too many attempts. Please wait a few minutes and try again."
+      }
+    }
+  },
+  "chat": {
+    "launcher": "Open the MingAnji.ai assistant",
+    "launcherShort": "Ask AI",
+    "title": "MingAnji Assistant",
+    "subtitle": "AI assistant",
+    "aiNotice": "AI-generated answers can be wrong. For quotes and commitments, contact our team.",
+    "welcome": "Hello! I'm the MingAnji.ai assistant. I can explain our trucks, platform features and how the system works. What would you like to know?",
+    "suggestionsLabel": "Suggested questions",
+    "suggestions": {
+      "what": "What is MingAnji.ai?",
+      "drilling": "How does drilling location tracking work?",
+      "managers": "What information can managers see?",
+      "staff": "Can the system help manage staff and timesheets?",
+      "demo": "How can I request a demonstration?"
+    },
+    "inputLabel": "Your question",
+    "placeholder": "Ask about MingAnji.ai…",
+    "send": "Send",
+    "thinking": "Thinking…",
+    "you": "You",
+    "assistant": "Assistant",
+    "close": "Close assistant",
+    "restart": "Start over",
+    "tooLong": "Please keep your question under {max} characters.",
+    "errors": {
+      "generic": "Sorry, I couldn't answer just now. Please try again, or contact our team.",
+      "timeout": "That took too long. Please try again.",
+      "rateLimited": "You've sent a lot of questions. Please wait a few minutes and try again.",
+      "network": "You appear to be offline. Check your connection and try again."
+    },
+    "faqMode": {
+      "badge": "FAQ mode",
+      "notice": "The AI assistant isn't connected yet. Choose a question below to see a prepared answer from our FAQ.",
+      "pick": "Choose a question",
+      "contact": "Still have a question? Contact our team."
+    },
+    "faq": {
+      "what": "MingAnji.ai is an intelligent truck monitoring and business management platform, powered by Tian'An. Sensors and controllers on our trucks collect operating information, and MingAnji.ai turns it into maps, dashboards, reports and tools for planning and managing work.",
+      "drilling": "On drilling trucks, sensors record drilling activity while positioning records where the truck is working. Each recorded hole can then be shown at its location on the MingAnji.ai map, where office teams can review it, select locations and export maps, drawings and work information.",
+      "managers": "Managers can see truck locations and activity, recorded drilling locations, equipment operating hours, work progress, staff and timesheet summaries, and operational dashboards. Exact screens depend on your configuration.",
+      "staff": "Yes. MingAnji.ai includes staff management features for staff records, work assignments and timesheets, so people's time can be reviewed alongside field activity. Ask our team which options suit your organisation.",
+      "demo": "Use the Request a demo button or the Contact us page. Tell us about your trucks and work, and our team will arrange a guided demonstration."
+    },
+    "links": {
+      "features": "System features",
+      "contact": "Contact us",
+      "demo": "Request a demo",
+      "pricing": "Pricing"
+    }
+  },
+  "notFound": {
+    "title": "We couldn't find that page",
+    "body": "The page may have moved. Try the homepage or contact us."
+  }
+}

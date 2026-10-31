@@ -1,26 +1,180 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------
+   MingAnji.ai design tokens
+   White canvas · signal red for actions and live data · cool greys
+------------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #ffffff;
+  --mist: #f5f6f7;        /* section backgrounds */
+  --cloud: #eceef0;       /* panels */
+  --line: #e2e5e8;        /* hairlines */
+  --line-strong: #cfd4d9;
+  --steel: #8a929b;       /* tertiary text, icons */
+  --slate: #5b636c;       /* secondary text */
+  --graphite: #2b3036;    /* body text */
+  --ink: #111417;         /* headings, black accents */
+  --signal: #d7261e;      /* primary red */
+  --signal-deep: #b51d16;
+  --signal-soft: #fdecea;
+  --ok: #1f8a5b;
+
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --shadow-sm: 0 1px 2px rgb(17 20 23 / 0.06), 0 1px 1px rgb(17 20 23 / 0.04);
+  --shadow: 0 12px 32px -12px rgb(17 20 23 / 0.18), 0 2px 6px rgb(17 20 23 / 0.05);
+  --shadow-lg: 0 40px 80px -30px rgb(17 20 23 / 0.28), 0 8px 20px -8px rgb(17 20 23 / 0.08);
+
+  --header-h: 72px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-mist: var(--mist);
+  --color-cloud: var(--cloud);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-steel: var(--steel);
+  --color-slate: var(--slate);
+  --color-graphite: var(--graphite);
+  --color-ink: var(--ink);
+  --color-signal: var(--signal);
+  --color-signal-deep: var(--signal-deep);
+  --color-signal-soft: var(--signal-soft);
+  --color-ok: var(--ok);
+
+  --font-sans: var(--font-body), var(--font-lao), var(--font-thai), var(--font-sc), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-heading), var(--font-body), var(--font-lao), var(--font-thai), var(--font-sc), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 16px);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--graphite);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
+
+::selection {
+  background: var(--signal);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Display type: tight tracking only for Latin scripts. */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+}
+:lang(zh) .font-display,
+:lang(lo) .font-display,
+:lang(th) .font-display {
+  letter-spacing: 0;
+}
+
+/* Lao & Thai stack tone marks / vowels above and below the line:
+   give them more vertical room and avoid clipping. */
+:lang(lo),
+:lang(th) {
+  line-height: 1.75;
+}
+:lang(lo) h1,
+:lang(lo) h2,
+:lang(lo) h3,
+:lang(th) h1,
+:lang(th) h2,
+:lang(th) h3,
+:lang(lo) .leading-tight,
+:lang(th) .leading-tight,
+:lang(lo) .leading-none,
+:lang(th) .leading-none {
+  line-height: 1.4 !important;
+}
+:lang(zh) h1,
+:lang(zh) h2 {
+  line-height: 1.3 !important;
+}
+/* Thai has no spaces between words; allow the browser's dictionary line breaking. */
+:lang(th) {
+  word-break: normal;
+  line-break: auto;
+}
+:lang(zh) {
+  line-break: strict;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--signal);
+}
+:lang(zh) .eyebrow,
+:lang(lo) .eyebrow,
+:lang(th) .eyebrow {
+  font-family: var(--font-sans);
+  letter-spacing: 0.04em;
+  font-size: 0.8125rem;
+}
+
+/* Subtle engineering grid used behind hero and stage. */
+.grid-paper {
+  background-image:
+    linear-gradient(to right, rgb(17 20 23 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(17 20 23 / 0.045) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Live-data pulse */
+@keyframes ping-soft {
+  0% { transform: scale(0.6); opacity: 0.55; }
+  80%, 100% { transform: scale(2.4); opacity: 0; }
+}
+.pulse-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ping-soft 2.4s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+@keyframes blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+@keyframes dash-flow {
+  to { stroke-dashoffset: -40; }
+}
+.flow-dash {
+  stroke-dasharray: 4 8;
+  animation: dash-flow 1.6s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .pulse-ring { display: none; }
+}
+
+/* Hide scrollbars on horizontal chip rows while keeping them scrollable */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }

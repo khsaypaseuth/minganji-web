@@ -1,0 +1,406 @@
+{
+  "meta": {
+    "siteTitle": "MingAnji.ai — Giám sát xe tải và quản lý doanh nghiệp",
+    "siteDescription": "MingAnji.ai biến dữ liệu cảm biến và bộ điều khiển từ xe tải Tian'An thành bản đồ, bảng điều khiển, báo cáo và công cụ lập kế hoạch cho đội ngũ hiện trường và văn phòng.",
+    "homeTitle": "Thông tin thông minh về xe tải, từ hiện trường đến văn phòng",
+    "featuresTitle": "Tính năng hệ thống",
+    "featuresDescription": "Giám sát xe tải và thiết bị, bản đồ, lập kế hoạch và xuất dữ liệu, quản lý nhân sự và bảng điều khiển kinh doanh — trên một nền tảng.",
+    "pricingTitle": "Bảng giá",
+    "pricingDescription": "MingAnji.ai được cấu hình theo đội xe và các chức năng bạn cần. Hãy liên hệ để nhận báo giá riêng.",
+    "contactTitle": "Liên hệ",
+    "contactDescription": "Yêu cầu demo hoặc hỏi về MingAnji.ai và xe tải Tian'An.",
+    "notFoundTitle": "Không tìm thấy trang"
+  },
+  "common": {
+    "skipToContent": "Chuyển đến nội dung",
+    "brandAttribution": "Powered by Tian'An",
+    "requestDemo": "Yêu cầu demo",
+    "signIn": "Đăng nhập",
+    "exploreFeatures": "Khám phá nền tảng",
+    "contactUs": "Liên hệ",
+    "learnMore": "Tìm hiểu thêm",
+    "illustrative": "Minh họa",
+    "sampleData": "Dữ liệu mẫu",
+    "illustrativeInterface": "Giao diện minh họa · dữ liệu mẫu",
+    "opensInNewTab": "(mở trong tab mới)",
+    "language": "Ngôn ngữ",
+    "selectLanguage": "Chọn ngôn ngữ",
+    "menu": "Menu",
+    "openMenu": "Mở menu",
+    "closeMenu": "Đóng menu",
+    "close": "Đóng",
+    "backToHome": "Về trang chủ"
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "features": "Tính năng hệ thống",
+    "pricing": "Bảng giá",
+    "contact": "Liên hệ",
+    "primary": "Chính"
+  },
+  "footer": {
+    "description": "MingAnji.ai biến thông tin vận hành do cảm biến và bộ điều khiển trên xe tải thu thập thành bản đồ, bảng điều khiển và công cụ để lập kế hoạch và quản lý công việc.",
+    "explore": "Khám phá",
+    "portal": "Cổng khách hàng",
+    "portalSignIn": "Đăng nhập vào cổng",
+    "contact": "Liên hệ",
+    "location": "Thâm Quyến, Trung Quốc",
+    "rights": "Bảo lưu mọi quyền.",
+    "availability": "Chức năng và khả năng cung cấp của sản phẩm có thể khác nhau tùy cấu hình và khu vực."
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Nền tảng xe tải thông minh",
+      "title": "Mỗi chiếc xe tải trở thành một nguồn thông tin rõ ràng.",
+      "lead": "Cảm biến và bộ điều khiển trên xe tải Tian'An ghi lại vị trí và hoạt động của xe. MingAnji.ai biến những hoạt động đó thành bản đồ, bảng điều khiển và kế hoạch để đội ngũ của bạn hành động.",
+      "scrollHint": "Cuộn xuống để xem cách hoạt động"
+    },
+    "story": {
+      "eyebrow": "Cách hoạt động",
+      "title": "Từ xe tải đến quyết định, trong sáu bước",
+      "stageLabel": "Hình minh họa động: dữ liệu cảm biến của xe khoan chuyển đến bảng điều khiển MingAnji.ai",
+      "steps": {
+        "truck": {
+          "kicker": "01 · Xe tải",
+          "title": "Một xe tải làm việc được kết nối",
+          "body": "Mỗi xe tải Tian'An có thể được trang bị cảm biến và bộ điều khiển trên xe. Trang bị khác nhau tùy mẫu xe và cấu hình."
+        },
+        "sensors": {
+          "kicker": "02 · Cảm biến",
+          "title": "Cảm biến ghi lại công việc",
+          "body": "Cảm biến trên cụm khoan và xe ghi lại hoạt động, còn định vị cho biết hoạt động diễn ra ở đâu — nhờ đó mỗi lỗ khoan có thể được ghi lại cùng vị trí."
+        },
+        "controller": {
+          "kicker": "03 · Bộ điều khiển",
+          "title": "Bộ điều khiển tổng hợp dữ liệu",
+          "body": "Tín hiệu được chuyển đến bộ điều khiển trên xe, nơi kết hợp vị trí, giờ vận hành và hoạt động thiết bị thành một bản ghi."
+        },
+        "platform": {
+          "kicker": "04 · MingAnji.ai",
+          "title": "Văn phòng nhìn thấy hiện trường",
+          "body": "Bản ghi được gửi đến MingAnji.ai. Đội ngũ văn phòng thấy xe trên bản đồ và các vị trí khoan mới xuất hiện khi công việc hoàn thành."
+        },
+        "plan": {
+          "kicker": "05 · Lập kế hoạch và xuất dữ liệu",
+          "title": "Xem lại, rồi lên kế hoạch cho việc tiếp theo",
+          "body": "Chọn các vị trí khoan trên bản đồ, xem tóm tắt công việc đã hoàn thành và xuất bản đồ, bản vẽ và thông tin công việc để chuẩn bị các nhiệm vụ sắp tới."
+        },
+        "manage": {
+          "kicker": "06 · Quản lý",
+          "title": "Một góc nhìn cho toàn bộ hoạt động",
+          "body": "Thông tin hiện trường cung cấp cho các bảng điều khiển quản lý: hoạt động xe, tiến độ công việc, nhân sự và bảng chấm công, cùng tổng quan kinh doanh ở một nơi."
+        }
+      },
+      "labels": {
+        "gnss": "Ăng-ten định vị",
+        "gnssNote": "vị trí minh họa",
+        "boom": "Vị trí cần",
+        "drill": "Hoạt động khoan",
+        "hours": "Giờ vận hành",
+        "controller": "Bộ điều khiển trên xe",
+        "location": "Vị trí",
+        "activity": "Hoạt động",
+        "hoursShort": "Giờ",
+        "platform": "MingAnji.ai",
+        "field": "Hiện trường",
+        "office": "Văn phòng"
+      },
+      "dash": {
+        "liveMap": "Bản đồ trực tiếp",
+        "online": "Trực tuyến",
+        "truckId": "Xe 07",
+        "drilling": "Đang khoan",
+        "recentHole": "Đã ghi lỗ khoan mới",
+        "holes": "Lỗ khoan",
+        "selected": "Đã chọn",
+        "summary": "Tóm tắt công việc",
+        "completed": "Đã hoàn thành",
+        "planned": "Theo kế hoạch",
+        "remaining": "Còn lại",
+        "export": "Xuất",
+        "drawing": "Bản vẽ công trường",
+        "exportNote": "Bản đồ, bản vẽ và thông tin công việc",
+        "activity": "Hoạt động xe",
+        "hoursWeek": "Giờ vận hành · tuần này",
+        "planning": "Lập kế hoạch công việc",
+        "progress": "Tiến độ",
+        "staff": "Nhân sự và bảng chấm công",
+        "onShift": "Đang trong ca",
+        "business": "Tổng quan kinh doanh",
+        "jobs": "Công việc đang thực hiện",
+        "utilisation": "Hoạt động đội xe",
+        "days": ["T2", "T3", "T4", "T5", "T6", "T7", "CN"]
+      },
+      "closing": {
+        "title": "Xem tận mắt với đội xe của bạn.",
+        "body": "Chúng tôi sẽ hướng dẫn bạn dùng MingAnji.ai với chính những xe và công việc bạn đang quản lý."
+      }
+    },
+    "trucks": {
+      "eyebrow": "Chúng tôi cung cấp và trang bị",
+      "title": "Năm dòng xe tải. Một nền tảng.",
+      "lead": "Xe tải Tian'An được cung cấp và trang bị cho công tác điện lực, hạ tầng và khẩn cấp. Tùy chọn cảm biến và bộ điều khiển phụ thuộc vào xe và cấu hình.",
+      "items": {
+        "bucket": { "name": "Xe thang giỏ không cách điện", "body": "Tiếp cận trên cao cho công việc bảo trì, lắp đặt và kiểm tra." },
+        "insulated": { "name": "Xe thang giỏ cách điện", "body": "Giỏ nâng cách điện cho công việc gần đường dây có điện." },
+        "generator": { "name": "Xe máy phát điện lưu động", "body": "Điện năng di động cho công trường, sự cố mất điện và cấp điện tạm thời." },
+        "drilling": { "name": "Xe khoan", "body": "Khoan gắn trên xe tải cho hố cột và móng." },
+        "fire": { "name": "Xe cứu hỏa", "body": "Phương tiện chữa cháy cho ứng phó khẩn cấp." }
+      },
+      "note": "Hình bóng xe chỉ mang tính minh họa và không đại diện cho mẫu xe hay thông số cụ thể."
+    },
+    "benefits": {
+      "eyebrow": "Vì sao chọn MingAnji.ai",
+      "title": "Bớt phỏng đoán. Thêm việc hoàn thành.",
+      "items": {
+        "visibility": { "title": "Biết công việc diễn ra ở đâu", "body": "Vị trí xe và các vị trí khoan đã ghi nhận trên cùng một bản đồ." },
+        "records": { "title": "Bản ghi từ chính máy móc", "body": "Cảm biến và bộ điều khiển ghi lại hoạt động, giảm báo cáo thủ công." },
+        "planning": { "title": "Lập kế hoạch từ việc đã làm", "body": "Xem lại công việc đã hoàn thành và chuẩn bị nhiệm vụ tiếp theo bằng bản xuất và bản vẽ." },
+        "management": { "title": "Điều hành doanh nghiệp", "body": "Nhân sự, bảng chấm công và tổng hợp vận hành cùng với dữ liệu hiện trường." }
+      }
+    },
+    "cta": {
+      "title": "Sẵn sàng xem xe của bạn trên bản đồ?",
+      "body": "Đặt lịch demo có hướng dẫn, hoặc đăng nhập vào cổng nếu bạn đã có tài khoản.",
+      "existing": "Đã là khách hàng?"
+    }
+  },
+  "features": {
+    "eyebrow": "Tính năng hệ thống",
+    "title": "Mọi thứ từ chiếc xe đến phòng họp",
+    "lead": "MingAnji.ai nhóm các chức năng thành năm mảng. Mỗi mảng đều dựa trên thông tin thu thập ngoài hiện trường.",
+    "legend": "Giao diện xem trước dùng dữ liệu mẫu và chỉ mang tính minh họa. Khả năng cung cấp có thể khác nhau tùy mẫu xe, cấu hình và khu vực.",
+    "jumpTo": "Chuyển đến",
+    "details": "Bao gồm những gì",
+    "statusLabel": "Trạng thái",
+    "status": {
+      "available": "Chức năng cốt lõi",
+      "confirm": "Hỏi về khả năng cung cấp"
+    },
+    "areas": {
+      "monitoring": {
+        "nav": "Giám sát",
+        "title": "Giám sát xe tải và thiết bị",
+        "summary": "Xem mọi xe được kết nối: xe đang ở đâu, có đang làm việc không và thiết bị đã chạy bao nhiêu giờ.",
+        "points": [
+          "Cảm biến và bộ điều khiển trên xe thu thập thông tin vận hành",
+          "Định vị và theo dõi GPS cho từng xe được kết nối",
+          "Giờ vận hành và hoạt động của thiết bị",
+          "Trạng thái trực tuyến, chờ và ngoại tuyến trong nháy mắt"
+        ],
+        "diagram": "Cảm biến → Bộ điều khiển → MingAnji.ai"
+      },
+      "mapping": {
+        "nav": "Bản đồ",
+        "title": "Bản đồ và vận hành hiện trường",
+        "summary": "Vị trí khoan đã ghi nhận và hành trình của xe trên cùng một bản đồ, để văn phòng nắm được tiến độ ngoài hiện trường.",
+        "points": [
+          "Hoạt động khoan cùng vị trí lỗ khoan đã ghi nhận",
+          "Theo dõi xe và di chuyển hằng ngày",
+          "Các lớp bản đồ cho lỗ khoan, tuyến đường và vị trí theo kế hoạch",
+          "Tiến độ công việc giữa các công trường"
+        ]
+      },
+      "planning": {
+        "nav": "Kế hoạch",
+        "title": "Lập kế hoạch và xuất dữ liệu",
+        "summary": "Xem lại công việc đã hoàn thành, biết chính xác nơi thực hiện và chuẩn bị các nhiệm vụ tiếp theo.",
+        "points": [
+          "Chọn và xem lại các vị trí khoan trên bản đồ",
+          "Tóm tắt công việc đã hoàn thành và còn lại",
+          "Xuất bản đồ, bản vẽ và thông tin công việc",
+          "Chuẩn bị nhiệm vụ sắp tới từ những gì đã làm"
+        ]
+      },
+      "staff": {
+        "nav": "Nhân sự",
+        "title": "Quản lý nhân sự",
+        "summary": "Giữ hồ sơ nhân sự, phân công công việc và bảng chấm công gắn với công việc thực tế ngoài hiện trường.",
+        "points": [
+          "Hồ sơ nhân sự",
+          "Phân công công việc",
+          "Bảng chấm công",
+          "Thời gian làm việc gắn với hoạt động của xe"
+        ]
+      },
+      "business": {
+        "nav": "Kinh doanh",
+        "title": "Quản lý doanh nghiệp",
+        "summary": "Tổng hợp vận hành và bảng điều khiển giúp nhà quản lý ra quyết định dựa trên thông tin hiện trường đáng tin cậy.",
+        "points": [
+          "Tổng hợp vận hành",
+          "Báo cáo",
+          "Bảng điều khiển quản lý",
+          "Một góc nhìn xuyên suốt xe, công việc và con người"
+        ]
+      }
+    },
+    "preview": {
+      "status": "Trạng thái",
+      "hours": "Giờ",
+      "lastSeen": "Lần cuối thấy",
+      "now": "bây giờ",
+      "idle": "Chờ",
+      "offline": "Ngoại tuyến",
+      "route": "Tuyến đường",
+      "plannedPositions": "Vị trí theo kế hoạch",
+      "drilled": "Đã khoan",
+      "exportReady": "Đã chuẩn bị bản xuất",
+      "name": "Tên",
+      "role": "Phân công",
+      "hoursToday": "Hôm nay",
+      "operator": "Người vận hành",
+      "crew": "Tổ đội",
+      "thisMonth": "Tháng này",
+      "jobsDone": "Công việc hoàn thành",
+      "holesDrilled": "Lỗ đã khoan",
+      "activeTrucks": "Xe đang hoạt động"
+    },
+    "cta": {
+      "title": "Muốn xem các tính năng này với dữ liệu của bạn?",
+      "body": "Chúng tôi sẽ điều chỉnh demo theo xe của bạn và công việc bạn quản lý."
+    }
+  },
+  "pricing": {
+    "eyebrow": "Bảng giá",
+    "title": "Giá được thiết kế riêng cho đội xe của bạn",
+    "lead": "MingAnji.ai được cấu hình theo xe của bạn và các chức năng bạn cần, vì vậy chúng tôi chuẩn bị từng báo giá riêng.",
+    "cardTitle": "Liên hệ để biết giá",
+    "cardBody": "Hãy cho chúng tôi biết về đội xe và công việc của bạn. Đội ngũ của chúng tôi sẽ đề xuất cấu hình phù hợp và gửi báo giá.",
+    "cardCta": "Yêu cầu báo giá",
+    "stepsTitle": "Cách thực hiện",
+    "steps": {
+      "one": { "title": "Chia sẻ về công việc của bạn", "body": "Loại xe, số lượng xe và các công việc bạn quản lý." },
+      "two": { "title": "Xem demo theo yêu cầu", "body": "Chúng tôi trình bày những chức năng quan trọng với đội ngũ của bạn." },
+      "three": { "title": "Nhận báo giá", "body": "Đề xuất bằng văn bản cho cấu hình của bạn." }
+    },
+    "askTitle": "Chúng tôi sẽ hỏi về",
+    "ask": [
+      "Loại xe tải bạn đang vận hành hoặc dự định mua",
+      "Số lượng xe bạn muốn kết nối",
+      "Chức năng bạn cần: giám sát, bản đồ, lập kế hoạch, nhân sự hoặc quản lý doanh nghiệp",
+      "Nơi đội ngũ của bạn làm việc và thời gian dự kiến"
+    ],
+    "faqTitle": "Câu hỏi thường gặp",
+    "faq": {
+      "q1": "Vì sao không niêm yết giá?",
+      "a1": "Mỗi cấu hình phụ thuộc vào xe, thiết bị và chức năng liên quan. Chúng tôi muốn gửi báo giá chính xác hơn là một bảng giá niêm yết dễ gây hiểu lầm.",
+      "q2": "Tôi có thể dùng thử nền tảng trước không?",
+      "a2": "Có — hãy yêu cầu demo và chúng tôi sẽ hướng dẫn bạn dùng MingAnji.ai. Khách hàng hiện tại có thể đăng nhập vào cổng.",
+      "q3": "Tôi có cần xe tải Tian'An không?",
+      "a3": "MingAnji.ai được thiết kế xoay quanh xe tải Tian'An cùng cảm biến và bộ điều khiển của xe. Hãy liên hệ để trao đổi về đội xe hiện có của bạn."
+    }
+  },
+  "contact": {
+    "eyebrow": "Liên hệ",
+    "title": "Hãy trao đổi về xe tải và công việc của bạn",
+    "lead": "Yêu cầu demo hoặc gửi câu hỏi cho chúng tôi. Chúng tôi sẽ trả lời qua email.",
+    "directTitle": "Liên hệ trực tiếp",
+    "emailLabel": "Email",
+    "locationLabel": "Địa điểm",
+    "portalTitle": "Khách hàng hiện tại",
+    "portalBody": "Đăng nhập vào cổng MingAnji.ai.",
+    "form": {
+      "title": "Gửi yêu cầu",
+      "required": "Bắt buộc",
+      "optional": "tùy chọn",
+      "name": "Họ và tên",
+      "email": "Email công việc",
+      "company": "Công ty",
+      "phone": "Điện thoại",
+      "country": "Quốc gia",
+      "topic": "Tôi quan tâm đến",
+      "topics": {
+        "demo": "Demo MingAnji.ai",
+        "pricing": "Giá và báo giá",
+        "trucks": "Xe tải Tian'An",
+        "other": "Nội dung khác"
+      },
+      "message": "Lời nhắn",
+      "messagePlaceholder": "Hãy cho chúng tôi biết về đội xe và mục tiêu của bạn.",
+      "consent": "Tôi đồng ý để MingAnji.ai sử dụng các thông tin này nhằm phản hồi yêu cầu của tôi.",
+      "submit": "Gửi yêu cầu",
+      "sending": "Đang gửi…",
+      "errors": {
+        "summary": "Vui lòng sửa các trường được đánh dấu.",
+        "nameRequired": "Vui lòng nhập tên của bạn.",
+        "emailRequired": "Vui lòng nhập địa chỉ email của bạn.",
+        "emailInvalid": "Vui lòng nhập địa chỉ email hợp lệ, ví dụ name@company.com.",
+        "messageRequired": "Vui lòng nhập lời nhắn.",
+        "messageShort": "Vui lòng viết ít nhất 10 ký tự.",
+        "messageLong": "Vui lòng giữ lời nhắn dưới 2.000 ký tự.",
+        "consentRequired": "Vui lòng xác nhận chúng tôi được dùng thông tin của bạn để phản hồi."
+      },
+      "success": {
+        "title": "Cảm ơn bạn — yêu cầu đã được gửi.",
+        "body": "Đội ngũ của chúng tôi sẽ trả lời qua email."
+      },
+      "unavailable": {
+        "title": "Chưa thể gửi trực tuyến",
+        "body": "Yêu cầu của bạn chưa được gửi. Vui lòng gửi email trực tiếp cho chúng tôi — chúng tôi đã soạn sẵn nội dung cho bạn.",
+        "cta": "Mở trong ứng dụng email",
+        "copy": "Sao chép nội dung",
+        "copied": "Đã sao chép"
+      },
+      "error": {
+        "title": "Đã xảy ra lỗi",
+        "body": "Yêu cầu của bạn chưa được gửi. Vui lòng thử lại hoặc gửi email trực tiếp cho chúng tôi.",
+        "rateLimited": "Quá nhiều lần thử. Vui lòng đợi vài phút rồi thử lại."
+      }
+    }
+  },
+  "chat": {
+    "launcher": "Mở trợ lý MingAnji.ai",
+    "launcherShort": "Hỏi AI",
+    "title": "Trợ lý MingAnji",
+    "subtitle": "Trợ lý AI",
+    "aiNotice": "Câu trả lời do AI tạo ra có thể sai. Với báo giá và cam kết, vui lòng liên hệ đội ngũ của chúng tôi.",
+    "welcome": "Xin chào! Tôi là trợ lý MingAnji.ai. Tôi có thể giải thích về xe tải, tính năng nền tảng và cách hệ thống hoạt động. Bạn muốn biết điều gì?",
+    "suggestionsLabel": "Câu hỏi gợi ý",
+    "suggestions": {
+      "what": "MingAnji.ai là gì?",
+      "drilling": "Việc theo dõi vị trí khoan hoạt động như thế nào?",
+      "managers": "Nhà quản lý xem được những thông tin gì?",
+      "staff": "Hệ thống có giúp quản lý nhân sự và bảng chấm công không?",
+      "demo": "Làm sao để yêu cầu demo?"
+    },
+    "inputLabel": "Câu hỏi của bạn",
+    "placeholder": "Hỏi về MingAnji.ai…",
+    "send": "Gửi",
+    "thinking": "Đang suy nghĩ…",
+    "you": "Bạn",
+    "assistant": "Trợ lý",
+    "close": "Đóng trợ lý",
+    "restart": "Bắt đầu lại",
+    "tooLong": "Vui lòng giữ câu hỏi dưới {max} ký tự.",
+    "errors": {
+      "generic": "Xin lỗi, tôi chưa thể trả lời lúc này. Vui lòng thử lại hoặc liên hệ đội ngũ của chúng tôi.",
+      "timeout": "Quá thời gian chờ. Vui lòng thử lại.",
+      "rateLimited": "Bạn đã gửi quá nhiều câu hỏi. Vui lòng đợi vài phút rồi thử lại.",
+      "network": "Có vẻ bạn đang ngoại tuyến. Hãy kiểm tra kết nối và thử lại."
+    },
+    "faqMode": {
+      "badge": "Chế độ FAQ",
+      "notice": "Trợ lý AI chưa được kết nối. Hãy chọn một câu hỏi bên dưới để xem câu trả lời soạn sẵn trong phần FAQ của chúng tôi.",
+      "pick": "Chọn một câu hỏi",
+      "contact": "Vẫn còn câu hỏi? Hãy liên hệ đội ngũ của chúng tôi."
+    },
+    "faq": {
+      "what": "MingAnji.ai là nền tảng giám sát xe tải thông minh và quản lý doanh nghiệp, powered by Tian'An. Cảm biến và bộ điều khiển trên xe của chúng tôi thu thập thông tin vận hành, và MingAnji.ai biến thông tin đó thành bản đồ, bảng điều khiển, báo cáo và công cụ để lập kế hoạch và quản lý công việc.",
+      "drilling": "Trên xe khoan, cảm biến ghi lại hoạt động khoan còn định vị ghi lại nơi xe đang làm việc. Mỗi lỗ khoan đã ghi nhận sau đó có thể hiển thị tại vị trí của nó trên bản đồ MingAnji.ai, nơi đội ngũ văn phòng có thể xem lại, chọn vị trí và xuất bản đồ, bản vẽ cùng thông tin công việc.",
+      "managers": "Nhà quản lý có thể xem vị trí và hoạt động của xe, các vị trí khoan đã ghi nhận, giờ vận hành thiết bị, tiến độ công việc, tổng hợp nhân sự và bảng chấm công, cùng các bảng điều khiển vận hành. Màn hình cụ thể phụ thuộc vào cấu hình của bạn.",
+      "staff": "Có. MingAnji.ai có các tính năng quản lý nhân sự cho hồ sơ nhân sự, phân công công việc và bảng chấm công, để thời gian làm việc của mọi người có thể được xem cùng với hoạt động hiện trường. Hãy hỏi đội ngũ của chúng tôi về các tùy chọn phù hợp với tổ chức của bạn.",
+      "demo": "Hãy dùng nút Yêu cầu demo hoặc trang Liên hệ. Cho chúng tôi biết về xe và công việc của bạn, đội ngũ của chúng tôi sẽ sắp xếp buổi demo có hướng dẫn."
+    },
+    "links": {
+      "features": "Tính năng hệ thống",
+      "contact": "Liên hệ",
+      "demo": "Yêu cầu demo",
+      "pricing": "Bảng giá"
+    }
+  },
+  "notFound": {
+    "title": "Chúng tôi không tìm thấy trang đó",
+    "body": "Trang có thể đã được chuyển. Hãy thử trang chủ hoặc liên hệ với chúng tôi."
+  }
+}

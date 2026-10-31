@@ -1,0 +1,406 @@
+{
+  "meta": {
+    "siteTitle": "MingAnji.ai — 卡车监控与业务管理",
+    "siteDescription": "MingAnji.ai 将 Tian'An 卡车的传感器与控制器数据转化为地图、仪表盘、报表和规划工具，服务于现场与办公室团队。",
+    "homeTitle": "卡车智能，从现场到办公室",
+    "featuresTitle": "系统功能",
+    "featuresDescription": "卡车与设备监控、地图、规划与导出、员工管理和业务仪表盘——集于一个平台。",
+    "pricingTitle": "价格",
+    "pricingDescription": "MingAnji.ai 根据您的车队和所需功能进行配置。请联系我们获取定制报价。",
+    "contactTitle": "联系我们",
+    "contactDescription": "申请演示，或咨询 MingAnji.ai 和 Tian'An 卡车。",
+    "notFoundTitle": "页面未找到"
+  },
+  "common": {
+    "skipToContent": "跳到正文",
+    "brandAttribution": "Powered by Tian'An",
+    "requestDemo": "申请演示",
+    "signIn": "登录",
+    "exploreFeatures": "了解平台",
+    "contactUs": "联系我们",
+    "learnMore": "了解更多",
+    "illustrative": "示意",
+    "sampleData": "示例数据",
+    "illustrativeInterface": "示意界面 · 示例数据",
+    "opensInNewTab": "（在新标签页中打开）",
+    "language": "语言",
+    "selectLanguage": "选择语言",
+    "menu": "菜单",
+    "openMenu": "打开菜单",
+    "closeMenu": "关闭菜单",
+    "close": "关闭",
+    "backToHome": "返回首页"
+  },
+  "nav": {
+    "home": "首页",
+    "features": "系统功能",
+    "pricing": "价格",
+    "contact": "联系我们",
+    "primary": "主导航"
+  },
+  "footer": {
+    "description": "MingAnji.ai 将卡车传感器和控制器采集的运行信息转化为地图、仪表盘，以及用于规划和管理作业的工具。",
+    "explore": "探索",
+    "portal": "客户门户",
+    "portalSignIn": "登录门户",
+    "contact": "联系方式",
+    "location": "中国深圳",
+    "rights": "版权所有。",
+    "availability": "产品功能和供应情况可能因配置和地区而异。"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "智能卡车平台",
+      "title": "每一辆卡车，都是清晰信息的来源。",
+      "lead": "Tian'An 卡车上的传感器和控制器记录车辆所在位置及作业内容。MingAnji.ai 将这些作业数据转化为地图、仪表盘和您的团队可以执行的计划。",
+      "scrollHint": "向下滚动，了解工作原理"
+    },
+    "story": {
+      "eyebrow": "工作原理",
+      "title": "从卡车到决策，六步完成",
+      "stageLabel": "动画示意：钻孔车的传感器数据流向 MingAnji.ai 仪表盘",
+      "steps": {
+        "truck": {
+          "kicker": "01 · 卡车",
+          "title": "联网的作业卡车",
+          "body": "每辆 Tian'An 卡车可配备传感器和车载控制器。设备因车型和配置而异。"
+        },
+        "sensors": {
+          "kicker": "02 · 传感器",
+          "title": "传感器记录作业",
+          "body": "钻孔装置和车辆上的传感器记录作业活动，定位则显示作业发生的位置——因此每个钻孔都可以连同位置一起记录。"
+        },
+        "controller": {
+          "kicker": "03 · 控制器",
+          "title": "控制器汇总数据",
+          "body": "信号传至车载控制器，由其将位置、运行时长和设备活动整合为一条记录。"
+        },
+        "platform": {
+          "kicker": "04 · MingAnji.ai",
+          "title": "办公室看见现场",
+          "body": "记录传送至 MingAnji.ai。办公室团队可在地图上查看卡车，作业完成后新的钻孔位置随即显示。"
+        },
+        "plan": {
+          "kicker": "05 · 规划与导出",
+          "title": "复盘，再规划下一项作业",
+          "body": "选择地图上的钻孔位置，查看已完成作业的汇总，并导出地图、图纸和作业信息，为后续任务做准备。"
+        },
+        "manage": {
+          "kicker": "06 · 管理",
+          "title": "一个视图掌握全部运营",
+          "body": "现场信息汇入管理仪表盘：卡车活动、作业进度、员工与工时表，以及业务汇总，一处查看。"
+        }
+      },
+      "labels": {
+        "gnss": "定位天线",
+        "gnssNote": "安装位置仅为示意",
+        "boom": "臂架位置",
+        "drill": "钻孔活动",
+        "hours": "运行时长",
+        "controller": "车载控制器",
+        "location": "位置",
+        "activity": "活动",
+        "hoursShort": "时长",
+        "platform": "MingAnji.ai",
+        "field": "现场",
+        "office": "办公室"
+      },
+      "dash": {
+        "liveMap": "实时地图",
+        "online": "在线",
+        "truckId": "卡车 07",
+        "drilling": "钻孔中",
+        "recentHole": "已记录新钻孔",
+        "holes": "钻孔",
+        "selected": "已选",
+        "summary": "作业汇总",
+        "completed": "已完成",
+        "planned": "已计划",
+        "remaining": "剩余",
+        "export": "导出",
+        "drawing": "现场图纸",
+        "exportNote": "地图、图纸和作业信息",
+        "activity": "卡车活动",
+        "hoursWeek": "运行时长 · 本周",
+        "planning": "作业规划",
+        "progress": "进度",
+        "staff": "员工与工时表",
+        "onShift": "当班",
+        "business": "业务概览",
+        "jobs": "进行中的作业",
+        "utilisation": "车队活动",
+        "days": ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+      },
+      "closing": {
+        "title": "用您自己的车队来看看。",
+        "body": "我们将以您管理的卡车和作业，为您演示 MingAnji.ai。"
+      }
+    },
+    "trucks": {
+      "eyebrow": "我们提供并配装的车型",
+      "title": "五类卡车，一个平台。",
+      "lead": "Tian'An 卡车供应并配装用于电力、基础设施和应急作业。传感器和控制器选项取决于车型和配置。",
+      "items": {
+        "bucket": { "name": "非绝缘斗臂车", "body": "高空作业，用于维护、安装和检查。" },
+        "insulated": { "name": "绝缘斗臂车", "body": "绝缘高空作业平台，用于带电线路附近的作业。" },
+        "generator": { "name": "移动发电车", "body": "随行供电，适用于现场作业、停电和临时供电。" },
+        "drilling": { "name": "钻孔车", "body": "车载钻孔设备，用于电杆孔和基础施工。" },
+        "fire": { "name": "消防车", "body": "用于应急响应的消防车辆。" }
+      },
+      "note": "车辆轮廓仅为示意，不代表具体型号或规格。"
+    },
+    "benefits": {
+      "eyebrow": "为什么选择 MingAnji.ai",
+      "title": "少一些猜测，多一些完成的作业。",
+      "items": {
+        "visibility": { "title": "掌握作业地点", "body": "卡车位置和已记录的钻孔位置，同显于一张地图。" },
+        "records": { "title": "来自设备的记录", "body": "活动由传感器和控制器采集，减少人工填报。" },
+        "planning": { "title": "基于已完成作业做规划", "body": "复盘已完成作业，并通过导出和图纸准备后续任务。" },
+        "management": { "title": "管理好业务", "body": "员工、工时表和运营汇总，与现场数据一并呈现。" }
+      }
+    },
+    "cta": {
+      "title": "想在地图上看到您的卡车吗？",
+      "body": "预约引导式演示；已有账号的用户可直接登录门户。",
+      "existing": "已是客户？"
+    }
+  },
+  "features": {
+    "eyebrow": "系统功能",
+    "title": "从卡车到董事会，一应俱全",
+    "lead": "MingAnji.ai 的功能分为五大领域，每一项都建立在现场采集的信息之上。",
+    "legend": "界面预览使用示例数据，仅为示意。功能可能因车型、配置和地区而异。",
+    "jumpTo": "跳转至",
+    "details": "包含内容",
+    "statusLabel": "状态",
+    "status": {
+      "available": "核心功能",
+      "confirm": "请咨询是否提供"
+    },
+    "areas": {
+      "monitoring": {
+        "nav": "监控",
+        "title": "卡车与设备监控",
+        "summary": "查看每辆联网卡车：位置、是否在作业，以及设备已运行多少小时。",
+        "points": [
+          "传感器和车载控制器采集运行信息",
+          "每辆联网卡车的 GPS 定位与追踪",
+          "设备运行时长和活动",
+          "在线、空闲和离线状态一目了然"
+        ],
+        "diagram": "传感器 → 控制器 → MingAnji.ai"
+      },
+      "mapping": {
+        "nav": "地图",
+        "title": "地图与现场作业",
+        "summary": "已记录的钻孔位置和卡车行驶轨迹显示在同一张地图上，办公室即可掌握现场进度。",
+        "points": [
+          "钻孔活动及已记录的钻孔位置",
+          "卡车追踪和每日行驶轨迹",
+          "钻孔、路线和计划位置的地图图层",
+          "各工地的作业进度"
+        ]
+      },
+      "planning": {
+        "nav": "规划",
+        "title": "规划与导出",
+        "summary": "复盘已完成的作业，准确了解作业发生的位置，并准备下一批任务。",
+        "points": [
+          "选择并查看地图上的钻孔位置",
+          "已完成和剩余作业的汇总",
+          "导出地图、图纸和作业信息",
+          "根据已完成的作业准备后续任务"
+        ]
+      },
+      "staff": {
+        "nav": "员工",
+        "title": "员工管理",
+        "summary": "让员工档案、作业分配和工时表与现场实际完成的作业相关联。",
+        "points": [
+          "员工档案",
+          "作业分配",
+          "工时表",
+          "与卡车活动关联的工作时间"
+        ]
+      },
+      "business": {
+        "nav": "业务",
+        "title": "业务管理",
+        "summary": "运营汇总和仪表盘，帮助管理者依据可靠的现场信息做出决策。",
+        "points": [
+          "运营汇总",
+          "报表",
+          "管理仪表盘",
+          "一个视图涵盖卡车、作业和人员"
+        ]
+      }
+    },
+    "preview": {
+      "status": "状态",
+      "hours": "时长",
+      "lastSeen": "最近在线",
+      "now": "刚刚",
+      "idle": "空闲",
+      "offline": "离线",
+      "route": "路线",
+      "plannedPositions": "计划位置",
+      "drilled": "已钻孔",
+      "exportReady": "导出已准备好",
+      "name": "姓名",
+      "role": "分配",
+      "hoursToday": "今日",
+      "operator": "操作员",
+      "crew": "班组",
+      "thisMonth": "本月",
+      "jobsDone": "已完成作业",
+      "holesDrilled": "已钻孔数",
+      "activeTrucks": "活跃卡车"
+    },
+    "cta": {
+      "title": "想用您的数据查看这些功能吗？",
+      "body": "我们将根据您的卡车和管理的作业定制演示。"
+    }
+  },
+  "pricing": {
+    "eyebrow": "价格",
+    "title": "为您的车队量身定价",
+    "lead": "MingAnji.ai 根据您的卡车和所需功能进行配置，因此我们会为每位客户单独准备报价。",
+    "cardTitle": "联系我们获取报价",
+    "cardBody": "请告诉我们您的车队和作业情况。我们的团队将推荐配置方案并发送报价。",
+    "cardCta": "申请报价",
+    "stepsTitle": "流程",
+    "steps": {
+      "one": { "title": "告诉我们您的作业情况", "body": "卡车类型、卡车数量以及您管理的作业。" },
+      "two": { "title": "观看定制演示", "body": "我们展示对您的团队重要的功能。" },
+      "three": { "title": "收到报价", "body": "针对您的配置出具书面方案。" }
+    },
+    "askTitle": "我们会询问的内容",
+    "ask": [
+      "您运营或计划购买的卡车类别",
+      "您希望接入的卡车数量",
+      "您需要的功能：监控、地图、规划、员工或业务管理",
+      "您的团队作业地点和时间安排"
+    ],
+    "faqTitle": "常见问题",
+    "faq": {
+      "q1": "为什么不公布价格？",
+      "a1": "每套方案取决于所涉及的卡车、设备和功能。我们宁愿给您一份准确的报价，也不愿提供容易误导的标价。",
+      "q2": "可以先试用平台吗？",
+      "a2": "可以——申请演示，我们将带您了解 MingAnji.ai。现有客户可登录门户。",
+      "q3": "必须使用 Tian'An 卡车吗？",
+      "a3": "MingAnji.ai 围绕 Tian'An 卡车及其传感器和控制器设计。请联系我们，讨论您现有的车队。"
+    }
+  },
+  "contact": {
+    "eyebrow": "联系我们",
+    "title": "聊聊您的卡车和作业",
+    "lead": "申请演示或向我们提问，我们将通过电子邮件回复。",
+    "directTitle": "直接联系",
+    "emailLabel": "电子邮箱",
+    "locationLabel": "地点",
+    "portalTitle": "现有客户",
+    "portalBody": "登录 MingAnji.ai 门户。",
+    "form": {
+      "title": "发送咨询",
+      "required": "必填",
+      "optional": "选填",
+      "name": "姓名",
+      "email": "工作邮箱",
+      "company": "公司",
+      "phone": "电话",
+      "country": "国家/地区",
+      "topic": "我感兴趣的是",
+      "topics": {
+        "demo": "MingAnji.ai 演示",
+        "pricing": "价格与报价",
+        "trucks": "Tian'An 卡车",
+        "other": "其他"
+      },
+      "message": "留言",
+      "messagePlaceholder": "请介绍您的车队以及您想达成的目标。",
+      "consent": "我同意 MingAnji.ai 使用这些信息回复我的咨询。",
+      "submit": "发送咨询",
+      "sending": "发送中…",
+      "errors": {
+        "summary": "请更正标出的字段。",
+        "nameRequired": "请输入您的姓名。",
+        "emailRequired": "请输入您的电子邮箱。",
+        "emailInvalid": "请输入有效的电子邮箱，例如 name@company.com。",
+        "messageRequired": "请输入留言。",
+        "messageShort": "请至少输入 10 个字符。",
+        "messageLong": "留言请控制在 2,000 个字符以内。",
+        "consentRequired": "请确认我们可以使用您的信息进行回复。"
+      },
+      "success": {
+        "title": "谢谢——您的咨询已发送。",
+        "body": "我们的团队将通过电子邮件回复。"
+      },
+      "unavailable": {
+        "title": "暂不支持在线发送",
+        "body": "您的咨询尚未发送。请直接给我们发送电子邮件——我们已为您准备好邮件内容。",
+        "cta": "在我的邮件应用中打开",
+        "copy": "复制内容",
+        "copied": "已复制"
+      },
+      "error": {
+        "title": "出了点问题",
+        "body": "您的咨询尚未发送。请重试，或直接给我们发送电子邮件。",
+        "rateLimited": "尝试次数过多，请等待几分钟后重试。"
+      }
+    }
+  },
+  "chat": {
+    "launcher": "打开 MingAnji.ai 助手",
+    "launcherShort": "问 AI",
+    "title": "MingAnji 助手",
+    "subtitle": "AI 助手",
+    "aiNotice": "AI 生成的回答可能有误。如需报价或做出承诺，请联系我们的团队。",
+    "welcome": "您好！我是 MingAnji.ai 助手，可以为您介绍我们的卡车、平台功能以及系统的工作方式。您想了解什么？",
+    "suggestionsLabel": "推荐问题",
+    "suggestions": {
+      "what": "MingAnji.ai 是什么？",
+      "drilling": "钻孔位置追踪是如何工作的？",
+      "managers": "管理者可以看到哪些信息？",
+      "staff": "系统能帮助管理员工和工时表吗？",
+      "demo": "如何申请演示？"
+    },
+    "inputLabel": "您的问题",
+    "placeholder": "询问有关 MingAnji.ai 的问题…",
+    "send": "发送",
+    "thinking": "思考中…",
+    "you": "您",
+    "assistant": "助手",
+    "close": "关闭助手",
+    "restart": "重新开始",
+    "tooLong": "问题请控制在 {max} 个字符以内。",
+    "errors": {
+      "generic": "抱歉，暂时无法回答。请重试，或联系我们的团队。",
+      "timeout": "响应超时，请重试。",
+      "rateLimited": "您发送的问题过多，请等待几分钟后重试。",
+      "network": "您似乎已离线。请检查网络连接后重试。"
+    },
+    "faqMode": {
+      "badge": "FAQ 模式",
+      "notice": "AI 助手尚未接入。请在下方选择一个问题，查看我们 FAQ 中的预设回答。",
+      "pick": "选择一个问题",
+      "contact": "还有疑问？请联系我们的团队。"
+    },
+    "faq": {
+      "what": "MingAnji.ai 是一个由 Tian'An 提供支持的智能卡车监控与业务管理平台。我们卡车上的传感器和控制器采集运行信息，MingAnji.ai 将其转化为地图、仪表盘、报表，以及用于规划和管理作业的工具。",
+      "drilling": "在钻孔车上，传感器记录钻孔活动，定位则记录卡车的作业位置。每个已记录的钻孔都可以显示在 MingAnji.ai 地图上的相应位置，办公室团队可以查看、选择位置，并导出地图、图纸和作业信息。",
+      "managers": "管理者可以查看卡车位置和活动、已记录的钻孔位置、设备运行时长、作业进度、员工和工时表汇总，以及运营仪表盘。具体界面取决于您的配置。",
+      "staff": "可以。MingAnji.ai 包含员工管理功能，涵盖员工档案、作业分配和工时表，便于将员工的工作时间与现场活动一并查看。请咨询我们的团队，了解哪些选项适合您的机构。",
+      "demo": "请使用“申请演示”按钮或“联系我们”页面。告诉我们您的卡车和作业情况，我们的团队将安排引导式演示。"
+    },
+    "links": {
+      "features": "系统功能",
+      "contact": "联系我们",
+      "demo": "申请演示",
+      "pricing": "价格"
+    }
+  },
+  "notFound": {
+    "title": "找不到该页面",
+    "body": "页面可能已移动。请尝试返回首页或联系我们。"
+  }
+}
