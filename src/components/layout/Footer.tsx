@@ -9,7 +9,7 @@ export async function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="border-t border-line bg-mist">
-      <div className="mx-auto max-w-[1240px] px-5 pb-28 pt-14 sm:px-8 sm:pt-16 lg:pb-12">
+      <div className="mx-auto max-w-[1240px] px-5 pb-28 pt-14 sm:px-8 sm:pt-16 lg:pb-24">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-5">
             <Link href="/" className="inline-flex items-center gap-2.5 rounded-lg" aria-label={`${site.name} — ${t("nav.home")}`}>

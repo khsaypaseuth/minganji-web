@@ -1,0 +1,12 @@
+import { chromium } from "playwright";
+const b = await chromium.launch(); const p = await (await b.newContext({ viewport: { width: 390, height: 844 } })).newPage();
+const logs=[]; p.on("console", m => logs.push(m.type()+": "+m.text().slice(0,6000)));
+await p.goto("http://localhost:3100/en", { waitUntil: "networkidle" }); await p.waitForTimeout(1500);
+const btn = p.locator("nextjs-portal").first();
+const txt = await p.evaluate(() => { const h = document.querySelector("nextjs-portal"); return h?.shadowRoot?.textContent?.slice(0, 300); });
+console.log("portal:", txt);
+await p.evaluate(() => { const h = document.querySelector("nextjs-portal"); const el = [...h.shadowRoot.querySelectorAll("button")].find(x => /Issue/.test(x.textContent)); el?.click(); });
+await p.waitForTimeout(800);
+console.log(await p.evaluate(() => document.querySelector("nextjs-portal")?.shadowRoot?.textContent?.slice(0, 2500)));
+console.log(logs.join("\n"));
+await b.close();

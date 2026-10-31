@@ -55,7 +55,7 @@ export function MonitoringPreview({ d, p, diagram }: P) {
 export function MappingPreview({ d, p }: P) {
   return (
     <Window title={d.liveMap} badge={<LivePill label={d.online} />}>
-      <MapView d={d} />
+      <MapView d={d} styleOf={(k) => (k === "selection" ? { display: "none" } : {})} />
       <ul className="flex flex-wrap gap-x-5 gap-y-2 border-t border-line px-4 py-3 text-[12.5px] text-slate">
         <li className="flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-ink" aria-hidden="true" />{p("drilled")}</li>
         <li className="flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full border-2 border-dashed border-steel" aria-hidden="true" />{p("plannedPositions")}</li>

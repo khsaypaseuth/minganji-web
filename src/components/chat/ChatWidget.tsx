@@ -68,11 +68,22 @@ export function ChatWidget() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<{ key: ErrKey; retry?: Msg[] } | null>(null);
+  const [fieldFocus, setFieldFocus] = useState(false);
   const launcherRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
+
+  // Step aside while the visitor types in a page form field (never cover inputs).
+  useEffect(() => {
+    const isField = (el: EventTarget | null) => el instanceof HTMLElement && el.matches("input, textarea, select") && !el.closest("#mj-chat");
+    const onIn = (e: FocusEvent) => setFieldFocus(isField(e.target));
+    const onOut = () => setFieldFocus(false);
+    document.addEventListener("focusin", onIn);
+    document.addEventListener("focusout", onOut);
+    return () => { document.removeEventListener("focusin", onIn); document.removeEventListener("focusout", onOut); };
+  }, []);
 
   // Check (once, when first opened) whether an AI provider is configured.
   useEffect(() => {
@@ -169,12 +180,12 @@ export function ChatWidget() {
         aria-expanded={open}
         aria-controls="mj-chat"
         aria-label={open ? t("close") : t("launcher")}
-        className={`fixed bottom-4 right-4 z-40 flex items-center gap-2.5 rounded-full bg-white py-1.5 pl-1.5 pr-1.5 shadow-[var(--shadow-lg)] ring-1 ring-line transition-[transform,opacity] duration-300 hover:-translate-y-0.5 sm:bottom-6 sm:right-6 sm:pr-4 ${open ? "max-sm:pointer-events-none max-sm:opacity-0" : ""}`}
+        className={`fixed bottom-4 right-4 z-40 flex items-center gap-2.5 rounded-full bg-white py-1.5 pl-1.5 pr-1.5 shadow-[var(--shadow-lg)] ring-1 ring-line transition-[transform,opacity] duration-300 hover:-translate-y-0.5 sm:bottom-6 sm:right-6 xl:pr-4 ${open ? "max-sm:pointer-events-none max-sm:opacity-0" : ""} ${fieldFocus && !open ? "pointer-events-none translate-y-4 opacity-0" : ""}`}
       >
         <span className="flex h-11 w-11 items-center justify-center rounded-full bg-mist">
           <BotAvatar size={34} />
         </span>
-        <span className="hidden text-left leading-tight sm:block">
+        <span className="hidden text-left leading-tight xl:block">
           <span className="block text-[14px] font-semibold text-ink">{t("launcherShort")}</span>
           <span className="block font-mono text-[10px] uppercase tracking-[0.1em] text-steel">{t("subtitle")}</span>
         </span>
