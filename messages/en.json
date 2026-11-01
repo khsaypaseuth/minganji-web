@@ -34,7 +34,6 @@
       "label": "Colour theme",
       "light": "Light",
       "dark": "Dark",
-      "system": "System",
       "current": "Colour theme: {theme}"
     }
   },

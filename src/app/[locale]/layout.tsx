@@ -19,11 +19,8 @@ export function generateStaticParams() {
 }
 
 export const viewport: Viewport = {
-  // ThemeProvider updates these to the visitor's chosen theme.
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: THEME_COLOR.light },
-    { media: "(prefers-color-scheme: dark)", color: THEME_COLOR.dark },
-  ],
+  // Light by default; ThemeProvider updates it to the visitor's chosen theme.
+  themeColor: THEME_COLOR.light,
   width: "device-width",
   initialScale: 1,
 };

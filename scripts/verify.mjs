@@ -129,12 +129,11 @@ for (const l of ["en", "zh", "lo", "th", "vi"]) {
   ok("skip link is first tab stop", /skip/i.test(await p.evaluate(() => document.activeElement?.textContent ?? "")));
 }
 
-// 8. Theme: System default, toggle, persistence, no flash, keyboard, mobile control
+// 8. Theme: light default, toggle, persistence, no flash, keyboard, mobile control
 {
   const DARK_BG = "rgb(15, 17, 20)", LIGHT_BG = "rgb(255, 255, 255)";
   const state = (p) => p.evaluate(() => ({
     theme: document.documentElement.getAttribute("data-theme"),
-    choice: document.documentElement.getAttribute("data-theme-choice"),
     bg: getComputedStyle(document.body).backgroundColor,
     stored: localStorage.getItem("mj-theme"),
   }));
@@ -146,28 +145,28 @@ for (const l of ["en", "zh", "lo", "th", "vi"]) {
     new MutationObserver(log).observe(document, { subtree: true, attributes: true, attributeFilter: ["data-theme"], childList: true });
   });
 
-  // System is the default and follows the OS setting.
+  // Light is the default, even on a dark device, until the visitor picks.
   const sys = await page({ colorScheme: "dark" });
   await sys.goto(`${base}/en`, { waitUntil: "networkidle" });
   let s = await state(sys);
-  ok("theme: System default follows OS dark", s.theme === "dark" && s.choice === "system" && s.bg === DARK_BG, JSON.stringify(s));
+  ok("theme: default is light on a dark OS", s.theme === "light" && s.bg === LIGHT_BG, JSON.stringify(s));
   const sysLight = await page({ colorScheme: "light" });
   await sysLight.goto(`${base}/en`, { waitUntil: "networkidle" });
   s = await state(sysLight);
-  ok("theme: System default follows OS light", s.theme === "light" && s.choice === "system" && s.bg === LIGHT_BG, JSON.stringify(s));
+  ok("theme: default is light on a light OS", s.theme === "light" && s.bg === LIGHT_BG, JSON.stringify(s));
   ok("theme: no transition class on first load", !(await sysLight.evaluate(() => document.documentElement.classList.contains("theme-transition"))));
 
   // Toggle on a light OS: choose Dark from the header menu.
   const p = await page({ colorScheme: "light" });
   await recordThemes(p);
   await p.goto(`${base}/en/pricing`, { waitUntil: "networkidle" });
-  ok("theme: toggle has accessible name", /Colour theme: System/.test((await p.getAttribute("[data-theme-toggle]", "aria-label")) ?? ""));
+  ok("theme: toggle has accessible name", /Colour theme: Light/.test((await p.getAttribute("[data-theme-toggle]", "aria-label")) ?? ""));
   await p.click("[data-theme-toggle]");
-  ok("theme: menu opens with current option focused", await p.evaluate(() => document.activeElement?.getAttribute("data-theme-option") === "system" && document.activeElement?.getAttribute("aria-checked") === "true"));
+  ok("theme: menu opens with current option focused", await p.evaluate(() => document.activeElement?.getAttribute("data-theme-option") === "light" && document.activeElement?.getAttribute("aria-checked") === "true"));
   await p.click('[role=menu] [data-theme-option="dark"]');
   await p.waitForTimeout(1000); // let the 280 ms colour transition finish
   s = await state(p);
-  ok("theme: toggle switches to dark", s.theme === "dark" && s.choice === "dark" && s.stored === "dark" && s.bg === DARK_BG, JSON.stringify(s));
+  ok("theme: toggle switches to dark", s.theme === "dark" && s.stored === "dark" && s.bg === DARK_BG, JSON.stringify(s));
   ok("theme: toggle announces the new state", /Colour theme: Dark/.test((await p.getAttribute("[data-theme-toggle]", "aria-label")) ?? ""));
   ok("theme: focus returns to the toggle", await p.evaluate(() => document.activeElement?.hasAttribute("data-theme-toggle")));
 
@@ -185,7 +184,7 @@ for (const l of ["en", "zh", "lo", "th", "vi"]) {
   await p.waitForTimeout(1200);
   s = await state(p);
   log = await p.evaluate(() => window.__themeLog);
-  ok("theme: persists across language switch", s.theme === "dark" && s.choice === "dark" && s.bg === DARK_BG, JSON.stringify(s));
+  ok("theme: persists across language switch", s.theme === "dark" && s.bg === DARK_BG, JSON.stringify(s));
   ok("theme: no flash on language switch", log.includes("dark") && !log.includes("light"), JSON.stringify(log));
   ok("theme: toggle label translated after switch", /ธีมสี/.test((await p.getAttribute("[data-theme-toggle]", "aria-label")) ?? ""));
 
@@ -204,6 +203,8 @@ for (const l of ["en", "zh", "lo", "th", "vi"]) {
   // Keyboard only: open with Enter, Home = Light, Enter selects, Escape closes.
   const k = await page({ colorScheme: "dark" });
   await k.goto(`${base}/en`, { waitUntil: "networkidle" });
+  await k.evaluate(() => localStorage.setItem("mj-theme", "dark"));
+  await k.goto(`${base}/en`, { waitUntil: "networkidle" });
   await k.focus("[data-theme-toggle]");
   await k.keyboard.press("Enter");
   await k.keyboard.press("Home");
@@ -217,7 +218,7 @@ for (const l of ["en", "zh", "lo", "th", "vi"]) {
   await k.keyboard.press("Escape");
   ok("theme: Escape closes the menu", !(await k.isVisible("[role=menu]")) && await k.evaluate(() => document.activeElement?.hasAttribute("data-theme-toggle")));
 
-  // Mobile menu control (native radios), and System clears the stored choice.
+  // Mobile menu control (native radios): only Light and Dark.
   const m = await page({ viewport: { width: 390, height: 844 }, colorScheme: "light" });
   await m.goto(`${base}/en`, { waitUntil: "networkidle" });
   await m.click('header button[aria-controls="mobile-menu"]');
@@ -226,10 +227,11 @@ for (const l of ["en", "zh", "lo", "th", "vi"]) {
   s = await state(m);
   ok("theme: mobile control switches to dark", s.theme === "dark" && s.stored === "dark" && await m.isChecked('#mobile-menu [data-theme-option="dark"]'), JSON.stringify(s));
   await m.screenshot({ path: `${out}/theme-mobile-menu-dark.png` });
-  await m.click('#mobile-menu label:has([data-theme-option="system"])');
+  ok("theme: no System option", (await m.$$('[data-theme-option="system"]')).length === 0);
+  await m.click('#mobile-menu label:has([data-theme-option="light"])');
   await m.waitForTimeout(1000);
   s = await state(m);
-  ok("theme: System restores OS setting and clears storage", s.theme === "light" && s.choice === "system" && s.stored === null, JSON.stringify(s));
+  ok("theme: mobile control switches back to light", s.theme === "light" && s.stored === "light" && s.bg === LIGHT_BG, JSON.stringify(s));
 
   // Reduced motion: switching does not animate.
   const r = await page({ reducedMotion: "reduce", colorScheme: "light" });

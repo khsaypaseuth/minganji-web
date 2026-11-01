@@ -127,12 +127,12 @@ All motion respects `prefers-reduced-motion`: those visitors get the complete st
 
 ## Light and dark mode
 
-Visitors choose **Light**, **Dark** or **System** (the default, which follows the operating system). Desktop: the icon button next to the language flags opens a small menu. Mobile: a three-way control in the mobile menu. The choice is saved in `localStorage` (`mj-theme`; "System" removes it), so it persists across pages, visits and language switches.
+Visitors choose **Light** or **Dark**. Light is the default, whatever the device setting (owner's decision, 1 Nov 2026). Desktop: the icon button next to the language flags opens a small menu. Mobile: a two-way control in the mobile menu. The choice is saved in `localStorage` (`mj-theme`), so it persists across pages, visits and language switches.
 
 **How it works**
-- `src/components/theme/ThemeScript.tsx` puts a tiny blocking script in `<head>` that sets `<html data-theme="light|dark" data-theme-choice="…">` before first paint, so there is no flash. It is rendered as an executable script on the server and as an inert `type="text/plain"` block on the client. That avoids React's "Encountered a script tag while rendering React component" error when `<html>` is re-rendered on a language switch (the `[locale]` layout is the root layout).
-- `src/components/theme/ThemeProvider.tsx` keeps `<html>` in sync: after client re-renders, OS changes (for System) and changes in other tabs. It also updates the `theme-color` meta. When the visitor switches, it adds `theme-transition` to `<html>` for ~300 ms (a 280 ms colour cross-fade), never on first load and never with reduced motion.
-- `src/components/theme/ThemeToggle.tsx` has the controls. The header icon is chosen by CSS from `data-theme-choice`, so it is right before hydration.
+- `src/components/theme/ThemeScript.tsx` puts a tiny blocking script in `<head>` that sets `<html data-theme="light|dark">` before first paint, so there is no flash. It is rendered as an executable script on the server and as an inert `type="text/plain"` block on the client. That avoids React's "Encountered a script tag while rendering React component" error when `<html>` is re-rendered on a language switch (the `[locale]` layout is the root layout).
+- `src/components/theme/ThemeProvider.tsx` keeps `<html>` in sync: after client re-renders and changes in other tabs. It also updates the `theme-color` meta. When the visitor switches, it adds `theme-transition` to `<html>` for ~300 ms (a 280 ms colour cross-fade), never on first load and never with reduced motion.
+- `src/components/theme/ThemeToggle.tsx` has the controls. The header icon is chosen by CSS from `data-theme`, so it is right before hydration.
 - Without JavaScript the site stays light.
 
 **Colours are tokens.** `src/app/globals.css` defines every colour twice: in `:root` (light) and in `:root[data-theme="dark"]`. Components use Tailwind token classes (`bg-surface`, `bg-mist`, `text-ink`, `ring-line`…) and SVGs use `fill="var(--token)"`, so they switch automatically.

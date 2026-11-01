@@ -6,16 +6,15 @@ import { Icon, type IconName } from "@/components/icons/Icon";
 import { THEME_CHOICES, type ThemeChoice } from "./theme";
 import { useTheme } from "./ThemeProvider";
 
-const ICON: Record<ThemeChoice, IconName> = { light: "sun", dark: "moon", system: "monitor" };
-// Which icon shows is decided by CSS from <html data-theme-choice>, which is
-// set before first paint, so the button never shows the wrong icon on load.
+const ICON: Record<ThemeChoice, IconName> = { light: "sun", dark: "moon" };
+// Which icon shows is decided by CSS from <html data-theme>, which is set
+// before first paint, so the button never shows the wrong icon on load.
 const SHOW_WHEN: Record<ThemeChoice, string> = {
-  light: "hidden [[data-theme-choice=light]_&]:block",
-  dark: "hidden [[data-theme-choice=dark]_&]:block",
-  system: "hidden [[data-theme-choice=system]_&]:block",
+  light: "hidden [[data-theme=light]_&]:block",
+  dark: "hidden [[data-theme=dark]_&]:block",
 };
 
-/** Desktop: compact icon button opening a small Light / Dark / System menu. */
+/** Desktop: compact icon button opening a small Light / Dark menu. */
 export function ThemeMenu() {
   const t = useTranslations("common.theme");
   const { choice, setChoice } = useTheme();
@@ -111,7 +110,7 @@ export function ThemeMenu() {
   );
 }
 
-/** Mobile menu: a labelled three-way segmented control built on native radios. */
+/** Mobile menu: a labelled two-way segmented control built on native radios. */
 export function ThemeRadios() {
   const t = useTranslations("common.theme");
   const { choice, setChoice } = useTheme();
@@ -122,7 +121,7 @@ export function ThemeRadios() {
         <Icon name="sun" size={14} />
         {t("label")}
       </legend>
-      <div className="grid grid-cols-3 gap-1 rounded-2xl bg-mist p-1 ring-1 ring-line">
+      <div className="grid grid-cols-2 gap-1 rounded-2xl bg-mist p-1 ring-1 ring-line">
         {THEME_CHOICES.map((c) => (
           <label
             key={c}
