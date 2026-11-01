@@ -1,11 +1,13 @@
 // Provisional text-based brand treatment (no official logo files were supplied).
 // The mark: a recorded location (red dot) inside a map tile.
+// The lm-* classes are animated only in the header (see "Header motion" in globals.css).
 export function LogoMark({ size = 30 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-      <rect x="1" y="1" width="30" height="30" rx="8" fill="var(--logo-tile)" />
-      <path d="M7 22.5 13 9.5l6 9 2.5-4 3.5 8" fill="none" stroke="var(--logo-line)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx="21.5" cy="14.5" r="3" fill="var(--signal)" stroke="var(--logo-tile)" strokeWidth="1.2" />
+    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true" focusable="false" className="lm-mark overflow-visible">
+      <rect className="lm-tile" x="1" y="1" width="30" height="30" rx="8" fill="var(--logo-tile)" />
+      <path className="lm-line" pathLength={1} d="M7 22.5 13 9.5l6 9 2.5-4 3.5 8" fill="none" stroke="var(--logo-line)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+      <circle className="lm-ring" cx="21.5" cy="14.5" r="3" fill="none" stroke="var(--signal)" strokeWidth="1.2" opacity="0" />
+      <circle className="lm-dot" cx="21.5" cy="14.5" r="3" fill="var(--signal)" stroke="var(--logo-tile)" strokeWidth="1.2" />
     </svg>
   );
 }
@@ -13,7 +15,7 @@ export function LogoMark({ size = 30 }: { size?: number }) {
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
     <span className={`font-[family-name:var(--font-heading)] text-[19px] font-bold tracking-[-0.02em] text-ink ${className}`}>
-      MingAnji<span className="text-signal">.ai</span>
+      <span className="lm-word inline-block">MingAnji</span><span className="lm-ai inline-block text-signal">.ai</span>
     </span>
   );
 }

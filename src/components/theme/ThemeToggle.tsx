@@ -10,8 +10,8 @@ const ICON: Record<ThemeChoice, IconName> = { light: "sun", dark: "moon" };
 // Which icon shows is decided by CSS from <html data-theme>, which is set
 // before first paint, so the button never shows the wrong icon on load.
 const SHOW_WHEN: Record<ThemeChoice, string> = {
-  light: "hidden [[data-theme=light]_&]:block",
-  dark: "hidden [[data-theme=dark]_&]:block",
+  light: "theme-icon hidden [[data-theme=light]_&]:block",
+  dark: "theme-icon hidden [[data-theme=dark]_&]:block",
 };
 
 /** Desktop: compact icon button opening a small Light / Dark menu. */
@@ -85,7 +85,7 @@ export function ThemeMenu() {
         aria-label={t("label")}
         hidden={!open}
         onKeyDown={onMenuKey}
-        className="absolute right-0 top-[calc(100%+8px)] z-10 w-48 rounded-2xl bg-surface p-1.5 shadow-[var(--shadow-lg)] ring-1 ring-line"
+        className="menu-pop absolute right-0 top-[calc(100%+8px)] z-10 w-48 rounded-2xl bg-surface p-1.5 shadow-[var(--shadow-lg)] ring-1 ring-line"
       >
         <p className="px-3 pb-1 pt-2 font-mono text-[10.5px] uppercase tracking-[0.12em] text-steel" aria-hidden="true">{t("label")}</p>
         {THEME_CHOICES.map((c, i) => (

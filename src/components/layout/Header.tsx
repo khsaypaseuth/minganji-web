@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { nav, site } from "@/lib/site";
@@ -10,11 +10,17 @@ import { Icon } from "@/components/icons/Icon";
 import { buttonClass } from "@/components/ui/Button";
 import { ThemeMenu, ThemeRadios } from "@/components/theme/ThemeToggle";
 
+/** Stagger index for the header intro and mobile menu (see "Header motion" in globals.css). */
+const at = (i: number) => ({ "--i": i }) as CSSProperties;
+
 export function Header() {
   const t = useTranslations();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  // Hover highlight that slides between main menu items. `slide` is false when
+  // it appears, so it fades in on the item instead of sliding from the last one.
+  const [pill, setPill] = useState({ x: 0, w: 0, on: false, slide: false });
   const panelRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
@@ -58,7 +64,7 @@ export function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 h-[var(--header-h)] transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
+      className={`site-header sticky top-0 z-50 h-[var(--header-h)] transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
         // No backdrop-filter while the menu is open: it would become the containing block for the fixed panel.
         open ? "bg-paper shadow-[0_1px_0_var(--line)]" : scrolled ? "bg-paper/88 shadow-[0_1px_0_var(--line)] backdrop-blur-xl backdrop-saturate-150" : "bg-paper/0"
       }`}
@@ -67,42 +73,61 @@ export function Header() {
         {t("common.skipToContent")}
       </a>
       <div className="mx-auto flex h-full max-w-[1320px] items-center justify-between gap-4 px-5 sm:px-8">
-        <Link href="/" className="flex min-h-11 shrink-0 items-center rounded-lg" aria-label={`${site.name} — ${t("nav.home")}`}>
+        <Link href="/" className="hdr-logo flex min-h-11 shrink-0 items-center rounded-lg" aria-label={`${site.name} — ${t("nav.home")}`}>
           <Logo />
         </Link>
 
         <nav aria-label={t("nav.primary")} className="hidden lg:block">
-          <ul className="flex items-center gap-1">
-            {nav.map((item) => (
-              <li key={item.key}>
+          <ul className="relative flex items-center gap-1" onMouseLeave={() => setPill((p) => ({ ...p, on: false }))}>
+            <li
+              aria-hidden="true"
+              className="pointer-events-none absolute left-0 top-0 h-full rounded-full bg-mist ease-[cubic-bezier(0.3,0.9,0.3,1)]"
+              style={{
+                width: pill.w,
+                transform: `translateX(${pill.x}px)`,
+                opacity: pill.on ? 1 : 0,
+                transitionProperty: pill.slide ? "transform, width, opacity" : "opacity",
+                transitionDuration: "0.35s",
+              }}
+            />
+            {nav.map((item, i) => (
+              <li
+                key={item.key}
+                className="hdr-in"
+                style={at(1 + i)}
+                onMouseEnter={(e) => {
+                  const { offsetLeft: x, offsetWidth: w } = e.currentTarget;
+                  setPill((p) => ({ x, w, on: true, slide: p.on }));
+                }}
+              >
                 <Link
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
-                  className="relative rounded-full px-3.5 py-2 text-[14.5px] font-medium text-slate transition-colors hover:text-ink aria-[current=page]:text-ink"
+                  className="relative block rounded-full px-3.5 py-2 text-[14.5px] font-medium text-slate transition-colors hover:text-ink aria-[current=page]:text-ink"
                 >
                   {t(`nav.${item.key}`)}
-                  {isActive(item.href) && <span className="absolute inset-x-3.5 -bottom-0.5 h-[2px] rounded-full bg-signal" aria-hidden="true" />}
+                  {isActive(item.href) && <span className="nav-underline absolute inset-x-3.5 -bottom-0.5 h-[2px] rounded-full bg-signal" aria-hidden="true" />}
                 </Link>
               </li>
             ))}
           </ul>
         </nav>
 
-        <div className="hidden items-center gap-1.5 lg:flex">
+        <div className="hdr-tools hidden items-center gap-1.5 lg:flex">
           <LanguageSwitcher />
           <ThemeMenu />
-          <a href={site.signInUrl} target="_blank" rel="noopener noreferrer" className="flex h-9 items-center gap-1.5 rounded-full px-3.5 text-[14px] font-medium text-graphite hover:bg-mist">
-            <Icon name="login" size={16} />
+          <a href={site.signInUrl} target="_blank" rel="noopener noreferrer" className="group flex h-9 items-center gap-1.5 rounded-full px-3.5 text-[14px] font-medium text-graphite transition-colors hover:bg-mist hover:text-ink">
+            <Icon name="login" size={16} className="transition-transform duration-300 group-hover:translate-x-0.5" />
             {t("common.signIn")}
             <span className="sr-only"> {t("common.opensInNewTab")}</span>
           </a>
-          <Link href={{ pathname: "/contact", query: { topic: "demo" } }} className={buttonClass("primary", "sm", "ml-1.5")}>
+          <Link href={{ pathname: "/contact", query: { topic: "demo" } }} className={buttonClass("primary", "sm", "cta-shine ml-1.5")}>
             {t("common.requestDemo")}
           </Link>
         </div>
 
-        <div className="flex items-center gap-2 lg:hidden">
-          <Link href={{ pathname: "/contact", query: { topic: "demo" } }} className={buttonClass("primary", "sm", "max-[380px]:hidden")}>
+        <div className="hdr-tools flex items-center gap-2 lg:hidden">
+          <Link href={{ pathname: "/contact", query: { topic: "demo" } }} className={buttonClass("primary", "sm", "cta-shine max-[380px]:hidden")}>
             {t("common.requestDemo")}
           </Link>
           <button
@@ -114,7 +139,8 @@ export function Header() {
             aria-label={open ? t("common.closeMenu") : t("common.openMenu")}
             className="flex h-10 w-10 items-center justify-center rounded-full text-ink ring-1 ring-line hover:bg-mist"
           >
-            <Icon name={open ? "close" : "menu"} size={20} />
+            {/* Keyed so the new icon remounts and plays its swap animation. */}
+            <Icon key={open ? "close" : "menu"} name={open ? "close" : "menu"} size={20} className="icon-swap" />
           </button>
         </div>
       </div>
@@ -127,8 +153,8 @@ export function Header() {
       >
         <nav aria-label={t("nav.primary")}>
           <ul className="divide-y divide-line border-y border-line">
-            {nav.map((item) => (
-              <li key={item.key}>
+            {nav.map((item, i) => (
+              <li key={item.key} className="sheet-in" style={at(i)}>
                 <Link
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
@@ -141,7 +167,7 @@ export function Header() {
             ))}
           </ul>
         </nav>
-        <div className="mt-6 grid gap-3">
+        <div className="sheet-in mt-6 grid gap-3" style={at(4)}>
           <Link href={{ pathname: "/contact", query: { topic: "demo" } }} className={buttonClass("primary", "lg", "w-full")}>
             {t("common.requestDemo")}
           </Link>
@@ -151,10 +177,10 @@ export function Header() {
             <span className="sr-only"> {t("common.opensInNewTab")}</span>
           </a>
         </div>
-        <div className="mt-8">
+        <div className="sheet-in mt-8" style={at(5)}>
           <ThemeRadios />
         </div>
-        <section className="mt-8" aria-labelledby="mobile-lang">
+        <section className="sheet-in mt-8" style={at(6)} aria-labelledby="mobile-lang">
           <h2 id="mobile-lang" className="mb-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-steel">
             <Icon name="globe" size={14} />
             {t("common.language")}
@@ -162,6 +188,9 @@ export function Header() {
           <LanguageList onSelect={() => setOpen(false)} />
         </section>
       </div>
+
+      {/* Reading progress along the bottom edge (browsers with scroll-driven animations). */}
+      <span className="scroll-progress pointer-events-none absolute inset-x-0 bottom-0 h-[2px] origin-left bg-signal" aria-hidden="true" />
     </header>
   );
 }
