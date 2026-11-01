@@ -17,10 +17,6 @@ export async function Footer() {
               <Wordmark />
             </Link>
             <p className="mt-4 max-w-[42ch] text-[14.5px] leading-relaxed text-slate">{t("footer.description")}</p>
-            <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-graphite ring-1 ring-line">
-              <span className="h-1.5 w-1.5 rounded-full bg-signal" aria-hidden="true" />
-              {t("common.brandAttribution")}
-            </p>
           </div>
 
           <nav aria-labelledby="footer-explore" className="md:col-span-2">
@@ -61,7 +57,13 @@ export async function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col gap-2 border-t border-line pt-6 text-[12.5px] text-steel sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} {site.name}. {t("footer.rights")}</p>
+          <p>
+            © {year} {site.name}. {t("footer.rights")}{" "}
+            <a href={site.tianAnUrl} target="_blank" rel="noopener noreferrer" className="text-graphite underline-offset-2 hover:text-signal hover:underline">
+              {t("common.brandAttribution")}
+              <span className="sr-only"> {t("common.opensInNewTab")}</span>
+            </a>
+          </p>
           <p>{t("footer.availability")}</p>
         </div>
       </div>

@@ -52,6 +52,7 @@ Screenshots are in `docs/screenshots/`.
 | Location "Shenzhen, China" (no street address) | minganji.ai |
 | No public phone number or social links | minganji.ai (none listed) |
 | Sign-in `https://demo.minganji.ai/signin` | The brief, and the URL returns 200 |
+| Tian'An website `https://tianansafety.com/` (footer "Powered by Tian'An" link) | Provided by the owner, 1 Nov 2026 |
 | "Product capabilities and availability may vary by configuration and region." | minganji.ai footer wording |
 | The five truck categories | The brief (not listed on the reference site) |
 | Capability list | The brief, supported by the reference site (GNSS position, engine/auger/boom counters, cycle states, borehole records, "open exports") and the MVP portal prototype (live map, truck status, holes, planned pole positions, work time, exports) |

@@ -5,6 +5,8 @@
 export const site = {
   name: "MingAnji.ai",
   attribution: "Powered by Tian'An",
+  // Provided by the owner (1 Nov 2026).
+  tianAnUrl: "https://tianansafety.com/",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://minganji.ai",
   signInUrl: "https://demo.minganji.ai/signin",
   // Source: footer of https://minganji.ai (reviewed 31 Oct 2026)
